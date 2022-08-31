@@ -12,4 +12,6 @@ class CalculatorViewModel : ViewModel() {
     var state by mutableStateOf(CalculatorState())
         // This means that we can change the state from the outside but we can still read it
         private set
+
+    // Todo - When I come back, I will continue Implementing the onAction function here.
 }

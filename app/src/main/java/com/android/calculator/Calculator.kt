@@ -15,7 +15,8 @@ import androidx.compose.ui.unit.sp
 import com.android.calculator.ui.theme.LightGray
 import com.android.calculator.ui.theme.Orange
 
-// TODO - When I come back, I will continue in the creation of this Project.
+/**  This is our Calculator file. This is the Compose file that Implements the look of our Calculator App, taking in other classes and functionalities like the state and-
+ *   so on.**/
 
 @Composable
 fun Calculator(
@@ -60,7 +61,7 @@ fun Calculator(
                     }
                 )
                 CalculatorButton(
-                    symbol = "Delete",
+                    symbol = "Del",
                     modifier = Modifier
                         .background(LightGray)
                         .aspectRatio(1f)
@@ -84,42 +85,195 @@ fun Calculator(
             }
 
 
-            // our Second ROW
+            // our Second Number ROW
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(buttonSpacing)
             ) {
                 CalculatorButton(
-                    symbol = "AC",
+                    symbol = "7",
                     modifier = Modifier
-                        .background(LightGray)
-                        .aspectRatio(2f)
-                        .weight(2f),
+                        .background(Color.DarkGray)
+                        .aspectRatio(1f)
+                        .weight(1f),
 
                     onCLick = {
-                        onAction(CalculatorAction.Clear)
+                        onAction(CalculatorAction.Number(7))
                     }
                 )
                 CalculatorButton(
-                    symbol = "Delete",
+                    symbol = "8",
                     modifier = Modifier
-                        .background(LightGray)
+                        .background(Color.DarkGray)
+                        .aspectRatio(1f)
+                        .weight(1f),
+
+                    onCLick = {
+                        onAction(CalculatorAction.Number(8))
+                    }
+                )
+                CalculatorButton(
+                    symbol = "9",
+                    modifier = Modifier
+                        .background(Color.DarkGray)
                         .aspectRatio(1f)
                         .aspectRatio(1f),
 
                     onCLick = {
-                        onAction(CalculatorAction.Delete)
+                        onAction(CalculatorAction.Number(9))
                     }
                 )
                 CalculatorButton(
-                    symbol = "/",
+                    symbol = "x",
                     modifier = Modifier
                         .background(Orange)
                         .aspectRatio(1f)
                         .weight(1f),
 
                     onCLick = {
-                        onAction(CalculatorAction.Operation(CalculatorOperation.Divide))
+                        onAction(CalculatorAction.Operation(CalculatorOperation.Multiply))
+                    }
+                )
+            }
+
+            // our Third Number ROW
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(buttonSpacing)
+            ) {
+                CalculatorButton(
+                    symbol = "4",
+                    modifier = Modifier
+                        .background(Color.DarkGray)
+                        .aspectRatio(1f)
+                        .weight(1f),
+
+                    onCLick = {
+                        onAction(CalculatorAction.Number(4))
+                    }
+                )
+                CalculatorButton(
+                    symbol = "5",
+                    modifier = Modifier
+                        .background(Color.DarkGray)
+                        .aspectRatio(1f)
+                        .aspectRatio(1f),
+
+                    onCLick = {
+                        onAction(CalculatorAction.Number(5))
+                    }
+                )
+                CalculatorButton(
+                    symbol = "6",
+                    modifier = Modifier
+                        .background(Orange)
+                        .aspectRatio(1f)
+                        .weight(1f),
+
+                    onCLick = {
+                        onAction(CalculatorAction.Number(6))
+                    }
+                )
+                CalculatorButton(
+                    symbol = "-",
+                    modifier = Modifier
+                        .background(Orange)
+                        .aspectRatio(1f)
+                        .weight(1f),
+
+                    onCLick = {
+                        onAction(CalculatorAction.Operation(CalculatorOperation.Subtract))
+                    }
+                )
+            }
+
+            // our Fourth Number ROW
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(buttonSpacing)
+            ) {
+                CalculatorButton(
+                    symbol = "1",
+                    modifier = Modifier
+                        .background(Color.DarkGray)
+                        .aspectRatio(1f)
+                        .weight(1f),
+
+                    onCLick = {
+                        onAction(CalculatorAction.Number(1))
+                    }
+                )
+                CalculatorButton(
+                    symbol = "2",
+                    modifier = Modifier
+                        .background(Color.DarkGray)
+                        .aspectRatio(1f)
+                        .aspectRatio(1f),
+
+                    onCLick = {
+                        onAction(CalculatorAction.Number(2))
+                    }
+                )
+                CalculatorButton(
+                    symbol = "3",
+                    modifier = Modifier
+                        .background(Orange)
+                        .aspectRatio(1f)
+                        .weight(1f),
+
+                    onCLick = {
+                        onAction(CalculatorAction.Number(3))
+                    }
+                )
+                CalculatorButton(
+                    symbol = "+",
+                    modifier = Modifier
+                        .background(Orange)
+                        .aspectRatio(1f)
+                        .weight(1f),
+
+                    onCLick = {
+                        onAction(CalculatorAction.Operation(CalculatorOperation.Add))
+                    }
+                )
+            }
+
+            // our Fifth Number ROW
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(buttonSpacing)
+            ) {
+                CalculatorButton(
+                    symbol = "0",
+                    modifier = Modifier
+                        .background(Color.DarkGray)
+                        .aspectRatio(2f)
+                        .weight(2f),
+
+                    onCLick = {
+                        onAction(CalculatorAction.Number(0))
+                    }
+                )
+                CalculatorButton(
+                    symbol = ".",
+                    modifier = Modifier
+                        .background(Color.DarkGray)
+                        .aspectRatio(1f)
+                        .aspectRatio(1f),
+
+                    onCLick = {
+                        onAction(CalculatorAction.Decimal)
+                    }
+                )
+                CalculatorButton(
+                    symbol = "=",
+                    modifier = Modifier
+                        .background(Orange)
+                        .aspectRatio(1f)
+                        .weight(1f),
+
+                    onCLick = {
+                        onAction(CalculatorAction.Calculate)
                     }
                 )
 

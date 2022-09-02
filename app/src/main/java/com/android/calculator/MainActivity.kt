@@ -15,8 +15,6 @@ import com.android.calculator.ui.theme.MediumGray
 
 class MainActivity : ComponentActivity() {
 
-    // Todo - When I come back, I will proceed with the next step which is Finishing the
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {

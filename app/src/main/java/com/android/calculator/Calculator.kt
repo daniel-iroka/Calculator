@@ -65,7 +65,7 @@ fun Calculator(
                     modifier = Modifier
                         .background(LightGray)
                         .aspectRatio(1f)
-                        .aspectRatio(1f),
+                        .weight(1f),
 
                     onCLick = {
                         onAction(CalculatorAction.Delete)
@@ -117,7 +117,7 @@ fun Calculator(
                     modifier = Modifier
                         .background(Color.DarkGray)
                         .aspectRatio(1f)
-                        .aspectRatio(1f),
+                        .weight(1f),
 
                     onCLick = {
                         onAction(CalculatorAction.Number(9))
@@ -157,7 +157,7 @@ fun Calculator(
                     modifier = Modifier
                         .background(Color.DarkGray)
                         .aspectRatio(1f)
-                        .aspectRatio(1f),
+                        .weight(1f),
 
                     onCLick = {
                         onAction(CalculatorAction.Number(5))
@@ -166,7 +166,7 @@ fun Calculator(
                 CalculatorButton(
                     symbol = "6",
                     modifier = Modifier
-                        .background(Orange)
+                        .background(Color.DarkGray)
                         .aspectRatio(1f)
                         .weight(1f),
 
@@ -208,7 +208,7 @@ fun Calculator(
                     modifier = Modifier
                         .background(Color.DarkGray)
                         .aspectRatio(1f)
-                        .aspectRatio(1f),
+                        .weight(1f),
 
                     onCLick = {
                         onAction(CalculatorAction.Number(2))
@@ -217,7 +217,7 @@ fun Calculator(
                 CalculatorButton(
                     symbol = "3",
                     modifier = Modifier
-                        .background(Orange)
+                        .background(Color.DarkGray)
                         .aspectRatio(1f)
                         .weight(1f),
 
@@ -259,7 +259,7 @@ fun Calculator(
                     modifier = Modifier
                         .background(Color.DarkGray)
                         .aspectRatio(1f)
-                        .aspectRatio(1f),
+                        .weight(1f),
 
                     onCLick = {
                         onAction(CalculatorAction.Decimal)
@@ -276,7 +276,6 @@ fun Calculator(
                         onAction(CalculatorAction.Calculate)
                     }
                 )
-
             }
         }
     }

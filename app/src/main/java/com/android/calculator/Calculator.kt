@@ -40,7 +40,7 @@ fun Calculator(
                     .fillMaxWidth()
                     .padding(vertical = 32.dp),
                 fontWeight = FontWeight.Light,
-                fontSize = 80.sp,
+                fontSize = 50.sp,
                 color = Color.White,
                 maxLines = 2
             )
@@ -50,11 +50,22 @@ fun Calculator(
                 horizontalArrangement = Arrangement.spacedBy(buttonSpacing)
             ) {
                 CalculatorButton(
+                    symbol = "%",
+                    modifier = Modifier
+                        .background(Orange)
+                        .aspectRatio(1f)
+                        .weight(1f),
+
+                    onCLick = {
+                        onAction(CalculatorAction.Operation(CalculatorOperation.Modulo))
+                    }
+                )
+                CalculatorButton(
                     symbol = "AC",
                     modifier = Modifier
-                        .background(LightGray)
-                        .aspectRatio(2f)
-                        .weight(2f),
+                        .background(Orange)
+                        .aspectRatio(1f)
+                        .weight(1f),
 
                     onCLick = {
                         onAction(CalculatorAction.Clear)
@@ -63,7 +74,7 @@ fun Calculator(
                 CalculatorButton(
                     symbol = "Del",
                     modifier = Modifier
-                        .background(LightGray)
+                        .background(Orange)
                         .aspectRatio(1f)
                         .weight(1f),
 
@@ -246,7 +257,7 @@ fun Calculator(
                 CalculatorButton(
                     symbol = "0",
                     modifier = Modifier
-                        .background(Color.DarkGray)
+                        .background(LightGray)
                         .aspectRatio(2f)
                         .weight(2f),
 

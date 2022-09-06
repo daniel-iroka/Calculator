@@ -2,10 +2,7 @@ package com.android.calculator
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Icon
 import androidx.compose.material.Text
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Clear
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -18,18 +15,15 @@ import androidx.compose.ui.unit.sp
 import com.android.calculator.ui.theme.LightGray
 import com.android.calculator.ui.theme.Orange
 
-/**  This is our Calculator file. This is the Compose file that Implements the look of our Calculator App, taking in other classes and functionalities like the state and-
- *   so on.**/
-
 @Composable
-fun Calculator(
+fun ScientificCalculator(
     state : CalculatorState,
-    modifier: Modifier = Modifier,
+    modifier: Modifier,
     buttonSpacing : Dp = 8.dp,
     onAction: (CalculatorAction) -> Unit
-) {
+)  {
 
-    // TODO - WHEN I COME BACK TOMORROW, I WILL TRY TO ADD ICONS TO ONLY ONE OF THE COMPOSABLES
+    // TODO - IN THIS PARTICULAR COMPOSABLE, I AM GOING TO MODIFY SOME COMPOSABLES SO THAT THEY HAVE SCIENTIFIC CALCULATOR SYMBOLS AND CAN PERFORM SCIENTIFIC CALCULATIONS.
 
     Box(modifier = modifier) {
         Column(
@@ -87,6 +81,7 @@ fun Calculator(
                     onCLick = {
                         onAction(CalculatorAction.Delete)
                     }
+//                    Icon(imageVector = Icons.Default.Clear , contentDescription = null)
                 )
                 CalculatorButton(
                     symbol = "/",

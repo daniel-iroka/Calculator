@@ -1,5 +1,6 @@
 package com.android.calculator
 
+import android.graphics.drawable.Icon
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.shape.CircleShape
@@ -15,7 +16,7 @@ import androidx.compose.ui.unit.sp
 fun CalculatorButton(
     symbol : String,
     modifier : Modifier,
-    onCLick: () -> Unit
+    onCLick: () -> Unit,
 ) {
     // This is a rounded Box here because of the clip CircleShape
     Box(

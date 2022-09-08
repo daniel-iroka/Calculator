@@ -1,36 +1,38 @@
 package com.android.calculator
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.sp
-import com.android.calculator.ui.theme.Shapes
+
+/** This Composable will be for the Calculator Buttons that will have icons. **/
+
 
 @Composable
-fun CalculatorButton(
-    symbol : String,
-    color : Color = Color.White,
+fun CalculatorButtonIcons(
+    imageVector : ImageVector,
     modifier : Modifier,
     onCLick: () -> Unit
 ) {
-    // This is a rounded Box here because of the clip CircleShape
     Box(
         contentAlignment = Alignment.Center,
         modifier = Modifier
-            .clickable { onCLick() } // This will only make our 'Box' which is a text clickable
+            .clip(CircleShape)
+            .clickable { onCLick() }
             .then(modifier)
     ) {
-        Text(
-            text = symbol,
-            fontSize = 24.sp,
-            color = color,
+        Image(
+            imageVector = imageVector,
+            contentDescription = null
         )
     }
 }

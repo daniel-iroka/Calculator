@@ -14,8 +14,6 @@ import com.android.calculator.ui.theme.MediumGray
 
 class MainActivity : ComponentActivity() {
 
-    // TODO - When I come back, I will continue with the Modifying of this Calculator Project after Researching and Observing
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -37,4 +35,5 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
+
 }

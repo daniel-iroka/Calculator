@@ -63,4 +63,7 @@ dependencies {
 
     // ViewModel dependency for Jetpack compose
     implementation 'androidx.lifecycle:lifecycle-viewmodel-compose:2.5.1'
+
+    // Material Design icons for compose
+    implementation "androidx.compose.material:material-icons-extended:$compose_ui_version"
 }

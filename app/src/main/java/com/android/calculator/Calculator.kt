@@ -1,19 +1,11 @@
 package com.android.calculator
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Divider
-import androidx.compose.material.Icon
 import androidx.compose.material.Text
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Backspace
-import androidx.compose.material.icons.filled.Clear
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -33,14 +25,11 @@ fun Calculator(
     buttonSpacing : Dp = 8.dp,
     onAction: (CalculatorAction) -> Unit
 ) {
-    // TODO - WHEN I COME BACK TOMORROW, I WILL COMMENCE WITH THE ADDING OF THE NAVIGATION COMPONENT WITH COMPOSE AND DAY AND NIGHT MODE
-    // TODO - WHEN I COME BACK, I WILL CONTINUE TO EXPERIMENT ON THE COMPOSABLES SEEING IF I CAN REDUCE THE SIZE OF THE BOXES AFTER CHANGING THE SHAPE BACK TO ROUNDED CORNERS.
-    // TODO - WHEN I COME BACK, I WILL DO THE SECOND TO-DO BECAUSE I'M NOT RUSHING ANYWHERE.
 
     Box(modifier = modifier) {
         Column(
             modifier = Modifier
-                .fillMaxWidth()
+                .fillMaxWidth() // this obviously will take up the entire width of the screen
                 .align(Alignment.BottomCenter),
             verticalArrangement = Arrangement.spacedBy(buttonSpacing)
         ) {
@@ -64,6 +53,8 @@ fun Calculator(
                     .padding(vertical = 6.dp)
             )
 
+            /** IMPORTANT NOTE : I WILL ADD BACKGROUND(RoundedCornerShape) LATER WHEN I DECIDE IF I WANT TO CHANGE THE STYLE OF THE BUTTONS IN THE CALCULATOR. **/
+
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(buttonSpacing)
@@ -72,7 +63,9 @@ fun Calculator(
                     symbol = "%",
                     color = Orange,
                     modifier = Modifier
-                        .aspectRatio(1f)
+                        .width(80.dp)
+                        .height(70.dp)
+                        .aspectRatio(1f) // this makes whatever composable will call it on look Square.
                         .weight(1f),
 
                     onCLick = {
@@ -83,6 +76,8 @@ fun Calculator(
                     symbol = "AC",
                     color = Orange,
                     modifier = Modifier
+                        .width(80.dp)
+                        .height(70.dp)
                         .aspectRatio(1f)
                         .weight(1f),
 
@@ -94,6 +89,8 @@ fun Calculator(
                     symbol = "Del",
                     color = Orange,
                     modifier = Modifier
+                        .width(80.dp)
+                        .height(70.dp)
                         .aspectRatio(1f)
                         .weight(1f),
 
@@ -105,6 +102,8 @@ fun Calculator(
                     symbol = "÷",
                     color = Orange,
                     modifier = Modifier
+                        .width(80.dp)
+                        .height(70.dp)
                         .aspectRatio(1f)
                         .weight(1f),
 
@@ -124,6 +123,8 @@ fun Calculator(
                     symbol = "7",
                     color = Color.White,
                     modifier = Modifier
+                        .width(80.dp)
+                        .height(70.dp)
                         .aspectRatio(1f)
                         .weight(1f),
 
@@ -135,6 +136,8 @@ fun Calculator(
                     symbol = "8",
                     color = Color.White,
                     modifier = Modifier
+                        .width(80.dp)
+                        .height(70.dp)
                         .aspectRatio(1f)
                         .weight(1f),
 
@@ -146,6 +149,8 @@ fun Calculator(
                     symbol = "9",
                     color = Color.White,
                     modifier = Modifier
+                        .width(80.dp)
+                        .height(70.dp)
                         .aspectRatio(1f)
                         .weight(1f),
 
@@ -157,6 +162,8 @@ fun Calculator(
                     symbol = "x",
                     color = Orange,
                     modifier = Modifier
+                        .width(80.dp)
+                        .height(70.dp)
                         .aspectRatio(1f)
                         .weight(1f),
 
@@ -175,6 +182,8 @@ fun Calculator(
                     symbol = "4",
                     color = Color.White,
                     modifier = Modifier
+                        .width(80.dp)
+                        .height(70.dp)
                         .aspectRatio(1f)
                         .weight(1f),
 
@@ -186,6 +195,8 @@ fun Calculator(
                     symbol = "5",
                     color = Color.White,
                     modifier = Modifier
+                        .width(80.dp)
+                        .height(70.dp)
                         .aspectRatio(1f)
                         .weight(1f),
 
@@ -197,6 +208,8 @@ fun Calculator(
                     symbol = "6",
                     color = Color.White,
                     modifier = Modifier
+                        .width(80.dp)
+                        .height(70.dp)
                         .aspectRatio(1f)
                         .weight(1f),
 
@@ -208,6 +221,8 @@ fun Calculator(
                     symbol = "-",
                     color = Orange,
                     modifier = Modifier
+                        .width(80.dp)
+                        .height(70.dp)
                         .aspectRatio(1f)
                         .weight(1f),
 
@@ -226,6 +241,8 @@ fun Calculator(
                     symbol = "1",
                     color = Color.White,
                     modifier = Modifier
+                        .width(80.dp)
+                        .height(70.dp)
                         .aspectRatio(1f)
                         .weight(1f),
 
@@ -237,6 +254,8 @@ fun Calculator(
                     symbol = "2",
                     color = Color.White,
                     modifier = Modifier
+                        .width(80.dp)
+                        .height(70.dp)
                         .aspectRatio(1f)
                         .weight(1f),
 
@@ -248,6 +267,8 @@ fun Calculator(
                     symbol = "3",
                     color = Color.White,
                     modifier = Modifier
+                        .width(80.dp)
+                        .height(70.dp)
                         .aspectRatio(1f)
                         .weight(1f),
 
@@ -259,6 +280,8 @@ fun Calculator(
                     symbol = "+",
                     color = Orange,
                     modifier = Modifier
+                        .width(80.dp)
+                        .height(70.dp)
                         .aspectRatio(1f)
                         .weight(1f),
 
@@ -277,6 +300,8 @@ fun Calculator(
                     symbol = "0",
                     color = Color.White,
                     modifier = Modifier
+                        .width(80.dp)
+                        .height(70.dp)
                         .aspectRatio(2f)
                         .weight(2f),
 
@@ -288,6 +313,8 @@ fun Calculator(
                     symbol = ".",
                     color = Color.White,
                     modifier = Modifier
+                        .width(80.dp)
+                        .height(70.dp)
                         .aspectRatio(1f)
                         .weight(1f),
 
@@ -299,6 +326,8 @@ fun Calculator(
                     symbol = "=",
                     color = Orange,
                     modifier = Modifier
+                        .width(80.dp)
+                        .height(70.dp)
                         .aspectRatio(1f)
                         .weight(1f),
 

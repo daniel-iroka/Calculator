@@ -27,6 +27,12 @@ fun Calculator(
 ) {
 
     Box(modifier = modifier) {
+        OverFlowMenu(
+            modifier = Modifier
+                .align(Alignment.TopStart),
+            color = Color.White
+        )
+
         Column(
             modifier = Modifier
                 .fillMaxWidth() // this obviously will take up the entire width of the screen

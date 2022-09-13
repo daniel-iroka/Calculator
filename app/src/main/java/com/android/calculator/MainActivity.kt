@@ -6,7 +6,6 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -23,6 +22,7 @@ class MainActivity : ComponentActivity() {
                 val state = viewModel.state
                 val buttonSpacing = 8.dp
 
+
                 // Calling our Compose file in the theme. This will automatically inflate the Compose UI elements
                 Calculator(
                     state = state,
@@ -35,13 +35,5 @@ class MainActivity : ComponentActivity() {
                 )
             }
         }
-    }
-}
-
-@Composable
-fun ShowOverFlowMenu() {
-    OverFlowMenu {
-        // TODO : WHEN I COME BACK, I WILL PROCEED WITH ADDING AN OVERFLOW MENU WITHOUT THE APP BAR SHOWING TO ENABLE US ACCESS SETTINGS LIKE-
-        // TODO : CHANGE THE COLOR AND CHANGE THE CALCULATOR TYPE TO SCIENTIFIC AND STANDARD.
     }
 }

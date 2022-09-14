@@ -27,10 +27,14 @@ fun Calculator(
 ) {
 
     Box(modifier = modifier) {
+
+        // TODO - WHEN I COME BACK, I WILL PROCEED WITH MAKING THE DROP DOWN MENU ACTUALLY WORK AND THEN ENABLE SELECTING THE OPTIONS THAT COME FROM IT BUT FIRST-
+        // TODO - I WILL DO SOME READING ON COMPOSE DOCS I WAS SENT TO UNDERSTAND JETPACK COMPOSE IN GENERAL.
+
         OverFlowMenu(
-            modifier = Modifier
-                .align(Alignment.TopStart),
-            color = Color.White
+            modifier = modifier
+                .align(Alignment.TopEnd),
+            color = LightGray
         )
 
         Column(

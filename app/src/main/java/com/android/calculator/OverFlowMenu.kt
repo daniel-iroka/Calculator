@@ -27,8 +27,6 @@ fun OverFlowMenu(
         )
     }
 
-    // TODO - WHEN I COME BACK, I WILL TRY TO FIX THE ISSUE OF THE CUSTOM OVERFLOW MENU NOT SHOWING ON THE RIGHT HAND SIDE AND WELL... TRY TO MAKE IT SHOW ON THE RIGHT HAND SIDE.
-
     DropdownMenu(
         expanded = showMenu,
         onDismissRequest = { showMenu = false }

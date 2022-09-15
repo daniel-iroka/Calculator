@@ -28,15 +28,19 @@ fun Calculator(
 
     Box(modifier = modifier) {
 
-        // TODO - WHEN I COME BACK, I WILL PROCEED WITH MAKING THE DROP DOWN MENU ACTUALLY WORK AND THEN ENABLE SELECTING THE OPTIONS THAT COME FROM IT BUT FIRST-
-        // TODO - I WILL DO SOME READING ON COMPOSE DOCS I WAS SENT TO UNDERSTAND JETPACK COMPOSE IN GENERAL.
-
-        OverFlowMenu(
+        // Column for our OverFlowMenu
+        Column(
             modifier = modifier
-                .align(Alignment.TopEnd),
-            color = LightGray
-        )
+                .fillMaxWidth(),
+            horizontalAlignment = Alignment.End
+        ) {
+            OverFlowMenu(
+                modifier = modifier,
+                color = LightGray
+            )
+        }
 
+        // Column for the rest of our Calculator.
         Column(
             modifier = Modifier
                 .fillMaxWidth() // this obviously will take up the entire width of the screen
@@ -50,11 +54,13 @@ fun Calculator(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(vertical = 26.dp),
-                fontWeight = FontWeight.Light,
+                fontWeight = FontWeight.Bold,
                 fontSize = 50.sp,
                 color = Color.White,
                 maxLines = 2
             )
+
+            /** IMPORTANT NOTE : I WILL STILL TRY AND REDUCE THE SIZE OF THIS DIVIDER ONLY UNTIL I SEE HOW IT LOOKS WHEN I HAVE ADDED THE BACKGROUND SHAPES. **/
 
             Divider(
                 color = LightGray,
@@ -169,7 +175,7 @@ fun Calculator(
                     }
                 )
                 CalculatorButton(
-                    symbol = "x",
+                    symbol = "×",
                     color = Orange,
                     modifier = Modifier
                         .width(80.dp)

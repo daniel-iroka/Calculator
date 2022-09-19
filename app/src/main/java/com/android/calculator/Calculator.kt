@@ -1,5 +1,6 @@
 package com.android.calculator
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Divider
 import androidx.compose.material.Text
@@ -13,6 +14,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.android.calculator.ui.theme.LightGray
+import com.android.calculator.ui.theme.MediumGray
 import com.android.calculator.ui.theme.Orange
 
 /**  This is our Calculator file. This is the Compose file that Implements the look of our Calculator App, taking in other classes and functionalities like the state and-

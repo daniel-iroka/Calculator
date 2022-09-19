@@ -1,6 +1,7 @@
 package com.android.calculator
 
 import android.widget.Toast
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -11,8 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.DpOffset
-import androidx.compose.ui.unit.dp
+import com.android.calculator.ui.theme.MediumGray
 
 @Composable
 fun OverFlowMenu(
@@ -37,13 +37,16 @@ fun OverFlowMenu(
             )
         }
 
-        // TODO - WHEN I COME BACK, MAYBE WHEN I FINISH EATING, IF NOT THEN WHEN I COME TOMORROW, I WILL PROCEED WITH CHANGING THE COLOR OF THE DROPDOWN MENU
-
         // Our DropDown
         DropdownMenu(
             expanded = showMenu,
-            onDismissRequest = { showMenu = false }
+            onDismissRequest = { showMenu = false },
+            modifier = Modifier
+                .background(Color.DarkGray)
         ) {
+
+            // TODO - WHEN I COME BACK, I WILL PROCEED WITH READJUSTING THE DROPDOWN MENU TO THE AN APPROPRIATE LOOKING POSITION AND IMPLEMENT THE CLICK ACTION FOR EACH OF-
+            // TODO   THE ITEMS IN THE DROP DOWN MENU.
 
             listItems.forEachIndexed { _, itemValue ->
                 DropdownMenuItem(
@@ -52,14 +55,12 @@ fun OverFlowMenu(
                         showMenu = false
                     }
                 ) {
-                    Text(text = itemValue)
+                    Text(
+                        text = itemValue,
+                        color = Color.White
+                    )
                 }
             }
         }
     }
 }
-
-
-
-
-

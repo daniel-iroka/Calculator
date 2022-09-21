@@ -12,11 +12,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import com.android.calculator.ui.theme.MediumGray
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun OverFlowMenu(
-    modifier: Modifier,
     color : Color
 ) {
     // our compose state
@@ -27,14 +26,18 @@ fun OverFlowMenu(
     Box(
         contentAlignment = Alignment.Center
     ) {
-        IconButton(onClick = {
-            showMenu = !showMenu
-        }) {
-            Icon(
-                imageVector = Icons.Outlined.MoreVert,
-                contentDescription = stringResource(R.string.more),
-                tint = color
-            )
+
+        // We added this here to reduce the default padding that surrounds an icon
+        CompositionLocalProvider(LocalMinimumTouchTargetEnforcement provides false) {
+            IconButton(onClick = {
+                showMenu = !showMenu
+            }) {
+                Icon(
+                    imageVector = Icons.Outlined.MoreVert,
+                    contentDescription = stringResource(R.string.more),
+                    tint = color
+                )
+            }
         }
 
         // Our DropDown
@@ -45,13 +48,15 @@ fun OverFlowMenu(
                 .background(Color.DarkGray)
         ) {
 
-            // TODO - WHEN I COME BACK, I WILL PROCEED WITH READJUSTING THE DROPDOWN MENU TO THE AN APPROPRIATE LOOKING POSITION AND IMPLEMENT THE CLICK ACTION FOR EACH OF-
-            // TODO   THE ITEMS IN THE DROP DOWN MENU.
-
-            listItems.forEachIndexed { _, itemValue ->
+            listItems.forEachIndexed { itemIndex, itemValue ->
                 DropdownMenuItem(
                     onClick = {
-                        Toast.makeText(contextTestForToast, "Item $itemValue has been clicked!", Toast.LENGTH_LONG).show()
+                        when(itemIndex) {
+                            0 -> Toast.makeText(contextTestForToast, "Standard item has been pressed.", Toast.LENGTH_LONG).show()
+                            1 -> callScientific()
+                            2 -> callSettings()
+                        }
+
                         showMenu = false
                     }
                 ) {
@@ -63,4 +68,12 @@ fun OverFlowMenu(
             }
         }
     }
+}
+
+fun callSettings() {
+    TODO("Implement the settings later. Maybe opening a PopupMenu.")
+}
+
+fun callScientific() {
+    TODO("This function will be to call the scientific calculator by switching the fragment or the compose. ")
 }

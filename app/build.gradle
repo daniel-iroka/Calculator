@@ -20,6 +20,13 @@ android {
         }
     }
 
+    // Added this here to enable us use the OptIn annotation.
+    tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
+        kotlinOptions {
+            freeCompilerArgs += "-opt-in=kotlin.RequiresOptIn"
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false

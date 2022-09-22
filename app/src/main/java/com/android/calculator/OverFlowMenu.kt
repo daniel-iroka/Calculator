@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import com.android.calculator.dialogs.SettingsDialog
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
@@ -20,13 +21,13 @@ fun OverFlowMenu(
 ) {
     // our compose state
     var showMenu by remember { mutableStateOf(false) }
+    val dialogState = remember { mutableStateOf(false) }
     val listItems = arrayOf("Standard", "Scientific", "Settings")
-    val contextTestForToast = LocalContext.current.applicationContext // this is probably how you reference a context in jetpack compose. I will understand later
+    val context = LocalContext.current.applicationContext    // This is how we get reference to our context in jetpack compose for our Toast message
 
     Box(
         contentAlignment = Alignment.Center
     ) {
-
         // We added this here to reduce the default padding that surrounds an icon
         CompositionLocalProvider(LocalMinimumTouchTargetEnforcement provides false) {
             IconButton(onClick = {
@@ -41,6 +42,10 @@ fun OverFlowMenu(
         }
 
         // Our DropDown
+        SettingsDialog(
+            dialogState = dialogState
+        )
+
         DropdownMenu(
             expanded = showMenu,
             onDismissRequest = { showMenu = false },
@@ -52,9 +57,9 @@ fun OverFlowMenu(
                 DropdownMenuItem(
                     onClick = {
                         when(itemIndex) {
-                            0 -> Toast.makeText(contextTestForToast, "Standard item has been pressed.", Toast.LENGTH_LONG).show()
-                            1 -> callScientific()
-                            2 -> callSettings()
+                            0 -> Toast.makeText(context, "Standard Calculator has been selected.", Toast.LENGTH_LONG).show()
+                            1 -> Toast.makeText(context, "Scientific Calculator has been selected", Toast.LENGTH_LONG).show()
+                            2 ->  { dialogState.value = true }
                         }
 
                         showMenu = false
@@ -68,12 +73,4 @@ fun OverFlowMenu(
             }
         }
     }
-}
-
-fun callSettings() {
-    TODO("Implement the settings later. Maybe opening a PopupMenu.")
-}
-
-fun callScientific() {
-    TODO("This function will be to call the scientific calculator by switching the fragment or the compose. ")
 }

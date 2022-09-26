@@ -10,6 +10,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Color.Companion.DarkGray
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import com.android.calculator.dialogs.SettingsDialog
@@ -50,7 +51,7 @@ fun OverFlowMenu(
             expanded = showMenu,
             onDismissRequest = { showMenu = false },
             modifier = Modifier
-                .background(Color.DarkGray)
+                .background(DarkGray)
         ) {
 
             listItems.forEachIndexed { itemIndex, itemValue ->

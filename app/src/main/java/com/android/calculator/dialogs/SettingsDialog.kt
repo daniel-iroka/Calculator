@@ -1,9 +1,11 @@
 package com.android.calculator.dialogs
 
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.*
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
-import com.android.calculator.CalculatorState
 
 @Composable
 fun SettingsDialog(
@@ -20,7 +22,13 @@ fun SettingsDialog(
                 dialogState.value =  false
             },
             content = {
-                DialogContent(title = "Settings", dialogState = dialogState, dismissButtonText = "Close")
+                DialogContent(
+                    title = "Settings",
+                    dialogState = dialogState,
+                    dismissButtonText = "Close",
+                    modifier = Modifier
+                        .padding(18.dp)
+                )
             },
             // set the properties to true to close the dialog when the back button or anywhere in the screen is clicked or pressed
             properties = DialogProperties(

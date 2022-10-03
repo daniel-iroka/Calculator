@@ -21,6 +21,8 @@ class MainActivity : ComponentActivity() {
         setContent {
             CalculatorTheme {
 
+                TODO("THIS IS A MAJOR TASK THAT I WILL ACCOMPLISH LATER IN THIS PROJECT WHICH IS THE DESIGNING OF THE LANDSCAPE ADAPTIVE LAYOUT OF THIS APP.")
+
             }
         }
     }
@@ -44,4 +46,3 @@ fun AppPreview() {
             .padding(12.dp)
     )
 }
-

@@ -3,10 +3,8 @@ package com.android.calculator.dialogs
 import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
+import androidx.compose.material.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -19,6 +17,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.android.calculator.ui.theme.Shapes
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun DialogContent(
     title : String,
@@ -27,9 +26,11 @@ fun DialogContent(
     modifier: Modifier = Modifier,
 ) {
 
-    val context = LocalContext.current.applicationContext
 
-    // TODO - WHEN I COME BACK TOMORROW, I WILL CONTINUE DESIGNING THE BOX TO MAKE IT LOOK MORE IDEAL AND OKAY.
+    val context = LocalContext.current.applicationContext
+    val checkedState = remember {
+        mutableStateOf(false)
+    }
 
     Surface(
         shape = Shapes.medium,
@@ -65,7 +66,7 @@ fun DialogContent(
                         .fillMaxWidth()
                 ) {
                     Text(
-                        text = "Dark Mode/ Light Mode",
+                        text = "Other Settings",
                         color = Color.White,
                         fontStyle = FontStyle.Normal
                     )
@@ -76,10 +77,17 @@ fun DialogContent(
                         .fillMaxWidth()
                 ) {
                     Text(
-                        text = "Other Settings",
+                        text = "Dark Mode",
                         color = Color.White,
                         fontStyle = FontStyle.Normal
                     )
+
+                    Spacer(modifier = Modifier.width(15.dp))
+
+                    CompositionLocalProvider(LocalMinimumTouchTargetEnforcement provides false) {
+
+                        Switch(checked = checkedState.value, onCheckedChange = { checkedState.value = it })
+                    }
                 }
 
                 Spacer(modifier = Modifier.height(20.dp))

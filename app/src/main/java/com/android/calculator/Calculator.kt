@@ -1,6 +1,8 @@
 package com.android.calculator
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Divider
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -9,7 +11,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -28,7 +29,13 @@ fun Calculator(
     onAction: (CalculatorAction) -> Unit
 ) {
 
-    Box(modifier = modifier) {
+    // this will make whatever layout component we modify it scrollable based on the scrollState
+    val scrollState = rememberScrollState()
+
+    Box(
+        modifier = modifier
+        .verticalScroll(state = scrollState)
+    ) {
 
         // Column for our OverFlowMenu
         Column(
@@ -44,7 +51,7 @@ fun Calculator(
         // Column for the rest of our Calculator.
         Column(
             modifier = Modifier
-                .fillMaxWidth() // this obviously will take up the entire width of the screen
+                .fillMaxWidth()  // this obviously will take up the entire width of the screen
                 .align(Alignment.BottomCenter),
             verticalArrangement = Arrangement.spacedBy(buttonSpacing)
         ) {
@@ -60,8 +67,6 @@ fun Calculator(
                 color = Color.White,
                 maxLines = 2
             )
-
-            /** IMPORTANT NOTE : I WILL STILL TRY AND REDUCE THE SIZE OF THIS DIVIDER ONLY UNTIL I SEE HOW IT LOOKS WHEN I HAVE ADDED THE BACKGROUND SHAPES. **/
 
             Divider(
                 color = LightGray,

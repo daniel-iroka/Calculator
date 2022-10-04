@@ -24,6 +24,8 @@ class CalculatorViewModel : ViewModel() {
             is CalculatorAction.Operation -> enterOperation(action.operation)
             is CalculatorAction.Calculate -> performCalculation()
             is CalculatorAction.Delete -> performDeletion()
+
+            // TODO - BEFORE I PROCEED WITH THIS, I WILL FIRST TEST FRAGMENT NAVIGATION WITH COMPOSE.
         }
     }
 

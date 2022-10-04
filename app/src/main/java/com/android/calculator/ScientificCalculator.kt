@@ -65,13 +65,140 @@ fun ScientificCalculator(
                 maxLines = 2
             )
 
+
+            // This is our Divider
+            Divider(
+                color = LightGray,
+                thickness = 4.dp,
+                modifier = Modifier
+                    .padding(vertical = 3.dp)
+            )
+
+            // TODO - WHEN I COME BACK, I WILL PROCEED WITH THE IMPLEMENTATION OF COMPOSE OF FRAGMENT NAVIGATION WITH JETPACK COMPOSE.
+
+            // First Scientific Symbols row..
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(6.dp)
             ) {
-                ScientificCalculatorButton(symbol = "", modifier = Modifier) {
-                    TODO("When I come back firstly, I will first obtain the scientific Symbols, key them in and reference them from our Composables")
-                }
+                ScientificCalculatorButton(
+                    symbol = "sin",
+                    color = Orange,
+                    modifier = Modifier
+                        .width(50.dp)
+                        .height(30.dp),
+
+                    onCLick = {
+                        onAction(CalculatorAction.Operation(CalculatorOperation.Sin))
+                    }
+                )
+                ScientificCalculatorButton(
+                    symbol = "cos",
+                    color = Orange,
+                    modifier = Modifier
+                        .width(50.dp)
+                        .height(30.dp),
+
+                    onCLick = {
+                        onAction(CalculatorAction.Operation(CalculatorOperation.Cos))
+                    }
+                )
+                ScientificCalculatorButton(
+                    symbol = "tan",
+                    color = Orange,
+                    modifier = Modifier
+                        .width(50.dp)
+                        .height(30.dp),
+
+                    onCLick = {
+                        onAction(CalculatorAction.Operation(CalculatorOperation.Tan))
+                    }
+                )
+                ScientificCalculatorButton(
+                    symbol = "log",
+                    color = Orange,
+                    modifier = Modifier
+                        .width(50.dp)
+                        .height(30.dp),
+
+                    onCLick = {
+                        onAction(CalculatorAction.Operation(CalculatorOperation.Log))
+                    }
+                )
+                ScientificCalculatorButton(
+                    symbol = "In",
+                    color = Orange,
+                    modifier = Modifier
+                        .width(50.dp)
+                        .height(30.dp),
+
+                    onCLick = {
+                        onAction(CalculatorAction.Operation(CalculatorOperation.In))
+                    }
+                )
+            }
+
+
+            // Second Scientific Symbols row..
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(6.dp)
+            ) {
+                ScientificCalculatorButton(
+                    symbol = "x!",
+                    color = Orange,
+                    modifier = Modifier
+                        .width(50.dp)
+                        .height(30.dp),
+
+                    onCLick = {
+                        onAction(CalculatorAction.Operation(CalculatorOperation.x1))
+                    }
+                )
+                ScientificCalculatorButton(
+                    symbol = "x²",
+                    color = Orange,
+                    modifier = Modifier
+                        .width(50.dp)
+                        .height(30.dp),
+
+                    onCLick = {
+                        onAction(CalculatorAction.Operation(CalculatorOperation.x2))
+                    }
+                )
+                ScientificCalculatorButton(
+                    symbol = "√",
+                    color = Orange,
+                    modifier = Modifier
+                        .width(50.dp)
+                        .height(30.dp),
+
+                    onCLick = {
+                        onAction(CalculatorAction.Operation(CalculatorOperation.Sqaured))
+                    }
+                )
+                ScientificCalculatorButton(
+                    symbol = "1/X",
+                    color = Orange,
+                    modifier = Modifier
+                        .width(50.dp)
+                        .height(30.dp),
+
+                    onCLick = {
+                        onAction(CalculatorAction.Operation(CalculatorOperation.X1))
+                    }
+                )
+                ScientificCalculatorButton(
+                    symbol = "()",
+                    color = Orange,
+                    modifier = Modifier
+                        .width(50.dp)
+                        .height(30.dp),
+
+                    onCLick = {
+                        onAction(CalculatorAction.Operation(CalculatorOperation.Brackets))
+                    }
+                )
             }
 
 
@@ -362,10 +489,3 @@ fun ScientificCalculator(
     }
 }
 
-/** IMPORTANT!! : I WILL UNCOMMENT THIS DIVIDER AFTER ADDING THE SCIENTIFIC SYMBOLS. I WILL PUT IT DIRECTLY UNDER THE TEXT. **/
-//            Divider(
-//                color = LightGray,
-//                thickness = 4.dp,
-//                modifier = Modifier
-//                    .padding(vertical = 6.dp)
-//            )

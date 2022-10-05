@@ -1,6 +1,5 @@
 package com.android.calculator
 
-import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.material.*
@@ -11,20 +10,20 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Color.Companion.DarkGray
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.navigation.NavHostController
 import com.android.calculator.dialogs.SettingsDialog
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun OverFlowMenu(
-    color : Color
+    color : Color,
+    navController: NavHostController
 ) {
     // our compose state
     var showMenu by remember { mutableStateOf(false) }
     val dialogState = remember { mutableStateOf(false) }
     val listItems = arrayOf("Standard", "Scientific", "Settings")
-    val context = LocalContext.current.applicationContext    // This is how we get reference to our context in jetpack compose for our Toast message
 
     Box(
         contentAlignment = Alignment.Center
@@ -58,11 +57,10 @@ fun OverFlowMenu(
                 DropdownMenuItem(
                     onClick = {
                         when(itemIndex) {
-                            0 -> Toast.makeText(context, "Standard Calculator has been selected.", Toast.LENGTH_LONG).show()
-                            1 -> Toast.makeText(context, "Scientific Calculator has been selected", Toast.LENGTH_LONG).show()
-                            2 ->  { dialogState.value = true }
+                            0 -> { navController.navigate("first_screen") }
+                            1 -> { navController.navigate("second_screen") }
+                            2 -> { dialogState.value = true }
                         }
-
                         showMenu = false
                     }
                 ) {

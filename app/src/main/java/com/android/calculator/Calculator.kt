@@ -14,6 +14,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import com.android.calculator.ui.theme.LightGray
 import com.android.calculator.ui.theme.Orange
 
@@ -26,7 +27,8 @@ fun Calculator(
     state : CalculatorState,
     modifier: Modifier = Modifier,
     buttonSpacing : Dp = 8.dp,
-    onAction: (CalculatorAction) -> Unit
+    onAction: (CalculatorAction) -> Unit,
+    navController: NavHostController
 ) {
 
     // this will make whatever layout component we modify it scrollable based on the scrollState
@@ -44,7 +46,8 @@ fun Calculator(
             horizontalAlignment = Alignment.End
         ) {
             OverFlowMenu(
-                color = LightGray
+                color = LightGray,
+                navController
             )
         }
 

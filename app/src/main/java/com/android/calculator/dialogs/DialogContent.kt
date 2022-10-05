@@ -26,7 +26,6 @@ fun DialogContent(
     modifier: Modifier = Modifier,
 ) {
 
-
     val context = LocalContext.current.applicationContext
     val checkedState = remember {
         mutableStateOf(false)

@@ -14,6 +14,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import com.android.calculator.ui.theme.LightGray
 import com.android.calculator.ui.theme.Orange
 
@@ -22,10 +23,9 @@ fun ScientificCalculator(
     state : CalculatorState,
     modifier: Modifier,
     buttonSpacing : Dp = 8.dp,
-    onAction: (CalculatorAction) -> Unit
+    onAction: (CalculatorAction) -> Unit,
+    navController : NavHostController
 )  {
-
-    // TODO - IN THIS PARTICULAR COMPOSABLE, I WILL COMMENCE WITH THE DESIGNING AND ADDING OF THE SCIENTIFIC SYMBOLS FOR THE SCIENTIFIC CALCULATOR.
 
     val scrollState = rememberScrollState()
 
@@ -41,7 +41,8 @@ fun ScientificCalculator(
             horizontalAlignment = Alignment.End
         ) {
             OverFlowMenu(
-                color = LightGray
+                color = LightGray,
+                navController = navController
             )
         }
 
@@ -74,7 +75,6 @@ fun ScientificCalculator(
                     .padding(vertical = 3.dp)
             )
 
-            // TODO - WHEN I COME BACK, I WILL PROCEED WITH THE IMPLEMENTATION OF COMPOSE OF FRAGMENT NAVIGATION WITH JETPACK COMPOSE.
 
             // First Scientific Symbols row..
             Row(
@@ -89,7 +89,7 @@ fun ScientificCalculator(
                         .height(30.dp),
 
                     onCLick = {
-                        onAction(CalculatorAction.Operation(CalculatorOperation.Sin))
+//                        onAction(CalculatorAction.Operation(CalculatorOperation.Sin))
                     }
                 )
                 ScientificCalculatorButton(
@@ -100,7 +100,7 @@ fun ScientificCalculator(
                         .height(30.dp),
 
                     onCLick = {
-                        onAction(CalculatorAction.Operation(CalculatorOperation.Cos))
+//                        onAction(CalculatorAction.Operation(CalculatorOperation.Cos))
                     }
                 )
                 ScientificCalculatorButton(
@@ -111,7 +111,7 @@ fun ScientificCalculator(
                         .height(30.dp),
 
                     onCLick = {
-                        onAction(CalculatorAction.Operation(CalculatorOperation.Tan))
+//                        onAction(CalculatorAction.Operation(CalculatorOperation.Tan))
                     }
                 )
                 ScientificCalculatorButton(
@@ -122,7 +122,7 @@ fun ScientificCalculator(
                         .height(30.dp),
 
                     onCLick = {
-                        onAction(CalculatorAction.Operation(CalculatorOperation.Log))
+//                        onAction(CalculatorAction.Operation(CalculatorOperation.Log))
                     }
                 )
                 ScientificCalculatorButton(
@@ -133,7 +133,7 @@ fun ScientificCalculator(
                         .height(30.dp),
 
                     onCLick = {
-                        onAction(CalculatorAction.Operation(CalculatorOperation.In))
+//                        onAction(CalculatorAction.Operation(CalculatorOperation.In))
                     }
                 )
             }
@@ -152,7 +152,7 @@ fun ScientificCalculator(
                         .height(30.dp),
 
                     onCLick = {
-                        onAction(CalculatorAction.Operation(CalculatorOperation.x1))
+//                        onAction(CalculatorAction.Operation(CalculatorOperation.x1))
                     }
                 )
                 ScientificCalculatorButton(
@@ -163,7 +163,7 @@ fun ScientificCalculator(
                         .height(30.dp),
 
                     onCLick = {
-                        onAction(CalculatorAction.Operation(CalculatorOperation.x2))
+//                        onAction(CalculatorAction.Operation(CalculatorOperation.x2))
                     }
                 )
                 ScientificCalculatorButton(
@@ -174,7 +174,7 @@ fun ScientificCalculator(
                         .height(30.dp),
 
                     onCLick = {
-                        onAction(CalculatorAction.Operation(CalculatorOperation.Sqaured))
+//                        onAction(CalculatorAction.Operation(CalculatorOperation.Sqaured))
                     }
                 )
                 ScientificCalculatorButton(
@@ -185,7 +185,7 @@ fun ScientificCalculator(
                         .height(30.dp),
 
                     onCLick = {
-                        onAction(CalculatorAction.Operation(CalculatorOperation.X1))
+//                        onAction(CalculatorAction.Operation(CalculatorOperation.X1))
                     }
                 )
                 ScientificCalculatorButton(
@@ -196,7 +196,7 @@ fun ScientificCalculator(
                         .height(30.dp),
 
                     onCLick = {
-                        onAction(CalculatorAction.Operation(CalculatorOperation.Brackets))
+//                        onAction(CalculatorAction.Operation(CalculatorOperation.Brackets))
                     }
                 )
             }

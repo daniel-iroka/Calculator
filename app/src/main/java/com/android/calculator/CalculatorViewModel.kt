@@ -4,6 +4,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import androidx.navigation.compose.rememberNavController
 
 /** This is our ViewModel and in Jetpack compose, it is responsible for handling the User actions and click events as well as state in compose.
  *  It will also be responsible for handling UI rotation. **/
@@ -13,6 +14,7 @@ class CalculatorViewModel : ViewModel() {
     var state by mutableStateOf(CalculatorState())
         // This means that we can change the state from the outside but we can still read it
         private set
+
 
     // So this function is where and how we will register our click events based on how we set in the Calculator Composable. Which basically means what will happen-
     // when the User clicks on the buttons or anything set in our Calculator Composable.

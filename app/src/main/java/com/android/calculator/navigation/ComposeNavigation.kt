@@ -9,9 +9,6 @@ import androidx.navigation.compose.composable
 fun ComposeNavigation(
     navController: NavHostController,
 ) {
-
-    // TODO - WHEN I COME BACK, I WILL TRY AND FIX THIS PROBLEM BY UPGRADING THE GRADLE FILE TO MATCH THE COMPILE WHICH I WILL CHANGE TO 33 TO FIX AND RUN MY LATEST CODE CHANGES.
-
     // We will try to Implement our NavHost here.
     NavHost(
         navController = navController ,

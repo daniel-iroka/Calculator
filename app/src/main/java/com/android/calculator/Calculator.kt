@@ -34,6 +34,9 @@ fun Calculator(
     // this will make whatever layout component we modify it scrollable based on the scrollState
     val scrollState = rememberScrollState()
 
+    // TODO - WHEN I COME BACK NEXT TIME, I WILL COMMENCE WITH THE ADDING OF THE BACKGROUND CIRCLES TO THE CALCULATOR COMPOSABLES BUTTONS AND WILL DO THE SAME WITH THE SCIENTIFIC
+    // TODO - - CALCULATOR AS WELL.
+
     Box(
         modifier = modifier
         .verticalScroll(state = scrollState)

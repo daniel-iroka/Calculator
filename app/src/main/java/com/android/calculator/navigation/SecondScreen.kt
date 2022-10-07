@@ -1,7 +1,7 @@
 package com.android.calculator.navigation
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -29,7 +29,7 @@ fun SecondScreen(
         buttonSpacing = buttonSpacing,
         navController = navController,
         modifier = Modifier
-            .fillMaxWidth()  // this will take up the entire space of the screen
+            .fillMaxSize()  // this will take up the entire space of the screen
             .background(MediumGray)
             .padding(12.dp)
     )

@@ -29,6 +29,8 @@ fun ScientificCalculator(
 
     val scrollState = rememberScrollState()
 
+    // ALSO WHEN I COME BACK IN THIS ONE, I MAY ALSO TRY TO REDUCE THE SIZES OF THE BUTTONS(SCIENTIFIC CALCULATOR) A LITTLE BIT FOR IT LOOK MORE APPEALING WHEN NAVIGATING BETYWEEN THE TWO
+
     Box(
         modifier = modifier
             .verticalScroll(state = scrollState)
@@ -79,7 +81,7 @@ fun ScientificCalculator(
             // First Scientific Symbols row..
             Row(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(6.dp)
+                horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 ScientificCalculatorButton(
                     symbol = "sin",
@@ -142,7 +144,7 @@ fun ScientificCalculator(
             // Second Scientific Symbols row..
             Row(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(6.dp)
+                horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 ScientificCalculatorButton(
                     symbol = "x!",

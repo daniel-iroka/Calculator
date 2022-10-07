@@ -1,5 +1,6 @@
 package com.android.calculator
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -33,9 +34,6 @@ fun Calculator(
 
     // this will make whatever layout component we modify it scrollable based on the scrollState
     val scrollState = rememberScrollState()
-
-    // TODO - WHEN I COME BACK NEXT TIME, I WILL COMMENCE WITH THE ADDING OF THE BACKGROUND CIRCLES TO THE CALCULATOR COMPOSABLES BUTTONS AND WILL DO THE SAME WITH THE SCIENTIFIC
-    // TODO - - CALCULATOR AS WELL.
 
     Box(
         modifier = modifier
@@ -89,10 +87,11 @@ fun Calculator(
             ) {
                 CalculatorButton(
                     symbol = "%",
-                    color = Orange,
+                    color = Color.White,
                     modifier = Modifier
                         .width(80.dp)
                         .height(70.dp)
+                        .background(Orange)
                         .aspectRatio(1f) // this makes whatever composable will call it on look Square.
                         .weight(1f),
 
@@ -102,10 +101,11 @@ fun Calculator(
                 )
                 CalculatorButton(
                     symbol = "AC",
-                    color = Orange,
+                    color = Color.White,
                     modifier = Modifier
                         .width(80.dp)
                         .height(70.dp)
+                        .background(Orange)
                         .aspectRatio(1f)
                         .weight(1f),
 
@@ -115,10 +115,11 @@ fun Calculator(
                 )
                 CalculatorButton(
                     symbol = "Del",
-                    color = Orange,
+                    color = Color.White,
                     modifier = Modifier
                         .width(80.dp)
                         .height(70.dp)
+                        .background(Orange)
                         .aspectRatio(1f)
                         .weight(1f),
 
@@ -128,10 +129,11 @@ fun Calculator(
                 )
                 CalculatorButton(
                     symbol = "÷",
-                    color = Orange,
+                    color = Color.White,
                     modifier = Modifier
                         .width(80.dp)
                         .height(70.dp)
+                        .background(Orange)
                         .aspectRatio(1f)
                         .weight(1f),
 
@@ -153,6 +155,7 @@ fun Calculator(
                     modifier = Modifier
                         .width(80.dp)
                         .height(70.dp)
+                        .background(Color.DarkGray)
                         .aspectRatio(1f)
                         .weight(1f),
 
@@ -166,6 +169,7 @@ fun Calculator(
                     modifier = Modifier
                         .width(80.dp)
                         .height(70.dp)
+                        .background(Color.DarkGray)
                         .aspectRatio(1f)
                         .weight(1f),
 
@@ -179,6 +183,7 @@ fun Calculator(
                     modifier = Modifier
                         .width(80.dp)
                         .height(70.dp)
+                        .background(Color.DarkGray)
                         .aspectRatio(1f)
                         .weight(1f),
 
@@ -188,10 +193,11 @@ fun Calculator(
                 )
                 CalculatorButton(
                     symbol = "×",
-                    color = Orange,
+                    color = Color.White,
                     modifier = Modifier
                         .width(80.dp)
                         .height(70.dp)
+                        .background(Orange)
                         .aspectRatio(1f)
                         .weight(1f),
 
@@ -212,6 +218,7 @@ fun Calculator(
                     modifier = Modifier
                         .width(80.dp)
                         .height(70.dp)
+                        .background(Color.DarkGray)
                         .aspectRatio(1f)
                         .weight(1f),
 
@@ -225,6 +232,7 @@ fun Calculator(
                     modifier = Modifier
                         .width(80.dp)
                         .height(70.dp)
+                        .background(Color.DarkGray)
                         .aspectRatio(1f)
                         .weight(1f),
 
@@ -238,6 +246,7 @@ fun Calculator(
                     modifier = Modifier
                         .width(80.dp)
                         .height(70.dp)
+                        .background(Color.DarkGray)
                         .aspectRatio(1f)
                         .weight(1f),
 
@@ -247,10 +256,11 @@ fun Calculator(
                 )
                 CalculatorButton(
                     symbol = "-",
-                    color = Orange,
+                    color = Color.White,
                     modifier = Modifier
                         .width(80.dp)
                         .height(70.dp)
+                        .background(Orange)
                         .aspectRatio(1f)
                         .weight(1f),
 
@@ -271,6 +281,7 @@ fun Calculator(
                     modifier = Modifier
                         .width(80.dp)
                         .height(70.dp)
+                        .background(Color.DarkGray)
                         .aspectRatio(1f)
                         .weight(1f),
 
@@ -284,6 +295,7 @@ fun Calculator(
                     modifier = Modifier
                         .width(80.dp)
                         .height(70.dp)
+                        .background(Color.DarkGray)
                         .aspectRatio(1f)
                         .weight(1f),
 
@@ -297,6 +309,7 @@ fun Calculator(
                     modifier = Modifier
                         .width(80.dp)
                         .height(70.dp)
+                        .background(Color.DarkGray)
                         .aspectRatio(1f)
                         .weight(1f),
 
@@ -306,10 +319,11 @@ fun Calculator(
                 )
                 CalculatorButton(
                     symbol = "+",
-                    color = Orange,
+                    color = Color.White,
                     modifier = Modifier
                         .width(80.dp)
                         .height(70.dp)
+                        .background(Orange)
                         .aspectRatio(1f)
                         .weight(1f),
 
@@ -330,6 +344,7 @@ fun Calculator(
                     modifier = Modifier
                         .width(80.dp)
                         .height(70.dp)
+                        .background(LightGray)
                         .aspectRatio(2f)
                         .weight(2f),
 
@@ -343,6 +358,7 @@ fun Calculator(
                     modifier = Modifier
                         .width(80.dp)
                         .height(70.dp)
+                        .background(Color.DarkGray)
                         .aspectRatio(1f)
                         .weight(1f),
 
@@ -352,10 +368,11 @@ fun Calculator(
                 )
                 CalculatorButton(
                     symbol = "=",
-                    color = Orange,
+                    color = Color.White,
                     modifier = Modifier
                         .width(80.dp)
                         .height(70.dp)
+                        .background(Orange)
                         .aspectRatio(1f)
                         .weight(1f),
 
@@ -367,15 +384,3 @@ fun Calculator(
         }
     }
 }
-
-//                CalculatorButton(
-//                    symbol = "Del",
-//                    modifier = Modifier
-//                        .background(Orange)
-//                        .aspectRatio(1f)
-//                        .weight(1f),
-//
-//                    onCLick = {
-//                        onAction(CalculatorAction.Delete)
-//                    }
-//                )

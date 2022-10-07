@@ -65,17 +65,6 @@ fun DialogContent(
                         .fillMaxWidth()
                 ) {
                     Text(
-                        text = "Other Settings",
-                        color = Color.White,
-                        fontStyle = FontStyle.Normal
-                    )
-                }
-
-                Row(
-                    modifier = modifier
-                        .fillMaxWidth()
-                ) {
-                    Text(
                         text = "Dark Mode",
                         color = Color.White,
                         fontStyle = FontStyle.Normal
@@ -87,6 +76,17 @@ fun DialogContent(
 
                         Switch(checked = checkedState.value, onCheckedChange = { checkedState.value = it })
                     }
+                }
+
+                Row(
+                    modifier = modifier
+                        .fillMaxWidth()
+                ) {
+                    Text(
+                        text = "History",
+                        color = Color.White,
+                        fontStyle = FontStyle.Normal
+                    )
                 }
 
                 Spacer(modifier = Modifier.height(20.dp))

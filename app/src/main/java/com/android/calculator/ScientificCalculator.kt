@@ -29,7 +29,7 @@ fun ScientificCalculator(
 
     val scrollState = rememberScrollState()
 
-    // ALSO WHEN I COME BACK IN THIS ONE, I MAY ALSO TRY TO REDUCE THE SIZES OF THE BUTTONS(SCIENTIFIC CALCULATOR) A LITTLE BIT FOR IT LOOK MORE APPEALING WHEN NAVIGATING BETYWEEN THE TWO
+    //  TODO - ALSO WHEN I COME BACK IN THIS ONE, I MAY ALSO TRY TO REDUCE THE SIZES OF THE BUTTONS(SCIENTIFIC CALCULATOR) A LITTLE BIT FOR IT LOOK MORE APPEALING WHEN NAVIGATING BETYWEEN THE TWO
 
     Box(
         modifier = modifier
@@ -68,7 +68,6 @@ fun ScientificCalculator(
                 maxLines = 2
             )
 
-
             // This is our Divider
             Divider(
                 color = LightGray,
@@ -76,7 +75,6 @@ fun ScientificCalculator(
                 modifier = Modifier
                     .padding(vertical = 3.dp)
             )
-
 
             // First Scientific Symbols row..
             Row(
@@ -176,7 +174,7 @@ fun ScientificCalculator(
                         .height(30.dp),
 
                     onCLick = {
-//                        onAction(CalculatorAction.Operation(CalculatorOperation.Sqaured))
+//                        onAction(CalculatorAction.Operation(CalculatorOperation.Sqaure))
                     }
                 )
                 ScientificCalculatorButton(

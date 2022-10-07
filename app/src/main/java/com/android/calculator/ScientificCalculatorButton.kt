@@ -8,6 +8,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight.Companion.Bold
 import androidx.compose.ui.unit.sp
 import com.android.calculator.ui.theme.Shapes
 
@@ -30,6 +32,9 @@ fun ScientificCalculatorButton(
             text = symbol,
             fontSize = 18.sp,
             color = color,
+            style = TextStyle(
+                fontWeight = Bold
+            )
         )
     }
 }

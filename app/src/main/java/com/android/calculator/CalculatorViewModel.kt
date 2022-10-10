@@ -4,7 +4,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
-import androidx.navigation.compose.rememberNavController
+import kotlin.math.sqrt
 
 /** This is our ViewModel and in Jetpack compose, it is responsible for handling the User actions and click events as well as state in compose.
  *  It will also be responsible for handling UI rotation. **/
@@ -27,7 +27,6 @@ class CalculatorViewModel : ViewModel() {
             is CalculatorAction.Calculate -> performCalculation()
             is CalculatorAction.Delete -> performDeletion()
 
-            // TODO - BEFORE I PROCEED WITH THIS, I WILL FIRST TEST FRAGMENT NAVIGATION WITH COMPOSE.
         }
     }
 
@@ -61,6 +60,14 @@ class CalculatorViewModel : ViewModel() {
                 is CalculatorOperation.Multiply -> number1 * number2
                 is CalculatorOperation.Divide -> number1 / number2
                 is CalculatorOperation.Modulo -> number1 % number2
+
+                // Operations for our ScientificCalculator
+                // TODO - WHEN I COME BACK, I WILL FINISH IMPLEMENTING THIS FEATURE.
+                is CalculatorOperation.Factorial -> number1 + number2
+                is CalculatorOperation.Square -> number1 * number1
+                is CalculatorOperation.SquareRoot -> sqrt(number2.toDouble())
+                is CalculatorOperation.Inv -> number1 + number2
+                is CalculatorOperation.Brackets -> number1 + number2
                 null -> return
             }
             state = state.copy(
@@ -79,6 +86,7 @@ class CalculatorViewModel : ViewModel() {
 
     private fun enterDecimal() {
         // we want to ONLY enter a decimal when a state is not blank, does not already contain a decimal and the operation is null
+        // so this will only append the decimal when all is true but not when even one single one is false, basically
         if (state.operation == null && !state.number1.contains(".")
             && state.number1.isNotBlank()
         ) {

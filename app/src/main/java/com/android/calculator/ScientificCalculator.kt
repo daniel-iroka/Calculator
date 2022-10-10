@@ -1,5 +1,6 @@
 package com.android.calculator
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -28,8 +29,6 @@ fun ScientificCalculator(
 )  {
 
     val scrollState = rememberScrollState()
-
-    //  TODO - ALSO WHEN I COME BACK IN THIS ONE, I MAY ALSO TRY TO REDUCE THE SIZES OF THE BUTTONS(SCIENTIFIC CALCULATOR) A LITTLE BIT FOR IT LOOK MORE APPEALING WHEN NAVIGATING BETYWEEN THE TWO
 
     Box(
         modifier = modifier
@@ -89,7 +88,7 @@ fun ScientificCalculator(
                         .height(30.dp),
 
                     onCLick = {
-//                        onAction(CalculatorAction.Operation(CalculatorOperation.Sin))
+                        onAction(CalculatorAction.Operation(CalculatorOperation.Sin))
                     }
                 )
                 ScientificCalculatorButton(
@@ -100,7 +99,7 @@ fun ScientificCalculator(
                         .height(30.dp),
 
                     onCLick = {
-//                        onAction(CalculatorAction.Operation(CalculatorOperation.Cos))
+                        onAction(CalculatorAction.Operation(CalculatorOperation.Cos))
                     }
                 )
                 ScientificCalculatorButton(
@@ -111,7 +110,7 @@ fun ScientificCalculator(
                         .height(30.dp),
 
                     onCLick = {
-//                        onAction(CalculatorAction.Operation(CalculatorOperation.Tan))
+                        onAction(CalculatorAction.Operation(CalculatorOperation.Tan))
                     }
                 )
                 ScientificCalculatorButton(
@@ -122,18 +121,18 @@ fun ScientificCalculator(
                         .height(30.dp),
 
                     onCLick = {
-//                        onAction(CalculatorAction.Operation(CalculatorOperation.Log))
+                        onAction(CalculatorAction.Operation(CalculatorOperation.Log))
                     }
                 )
                 ScientificCalculatorButton(
-                    symbol = "In",
+                    symbol = "1n",
                     color = Orange,
                     modifier = Modifier
                         .width(50.dp)
                         .height(30.dp),
 
                     onCLick = {
-//                        onAction(CalculatorAction.Operation(CalculatorOperation.In))
+                        onAction(CalculatorAction.Operation(CalculatorOperation.In))
                     }
                 )
             }
@@ -152,7 +151,7 @@ fun ScientificCalculator(
                         .height(30.dp),
 
                     onCLick = {
-//                        onAction(CalculatorAction.Operation(CalculatorOperation.x1))
+                        onAction(CalculatorAction.Operation(CalculatorOperation.Factorial))
                     }
                 )
                 ScientificCalculatorButton(
@@ -163,7 +162,7 @@ fun ScientificCalculator(
                         .height(30.dp),
 
                     onCLick = {
-//                        onAction(CalculatorAction.Operation(CalculatorOperation.x2))
+                        onAction(CalculatorAction.Operation(CalculatorOperation.Square))
                     }
                 )
                 ScientificCalculatorButton(
@@ -174,18 +173,18 @@ fun ScientificCalculator(
                         .height(30.dp),
 
                     onCLick = {
-//                        onAction(CalculatorAction.Operation(CalculatorOperation.Sqaure))
+                        onAction(CalculatorAction.Operation(CalculatorOperation.SquareRoot))
                     }
                 )
                 ScientificCalculatorButton(
-                    symbol = "1/X",
+                    symbol = "1/x",
                     color = Orange,
                     modifier = Modifier
                         .width(50.dp)
                         .height(30.dp),
 
                     onCLick = {
-//                        onAction(CalculatorAction.Operation(CalculatorOperation.X1))
+                        onAction(CalculatorAction.Operation(CalculatorOperation.Inv))
                     }
                 )
                 ScientificCalculatorButton(
@@ -196,7 +195,7 @@ fun ScientificCalculator(
                         .height(30.dp),
 
                     onCLick = {
-//                        onAction(CalculatorAction.Operation(CalculatorOperation.Brackets))
+                        onAction(CalculatorAction.Operation(CalculatorOperation.Brackets))
                     }
                 )
             }
@@ -210,10 +209,11 @@ fun ScientificCalculator(
             ) {
                 CalculatorButton(
                     symbol = "%",
-                    color = Orange,
+                    color = Color.White,
                     modifier = Modifier
-                        .width(80.dp)
-                        .height(70.dp)
+                        .width(70.dp)
+                        .height(60.dp)
+                        .background(Orange)
                         .aspectRatio(1f) // this makes whatever composable will call it on look Square.
                         .weight(1f),
 
@@ -223,10 +223,11 @@ fun ScientificCalculator(
                 )
                 CalculatorButton(
                     symbol = "AC",
-                    color = Orange,
+                    color = Color.White,
                     modifier = Modifier
-                        .width(80.dp)
-                        .height(70.dp)
+                        .width(70.dp)
+                        .height(60.dp)
+                        .background(Orange)
                         .aspectRatio(1f)
                         .weight(1f),
 
@@ -236,10 +237,11 @@ fun ScientificCalculator(
                 )
                 CalculatorButton(
                     symbol = "Del",
-                    color = Orange,
+                    color = Color.White,
                     modifier = Modifier
-                        .width(80.dp)
-                        .height(70.dp)
+                        .width(70.dp)
+                        .height(60.dp)
+                        .background(Orange)
                         .aspectRatio(1f)
                         .weight(1f),
 
@@ -249,10 +251,11 @@ fun ScientificCalculator(
                 )
                 CalculatorButton(
                     symbol = "÷",
-                    color = Orange,
+                    color = Color.White,
                     modifier = Modifier
-                        .width(80.dp)
-                        .height(70.dp)
+                        .width(70.dp)
+                        .height(60.dp)
+                        .background(Orange)
                         .aspectRatio(1f)
                         .weight(1f),
 
@@ -272,8 +275,9 @@ fun ScientificCalculator(
                     symbol = "7",
                     color = Color.White,
                     modifier = Modifier
-                        .width(80.dp)
-                        .height(70.dp)
+                        .width(70.dp)
+                        .height(60.dp)
+                        .background(Color.DarkGray)
                         .aspectRatio(1f)
                         .weight(1f),
 
@@ -285,8 +289,9 @@ fun ScientificCalculator(
                     symbol = "8",
                     color = Color.White,
                     modifier = Modifier
-                        .width(80.dp)
-                        .height(70.dp)
+                        .width(70.dp)
+                        .height(60.dp)
+                        .background(Color.DarkGray)
                         .aspectRatio(1f)
                         .weight(1f),
 
@@ -298,8 +303,9 @@ fun ScientificCalculator(
                     symbol = "9",
                     color = Color.White,
                     modifier = Modifier
-                        .width(80.dp)
-                        .height(70.dp)
+                        .width(70.dp)
+                        .height(60.dp)
+                        .background(Color.DarkGray)
                         .aspectRatio(1f)
                         .weight(1f),
 
@@ -309,10 +315,11 @@ fun ScientificCalculator(
                 )
                 CalculatorButton(
                     symbol = "×",
-                    color = Orange,
+                    color = Color.White,
                     modifier = Modifier
-                        .width(80.dp)
-                        .height(70.dp)
+                        .width(70.dp)
+                        .height(60.dp)
+                        .background(Orange)
                         .aspectRatio(1f)
                         .weight(1f),
 
@@ -331,8 +338,9 @@ fun ScientificCalculator(
                     symbol = "4",
                     color = Color.White,
                     modifier = Modifier
-                        .width(80.dp)
-                        .height(70.dp)
+                        .width(70.dp)
+                        .height(60.dp)
+                        .background(Color.DarkGray)
                         .aspectRatio(1f)
                         .weight(1f),
 
@@ -344,8 +352,9 @@ fun ScientificCalculator(
                     symbol = "5",
                     color = Color.White,
                     modifier = Modifier
-                        .width(80.dp)
-                        .height(70.dp)
+                        .width(70.dp)
+                        .height(60.dp)
+                        .background(Color.DarkGray)
                         .aspectRatio(1f)
                         .weight(1f),
 
@@ -357,8 +366,9 @@ fun ScientificCalculator(
                     symbol = "6",
                     color = Color.White,
                     modifier = Modifier
-                        .width(80.dp)
-                        .height(70.dp)
+                        .width(70.dp)
+                        .height(60.dp)
+                        .background(Color.DarkGray)
                         .aspectRatio(1f)
                         .weight(1f),
 
@@ -368,10 +378,11 @@ fun ScientificCalculator(
                 )
                 CalculatorButton(
                     symbol = "-",
-                    color = Orange,
+                    color = Color.White,
                     modifier = Modifier
-                        .width(80.dp)
-                        .height(70.dp)
+                        .width(70.dp)
+                        .height(60.dp)
+                        .background(Orange)
                         .aspectRatio(1f)
                         .weight(1f),
 
@@ -390,8 +401,9 @@ fun ScientificCalculator(
                     symbol = "1",
                     color = Color.White,
                     modifier = Modifier
-                        .width(80.dp)
-                        .height(70.dp)
+                        .width(70.dp)
+                        .height(60.dp)
+                        .background(Color.DarkGray)
                         .aspectRatio(1f)
                         .weight(1f),
 
@@ -403,8 +415,9 @@ fun ScientificCalculator(
                     symbol = "2",
                     color = Color.White,
                     modifier = Modifier
-                        .width(80.dp)
-                        .height(70.dp)
+                        .width(70.dp)
+                        .height(60.dp)
+                        .background(Color.DarkGray)
                         .aspectRatio(1f)
                         .weight(1f),
 
@@ -416,8 +429,9 @@ fun ScientificCalculator(
                     symbol = "3",
                     color = Color.White,
                     modifier = Modifier
-                        .width(80.dp)
-                        .height(70.dp)
+                        .width(70.dp)
+                        .height(60.dp)
+                        .background(Color.DarkGray)
                         .aspectRatio(1f)
                         .weight(1f),
 
@@ -427,10 +441,11 @@ fun ScientificCalculator(
                 )
                 CalculatorButton(
                     symbol = "+",
-                    color = Orange,
+                    color = Color.White,
                     modifier = Modifier
-                        .width(80.dp)
-                        .height(70.dp)
+                        .width(70.dp)
+                        .height(60.dp)
+                        .background(Orange)
                         .aspectRatio(1f)
                         .weight(1f),
 
@@ -449,8 +464,9 @@ fun ScientificCalculator(
                     symbol = "0",
                     color = Color.White,
                     modifier = Modifier
-                        .width(80.dp)
-                        .height(70.dp)
+                        .width(70.dp)
+                        .height(60.dp)
+                        .background(LightGray)
                         .aspectRatio(2f)
                         .weight(2f),
 
@@ -462,8 +478,9 @@ fun ScientificCalculator(
                     symbol = ".",
                     color = Color.White,
                     modifier = Modifier
-                        .width(80.dp)
-                        .height(70.dp)
+                        .width(70.dp)
+                        .height(60.dp)
+                        .background(Color.DarkGray)
                         .aspectRatio(1f)
                         .weight(1f),
 
@@ -473,10 +490,11 @@ fun ScientificCalculator(
                 )
                 CalculatorButton(
                     symbol = "=",
-                    color = Orange,
+                    color = Color.White,
                     modifier = Modifier
-                        .width(80.dp)
-                        .height(70.dp)
+                        .width(70.dp)
+                        .height(60.dp)
+                        .background(Orange)
                         .aspectRatio(1f)
                         .weight(1f),
 
@@ -488,4 +506,3 @@ fun ScientificCalculator(
         }
     }
 }
-

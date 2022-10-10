@@ -90,7 +90,7 @@ fun Calculator(
                     color = Color.White,
                     modifier = Modifier
                         .width(80.dp)
-                        .height(70.dp)
+                        .height(65.dp)
                         .background(Orange)
                         .aspectRatio(1f) // this makes whatever composable will call it on look Square.
                         .weight(1f),
@@ -104,7 +104,7 @@ fun Calculator(
                     color = Color.White,
                     modifier = Modifier
                         .width(80.dp)
-                        .height(70.dp)
+                        .height(65.dp)
                         .background(Orange)
                         .aspectRatio(1f)
                         .weight(1f),
@@ -118,7 +118,7 @@ fun Calculator(
                     color = Color.White,
                     modifier = Modifier
                         .width(80.dp)
-                        .height(70.dp)
+                        .height(65.dp)
                         .background(Orange)
                         .aspectRatio(1f)
                         .weight(1f),
@@ -132,7 +132,7 @@ fun Calculator(
                     color = Color.White,
                     modifier = Modifier
                         .width(80.dp)
-                        .height(70.dp)
+                        .height(65.dp)
                         .background(Orange)
                         .aspectRatio(1f)
                         .weight(1f),
@@ -154,7 +154,7 @@ fun Calculator(
                     color = Color.White,
                     modifier = Modifier
                         .width(80.dp)
-                        .height(70.dp)
+                        .height(65.dp)
                         .background(Color.DarkGray)
                         .aspectRatio(1f)
                         .weight(1f),
@@ -168,7 +168,7 @@ fun Calculator(
                     color = Color.White,
                     modifier = Modifier
                         .width(80.dp)
-                        .height(70.dp)
+                        .height(65.dp)
                         .background(Color.DarkGray)
                         .aspectRatio(1f)
                         .weight(1f),
@@ -182,7 +182,7 @@ fun Calculator(
                     color = Color.White,
                     modifier = Modifier
                         .width(80.dp)
-                        .height(70.dp)
+                        .height(65.dp)
                         .background(Color.DarkGray)
                         .aspectRatio(1f)
                         .weight(1f),
@@ -196,7 +196,7 @@ fun Calculator(
                     color = Color.White,
                     modifier = Modifier
                         .width(80.dp)
-                        .height(70.dp)
+                        .height(65.dp)
                         .background(Orange)
                         .aspectRatio(1f)
                         .weight(1f),
@@ -217,7 +217,7 @@ fun Calculator(
                     color = Color.White,
                     modifier = Modifier
                         .width(80.dp)
-                        .height(70.dp)
+                        .height(65.dp)
                         .background(Color.DarkGray)
                         .aspectRatio(1f)
                         .weight(1f),
@@ -231,7 +231,7 @@ fun Calculator(
                     color = Color.White,
                     modifier = Modifier
                         .width(80.dp)
-                        .height(70.dp)
+                        .height(65.dp)
                         .background(Color.DarkGray)
                         .aspectRatio(1f)
                         .weight(1f),
@@ -245,7 +245,7 @@ fun Calculator(
                     color = Color.White,
                     modifier = Modifier
                         .width(80.dp)
-                        .height(70.dp)
+                        .height(65.dp)
                         .background(Color.DarkGray)
                         .aspectRatio(1f)
                         .weight(1f),
@@ -259,7 +259,7 @@ fun Calculator(
                     color = Color.White,
                     modifier = Modifier
                         .width(80.dp)
-                        .height(70.dp)
+                        .height(65.dp)
                         .background(Orange)
                         .aspectRatio(1f)
                         .weight(1f),
@@ -280,7 +280,7 @@ fun Calculator(
                     color = Color.White,
                     modifier = Modifier
                         .width(80.dp)
-                        .height(70.dp)
+                        .height(65.dp)
                         .background(Color.DarkGray)
                         .aspectRatio(1f)
                         .weight(1f),
@@ -294,7 +294,7 @@ fun Calculator(
                     color = Color.White,
                     modifier = Modifier
                         .width(80.dp)
-                        .height(70.dp)
+                        .height(65.dp)
                         .background(Color.DarkGray)
                         .aspectRatio(1f)
                         .weight(1f),
@@ -308,7 +308,7 @@ fun Calculator(
                     color = Color.White,
                     modifier = Modifier
                         .width(80.dp)
-                        .height(70.dp)
+                        .height(65.dp)
                         .background(Color.DarkGray)
                         .aspectRatio(1f)
                         .weight(1f),
@@ -322,7 +322,7 @@ fun Calculator(
                     color = Color.White,
                     modifier = Modifier
                         .width(80.dp)
-                        .height(70.dp)
+                        .height(65.dp)
                         .background(Orange)
                         .aspectRatio(1f)
                         .weight(1f),
@@ -343,7 +343,7 @@ fun Calculator(
                     color = Color.White,
                     modifier = Modifier
                         .width(80.dp)
-                        .height(70.dp)
+                        .height(65.dp)
                         .background(LightGray)
                         .aspectRatio(2f)
                         .weight(2f),
@@ -357,7 +357,7 @@ fun Calculator(
                     color = Color.White,
                     modifier = Modifier
                         .width(80.dp)
-                        .height(70.dp)
+                        .height(65.dp)
                         .background(Color.DarkGray)
                         .aspectRatio(1f)
                         .weight(1f),
@@ -371,7 +371,7 @@ fun Calculator(
                     color = Color.White,
                     modifier = Modifier
                         .width(80.dp)
-                        .height(70.dp)
+                        .height(65.dp)
                         .background(Orange)
                         .aspectRatio(1f)
                         .weight(1f),

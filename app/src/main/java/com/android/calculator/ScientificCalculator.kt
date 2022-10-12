@@ -88,7 +88,7 @@ fun ScientificCalculator(
                         .height(30.dp),
 
                     onCLick = {
-                        onAction(CalculatorAction.Operation(CalculatorOperation.Sin))
+                        onAction(CalculatorAction.SingleDigitOperation(SingleOperandOperation.Sin))
                     }
                 )
                 ScientificCalculatorButton(
@@ -99,7 +99,7 @@ fun ScientificCalculator(
                         .height(30.dp),
 
                     onCLick = {
-                        onAction(CalculatorAction.Operation(CalculatorOperation.Cos))
+                        onAction(CalculatorAction.SingleDigitOperation(SingleOperandOperation.Cos))
                     }
                 )
                 ScientificCalculatorButton(
@@ -110,7 +110,7 @@ fun ScientificCalculator(
                         .height(30.dp),
 
                     onCLick = {
-                        onAction(CalculatorAction.Operation(CalculatorOperation.Tan))
+                        onAction(CalculatorAction.SingleDigitOperation(SingleOperandOperation.Tan))
                     }
                 )
                 ScientificCalculatorButton(
@@ -121,7 +121,7 @@ fun ScientificCalculator(
                         .height(30.dp),
 
                     onCLick = {
-                        onAction(CalculatorAction.Operation(CalculatorOperation.Log))
+                        onAction(CalculatorAction.SingleDigitOperation(SingleOperandOperation.Log))
                     }
                 )
                 ScientificCalculatorButton(
@@ -132,7 +132,7 @@ fun ScientificCalculator(
                         .height(30.dp),
 
                     onCLick = {
-                        onAction(CalculatorAction.Operation(CalculatorOperation.In))
+                        onAction(CalculatorAction.SingleDigitOperation(SingleOperandOperation.In))
                     }
                 )
             }
@@ -151,7 +151,7 @@ fun ScientificCalculator(
                         .height(30.dp),
 
                     onCLick = {
-                        onAction(CalculatorAction.Operation(CalculatorOperation.Factorial))
+                        onAction(CalculatorAction.SingleDigitOperation(SingleOperandOperation.Factorial))
                     }
                 )
                 ScientificCalculatorButton(
@@ -162,7 +162,7 @@ fun ScientificCalculator(
                         .height(30.dp),
 
                     onCLick = {
-                        onAction(CalculatorAction.Operation(CalculatorOperation.Square))
+                        onAction(CalculatorAction.SingleDigitOperation(SingleOperandOperation.Square))
                     }
                 )
                 ScientificCalculatorButton(
@@ -173,7 +173,7 @@ fun ScientificCalculator(
                         .height(30.dp),
 
                     onCLick = {
-                        onAction(CalculatorAction.Operation(CalculatorOperation.SquareRoot))
+                        onAction(CalculatorAction.SingleDigitOperation(SingleOperandOperation.SquareRoot))
                     }
                 )
                 ScientificCalculatorButton(
@@ -184,24 +184,22 @@ fun ScientificCalculator(
                         .height(30.dp),
 
                     onCLick = {
-                        onAction(CalculatorAction.Operation(CalculatorOperation.Inv))
+                        onAction(CalculatorAction.SingleDigitOperation(SingleOperandOperation.Inv))
                     }
                 )
                 ScientificCalculatorButton(
-                    symbol = "()",
+                    symbol = "( )",
                     color = Orange,
                     modifier = Modifier
                         .width(50.dp)
                         .height(30.dp),
 
                     onCLick = {
-                        onAction(CalculatorAction.Operation(CalculatorOperation.Brackets))
+                        onAction(CalculatorAction.SingleDigitOperation(SingleOperandOperation.Brackets))
                     }
                 )
             }
 
-
-            /** IMPORTANT!! : I WILL ADD BACKGROUND(RoundedCornerShape) LATER WHEN I DECIDE IF I WANT TO CHANGE THE STYLE OF THE BUTTONS IN THE CALCULATOR. **/
 
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -218,7 +216,7 @@ fun ScientificCalculator(
                         .weight(1f),
 
                     onCLick = {
-                        onAction(CalculatorAction.Operation(CalculatorOperation.Modulo))
+                        onAction(CalculatorAction.DoubleDigitOperation(DoubleOperandOperation.Modulo))
                     }
                 )
                 CalculatorButton(
@@ -260,7 +258,7 @@ fun ScientificCalculator(
                         .weight(1f),
 
                     onCLick = {
-                        onAction(CalculatorAction.Operation(CalculatorOperation.Divide))
+                        onAction(CalculatorAction.DoubleDigitOperation(DoubleOperandOperation.Divide))
                     }
                 )
             }
@@ -324,7 +322,7 @@ fun ScientificCalculator(
                         .weight(1f),
 
                     onCLick = {
-                        onAction(CalculatorAction.Operation(CalculatorOperation.Multiply))
+                        onAction(CalculatorAction.DoubleDigitOperation(DoubleOperandOperation.Multiply))
                     }
                 )
             }
@@ -387,7 +385,7 @@ fun ScientificCalculator(
                         .weight(1f),
 
                     onCLick = {
-                        onAction(CalculatorAction.Operation(CalculatorOperation.Subtract))
+                        onAction(CalculatorAction.DoubleDigitOperation(DoubleOperandOperation.Subtract))
                     }
                 )
             }
@@ -450,7 +448,7 @@ fun ScientificCalculator(
                         .weight(1f),
 
                     onCLick = {
-                        onAction(CalculatorAction.Operation(CalculatorOperation.Add))
+                        onAction(CalculatorAction.DoubleDigitOperation(DoubleOperandOperation.Add))
                     }
                 )
             }

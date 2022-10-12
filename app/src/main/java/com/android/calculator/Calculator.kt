@@ -23,6 +23,10 @@ import com.android.calculator.ui.theme.Orange
  *   so on.**/
 
 
+// TODO! VERY IMPORTANT NOTE!! - I AM DOING A MAJOR 'EXPERIMENTAL REFACTOR' IN THIS PROJECT TO HANDLE SOME CALCULATOR OPERATIONS IN THE FOLLOWING FILES NAMELY :
+// TODO                          CalculatorViewModel, CalculatorAction ScientificCalculator, CalculatorState and CalculatorOperations. WHEN I'M DONE WITH THE EXPERIMENTATION, I MAY REFACTOR IT ALL-
+// TODO                          INSIDE JUST THE 'Calculator DoubleDigitOperation' if I see how the Scientific Operations can operate with two operands.
+
 @Composable
 fun Calculator(
     state : CalculatorState,
@@ -60,6 +64,8 @@ fun Calculator(
             verticalArrangement = Arrangement.spacedBy(buttonSpacing)
         ) {
 
+            // TODO("WHEN I COME BACK NEXT TIME, I WILL PROCEED WITH THE ADDING OF AN EXTRA 'STATE' OR TEXT THAT WILL HOLD THE RESULT INSTEAD OF THE TWO STATES WE HAVE.")
+
             Text(
                 text = state.number1 + (state.operation?.symbol ?: "") + state.number2,
                 textAlign = TextAlign.End,
@@ -96,7 +102,7 @@ fun Calculator(
                         .weight(1f),
 
                     onCLick = {
-                        onAction(CalculatorAction.Operation(CalculatorOperation.Modulo))
+                        onAction(CalculatorAction.DoubleDigitOperation(DoubleOperandOperation.Modulo))
                     }
                 )
                 CalculatorButton(
@@ -138,7 +144,7 @@ fun Calculator(
                         .weight(1f),
 
                     onCLick = {
-                        onAction(CalculatorAction.Operation(CalculatorOperation.Divide))
+                        onAction(CalculatorAction.DoubleDigitOperation(DoubleOperandOperation.Divide))
                     }
                 )
             }
@@ -202,7 +208,7 @@ fun Calculator(
                         .weight(1f),
 
                     onCLick = {
-                        onAction(CalculatorAction.Operation(CalculatorOperation.Multiply))
+                        onAction(CalculatorAction.DoubleDigitOperation(DoubleOperandOperation.Multiply))
                     }
                 )
             }
@@ -265,7 +271,7 @@ fun Calculator(
                         .weight(1f),
 
                     onCLick = {
-                        onAction(CalculatorAction.Operation(CalculatorOperation.Subtract))
+                        onAction(CalculatorAction.DoubleDigitOperation(DoubleOperandOperation.Subtract))
                     }
                 )
             }
@@ -328,7 +334,7 @@ fun Calculator(
                         .weight(1f),
 
                     onCLick = {
-                        onAction(CalculatorAction.Operation(CalculatorOperation.Add))
+                        onAction(CalculatorAction.DoubleDigitOperation(DoubleOperandOperation.Add))
                     }
                 )
             }

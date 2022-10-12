@@ -2,24 +2,17 @@ package com.android.calculator
 
 /** This Sealed Class is for our Basic Calculator Operations like adding, subtracting etc. **/
 
-sealed class CalculatorOperation(val symbol : String) {
-    object Add : CalculatorOperation("+")
-    object Subtract : CalculatorOperation("-")
-    object Multiply : CalculatorOperation("×")
-    object Divide : CalculatorOperation("÷")
-    object Modulo : CalculatorOperation("%")
+/** IMPORTANT NOTE!! CHANGING THE NAME FROM 'DoubleOperandOperation' to 'Whatever' is purely experimental and I might change it back if I succeed **/
 
-    // Scientific Calculation Action
-    object Sin : CalculatorOperation("sin(")
-    object Cos : CalculatorOperation("cos(")
-    object Tan : CalculatorOperation("tan(")
-    object Log : CalculatorOperation("log(")
-    // TODO - LATER I FIND THE ACTUAL NAME FOR THIS OPERATION
-    object In : CalculatorOperation("In(")
+sealed class DoubleOperandOperation(val symbol : String) {
 
-    object Factorial : CalculatorOperation("x!")
-    object Square : CalculatorOperation("²")
-    object SquareRoot : CalculatorOperation("√")
-    object Inv : CalculatorOperation("1/x")
-    object Brackets : CalculatorOperation("()")
+    /** NOTE! These are the Standard AND Scientific Calculator Operations for two operands. **/
+    object Add : DoubleOperandOperation("+")
+    object Subtract : DoubleOperandOperation("-")
+    object Multiply : DoubleOperandOperation("×")
+    object Divide : DoubleOperandOperation("÷")
+    object Modulo : DoubleOperandOperation("%")
+
+    object SquareRoot : DoubleOperandOperation("√")
+
 }

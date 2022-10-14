@@ -1,5 +1,6 @@
 package com.android.calculator
 
+import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -9,13 +10,13 @@ import kotlin.math.sqrt
 /** This is our ViewModel and in Jetpack compose, it is responsible for handling the User actions and click events as well as state in compose.
  *  It will also be responsible for handling UI rotation. **/
 
+private const val TAG = "CalculatorViewModel"
+
 class CalculatorViewModel : ViewModel() {
 
     var state by mutableStateOf(CalculatorState())
         // This means that we can change the state from the outside but we can still read it
         private set
-
-    // TODO - CONTINUE WITH THE IMPLEMENTING OF THE EXPERIMENTAL REFACTOR THAT I MENTIONED IN THE 'CALCULATOR FILE'
 
 
     // So this function is where and how we will register our click events based on how we set in the Calculator Composable. Which basically means what will happen-
@@ -64,10 +65,65 @@ class CalculatorViewModel : ViewModel() {
 
                 // For Calculation Operations
                 is DoubleOperandOperation.SquareRoot -> {
-                    val res = sqrt(number1.toDouble())
+                    sqrt(number1.toDouble())
+                    // Todo - Later, I will find how to calculate the result of using two operands in between SquareRoot.
+                }
+                is DoubleOperandOperation.Squared -> {
+                    val res = number1 * number1
                     res * number2
                 }
 
+                /** NOTE! When I come back, continue with the Implementation of the 'Factorial' Implementation **/
+                is DoubleOperandOperation.Factorial -> { number1 }
+
+                is DoubleOperandOperation.Inv -> number1
+                is DoubleOperandOperation.Brackets -> number1
+                // Operations for our ScientificCalculator
+                /** IMPORTANT NOTE: THIS FIRST 5 LINES ARE DUMMY LISTS OR TESTS. **/
+                is DoubleOperandOperation.Sin -> number1
+                is DoubleOperandOperation.Cos -> number1
+                is DoubleOperandOperation.Tan -> number1
+                is DoubleOperandOperation.Log -> number1
+                is DoubleOperandOperation.In -> number1
+
+                null -> return
+            }
+
+            state = state.copy(
+                // will assign the result to the new 'result' parameter in our state
+                number1 = result.toString().take(15),
+                number2 = "",
+                operation = null
+            )
+        }
+
+
+        // NOTE! Since All Single Calculator Operations are 'Scientific', this will not involve Standard Scientific Calculator Operations
+        // Calculating the result of our Scientific Operations for Calculations that have a single operand
+        if (number1 != null && state.operation != null &&  number2 == null) {
+            val result = when(state.operation) {
+                is DoubleOperandOperation.Squared -> { number1 * number1 }
+                is DoubleOperandOperation.SquareRoot -> sqrt(number1.toDouble())
+
+
+                is DoubleOperandOperation.Add -> number1
+                is DoubleOperandOperation.Subtract -> number1
+                is DoubleOperandOperation.Multiply -> number1
+                is DoubleOperandOperation.Divide -> number1
+                is DoubleOperandOperation.Modulo -> number1
+
+                /** IMPORTANT NOTE! Later, I will find the proper calculations for just the Factorial, Inv and Brackets for now before going to anything else. **/
+
+                is DoubleOperandOperation.Factorial -> number1
+                is DoubleOperandOperation.Inv -> number1
+                is DoubleOperandOperation.Brackets -> number1
+                // Operations for our ScientificCalculator
+                /** IMPORTANT NOTE: THIS FIRST 5 LINES ARE DUMMY LISTS OR TESTS. **/
+                is DoubleOperandOperation.Sin -> number1
+                is DoubleOperandOperation.Cos -> number1
+                is DoubleOperandOperation.Tan -> number1
+                is DoubleOperandOperation.Log -> number1
+                is DoubleOperandOperation.In -> number1
                 null -> return
             }
 
@@ -76,42 +132,16 @@ class CalculatorViewModel : ViewModel() {
                 number2 = "",
                 operation = null
             )
+            Log.i(TAG, "This function was called.")
         }
-
-        // NOTE! Since All Single Calculator Operations are 'Scientific', this will not involve Standard Scientific Calculator Operations
-        // Calculating the result of our Scientific Operations for Calculations that have a single operand
-        if (number1 != null) {
-            val result = when(state.scientificOperations) {
-
-                /** IMPORTANT NOTE! Later, I will find the proper calculations for just the Factorial, Inv and Brackets for now before going to anything else. **/
-                is SingleOperandOperation.Square -> { number1 * number1 }
-//                is SingleOperandOperation.Factorial -> number1 + number2  // IMPORTANT! LATER, I WILL FIND HOW TO CALCULATE FACTORIAL
-//                is SingleOperandOperation.SquareRoot -> sqrt(number1.toDouble())
-//                is SingleOperandOperation.Inv -> number1 + number2
-//                is SingleOperandOperation.Brackets -> number1 + number2
-
-                // Operations for our ScientificCalculator
-                /** IMPORTANT NOTE: THIS FIRST 5 LINES ARE DUMMY LISTS OR TESTS. **/
-//                is SingleOperandOperation.Sin -> number1 + number2!!
-//                is SingleOperandOperation.Cos -> number1 + number2
-//                is SingleOperandOperation.Tan -> number1 + number2
-//                is SingleOperandOperation.Log -> number1 + number2
-//                is SingleOperandOperation.In -> number1 + number2
-               null -> return
-            }
-
-            state = state.copy(
-                number1 = result.toString().take(15),
-                number2 = "",
-                operation = null
-            )
-        }
-
     }
 
     private fun enterOperation(operation: DoubleOperandOperation) {
-        if (state.number1.isNotBlank()) {
+        if (state.number1.isNotBlank() && state.operation == null) {
             state = state.copy(operation = operation)
+
+            // TODO - When I come back, before I proceed with the modifying of these functions, I will Implement the 'Factorial' example to see how it works with the already-
+            // Todo - written Implementation.
         }
     }
 

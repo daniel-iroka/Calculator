@@ -10,6 +10,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
@@ -55,15 +57,35 @@ fun ScientificCalculator(
             verticalArrangement = Arrangement.spacedBy(buttonSpacing)
         ) {
 
+            // text for the result of our Calculations
+            // todo - Continue with the Implementation of this when I come back.
+            Text(
+                text = state.result,
+                textAlign = TextAlign.End,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 4.dp),
+
+                style = TextStyle(
+                    fontWeight = FontWeight.Bold,
+                    fontFamily = FontFamily.SansSerif,
+                    fontSize = 58.sp,
+                    color = Color.White,
+                ),
+                maxLines = 2
+            )
+
             Text(
                 text = state.number1 + (state.operation?.symbol ?: "") + state.number2,
                 textAlign = TextAlign.End,
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(vertical = 26.dp),
-                fontWeight = FontWeight.Bold,
-                fontSize = 50.sp,
-                color = Color.White,
+                style = TextStyle(
+                    fontWeight = FontWeight.Normal,
+                    fontSize = 46.sp,
+                    color = Color.White,
+                ),
                 maxLines = 2
             )
 
@@ -162,7 +184,7 @@ fun ScientificCalculator(
                         .height(30.dp),
 
                     onCLick = {
-                        onAction(CalculatorAction.SingleDigitOperation(SingleOperandOperation.Square))
+                        onAction(CalculatorAction.DoubleDigitOperation(DoubleOperandOperation.Squared))
                     }
                 )
                 ScientificCalculatorButton(
@@ -173,7 +195,7 @@ fun ScientificCalculator(
                         .height(30.dp),
 
                     onCLick = {
-                        onAction(CalculatorAction.SingleDigitOperation(SingleOperandOperation.SquareRoot))
+                        onAction(CalculatorAction.DoubleDigitOperation(DoubleOperandOperation.SquareRoot))
                     }
                 )
                 ScientificCalculatorButton(
@@ -212,7 +234,7 @@ fun ScientificCalculator(
                         .width(70.dp)
                         .height(60.dp)
                         .background(Orange)
-                        .aspectRatio(1f) // this makes whatever composable will call it on look Square.
+                        .aspectRatio(1f) // this makes whatever composable will call it on look Squared.
                         .weight(1f),
 
                     onCLick = {

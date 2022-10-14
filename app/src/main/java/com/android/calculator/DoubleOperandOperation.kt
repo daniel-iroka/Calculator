@@ -14,5 +14,18 @@ sealed class DoubleOperandOperation(val symbol : String) {
     object Modulo : DoubleOperandOperation("%")
 
     object SquareRoot : DoubleOperandOperation("√")
+    object Squared : DoubleOperandOperation("²")
+
+
+    /** TEST **/
+    object Factorial : DoubleOperandOperation("x!")
+    object Sin : DoubleOperandOperation("sin(")
+    object Cos : DoubleOperandOperation("cos(")
+    object Tan : DoubleOperandOperation("tan(")
+    object Log : DoubleOperandOperation("log(")
+    /**  LATER I FIND THE ACTUAL NAME FOR THIS OPERATION **/
+    object In : DoubleOperandOperation("In(")
+    object Inv : DoubleOperandOperation("1/x")
+    object Brackets : DoubleOperandOperation("()")
 
 }

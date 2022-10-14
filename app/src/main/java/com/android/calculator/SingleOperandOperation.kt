@@ -2,7 +2,8 @@ package com.android.calculator
 
 sealed class SingleOperandOperation(val symbol : String) {
     object Factorial : SingleOperandOperation("x!")
-    object Square : SingleOperandOperation("²")
+    object Squared : SingleOperandOperation("²")
+    object SquareRoot : SingleOperandOperation("√")
 
     // Scientific Calculation Action
     /** IMPORTANT NOTE! I MAY TEMPORARILY LEAVE THIS OBJECTS HERE BECAUSE I MIGHT HAVE TO REMOVE THEM LATER. I DUNNO **/

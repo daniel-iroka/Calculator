@@ -10,6 +10,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
@@ -64,17 +67,36 @@ fun Calculator(
             verticalArrangement = Arrangement.spacedBy(buttonSpacing)
         ) {
 
-            // TODO("WHEN I COME BACK NEXT TIME, I WILL PROCEED WITH THE ADDING OF AN EXTRA 'STATE' OR TEXT THAT WILL HOLD THE RESULT INSTEAD OF THE TWO STATES WE HAVE.")
+            // text for the result of our Calculation.
+            // todo - When I come back, I will continue with Implementing this two states.
+            Text(
+                text = state.result,
+                textAlign = TextAlign.End,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 6.dp),
+
+                style = TextStyle(
+                    fontWeight = FontWeight.Bold,
+                    fontFamily = FontFamily.SansSerif,
+                    fontSize = 58.sp,
+                    color = Color.White,
+                ),
+                maxLines = 2
+            )
 
             Text(
                 text = state.number1 + (state.operation?.symbol ?: "") + state.number2,
                 textAlign = TextAlign.End,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(vertical = 26.dp),
-                fontWeight = FontWeight.Bold,
-                fontSize = 50.sp,
-                color = Color.White,
+                    .padding(vertical = 22.dp),
+
+                style = TextStyle(
+                    fontWeight = FontWeight.Normal,
+                    fontSize = 45.sp,
+                    color = Color.White,
+                ),
                 maxLines = 2
             )
 
@@ -98,7 +120,7 @@ fun Calculator(
                         .width(80.dp)
                         .height(65.dp)
                         .background(Orange)
-                        .aspectRatio(1f) // this makes whatever composable will call it on look Square.
+                        .aspectRatio(1f) // this makes whatever composable will call it on look Squared.
                         .weight(1f),
 
                     onCLick = {

@@ -1,5 +1,6 @@
 package com.android.calculator
 
+import android.graphics.fonts.FontStyle
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -11,7 +12,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
@@ -58,7 +58,20 @@ fun ScientificCalculator(
         ) {
 
             // text for the result of our Calculations
-            // todo - Continue with the Implementation of this when I come back.
+            Text(
+                text = state.number1 + (state.operation?.symbol ?: "") + state.number2,
+                textAlign = TextAlign.End,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 8.dp),
+                style = TextStyle(
+                    fontWeight = FontWeight.SemiBold,
+                    fontSize = 58.sp,
+                    color = Color.White,
+                ),
+                maxLines = 2
+            )
+
             Text(
                 text = state.result,
                 textAlign = TextAlign.End,
@@ -67,26 +80,11 @@ fun ScientificCalculator(
                     .padding(vertical = 4.dp),
 
                 style = TextStyle(
-                    fontWeight = FontWeight.Bold,
-                    fontFamily = FontFamily.SansSerif,
-                    fontSize = 58.sp,
-                    color = Color.White,
-                ),
-                maxLines = 2
-            )
-
-            Text(
-                text = state.number1 + (state.operation?.symbol ?: "") + state.number2,
-                textAlign = TextAlign.End,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 26.dp),
-                style = TextStyle(
                     fontWeight = FontWeight.Normal,
-                    fontSize = 46.sp,
-                    color = Color.White,
+                    fontSize = 45.sp,
+                    color = Color.LightGray,
                 ),
-                maxLines = 2
+                maxLines = 1
             )
 
             // This is our Divider
@@ -110,7 +108,7 @@ fun ScientificCalculator(
                         .height(30.dp),
 
                     onCLick = {
-                        onAction(CalculatorAction.SingleDigitOperation(SingleOperandOperation.Sin))
+                        onAction(CalculatorAction.Operation(CalculatorOperation.Sin))
                     }
                 )
                 ScientificCalculatorButton(
@@ -121,7 +119,7 @@ fun ScientificCalculator(
                         .height(30.dp),
 
                     onCLick = {
-                        onAction(CalculatorAction.SingleDigitOperation(SingleOperandOperation.Cos))
+                        onAction(CalculatorAction.Operation(CalculatorOperation.Cos))
                     }
                 )
                 ScientificCalculatorButton(
@@ -132,7 +130,7 @@ fun ScientificCalculator(
                         .height(30.dp),
 
                     onCLick = {
-                        onAction(CalculatorAction.SingleDigitOperation(SingleOperandOperation.Tan))
+                        onAction(CalculatorAction.Operation(CalculatorOperation.Tan))
                     }
                 )
                 ScientificCalculatorButton(
@@ -143,7 +141,7 @@ fun ScientificCalculator(
                         .height(30.dp),
 
                     onCLick = {
-                        onAction(CalculatorAction.SingleDigitOperation(SingleOperandOperation.Log))
+                        onAction(CalculatorAction.Operation(CalculatorOperation.Log))
                     }
                 )
                 ScientificCalculatorButton(
@@ -154,7 +152,7 @@ fun ScientificCalculator(
                         .height(30.dp),
 
                     onCLick = {
-                        onAction(CalculatorAction.SingleDigitOperation(SingleOperandOperation.In))
+                        onAction(CalculatorAction.Operation(CalculatorOperation.In))
                     }
                 )
             }
@@ -173,7 +171,7 @@ fun ScientificCalculator(
                         .height(30.dp),
 
                     onCLick = {
-                        onAction(CalculatorAction.SingleDigitOperation(SingleOperandOperation.Factorial))
+                        onAction(CalculatorAction.Operation(CalculatorOperation.Factorial))
                     }
                 )
                 ScientificCalculatorButton(
@@ -184,7 +182,7 @@ fun ScientificCalculator(
                         .height(30.dp),
 
                     onCLick = {
-                        onAction(CalculatorAction.DoubleDigitOperation(DoubleOperandOperation.Squared))
+                        onAction(CalculatorAction.Operation(CalculatorOperation.Squared))
                     }
                 )
                 ScientificCalculatorButton(
@@ -195,7 +193,7 @@ fun ScientificCalculator(
                         .height(30.dp),
 
                     onCLick = {
-                        onAction(CalculatorAction.DoubleDigitOperation(DoubleOperandOperation.SquareRoot))
+                        onAction(CalculatorAction.Operation(CalculatorOperation.SquareRoot))
                     }
                 )
                 ScientificCalculatorButton(
@@ -206,7 +204,7 @@ fun ScientificCalculator(
                         .height(30.dp),
 
                     onCLick = {
-                        onAction(CalculatorAction.SingleDigitOperation(SingleOperandOperation.Inv))
+                        onAction(CalculatorAction.Operation(CalculatorOperation.Inv))
                     }
                 )
                 ScientificCalculatorButton(
@@ -217,7 +215,7 @@ fun ScientificCalculator(
                         .height(30.dp),
 
                     onCLick = {
-                        onAction(CalculatorAction.SingleDigitOperation(SingleOperandOperation.Brackets))
+                        onAction(CalculatorAction.Operation(CalculatorOperation.Brackets))
                     }
                 )
             }
@@ -238,7 +236,7 @@ fun ScientificCalculator(
                         .weight(1f),
 
                     onCLick = {
-                        onAction(CalculatorAction.DoubleDigitOperation(DoubleOperandOperation.Modulo))
+                        onAction(CalculatorAction.Operation(CalculatorOperation.Modulo))
                     }
                 )
                 CalculatorButton(
@@ -280,7 +278,7 @@ fun ScientificCalculator(
                         .weight(1f),
 
                     onCLick = {
-                        onAction(CalculatorAction.DoubleDigitOperation(DoubleOperandOperation.Divide))
+                        onAction(CalculatorAction.Operation(CalculatorOperation.Divide))
                     }
                 )
             }
@@ -344,7 +342,7 @@ fun ScientificCalculator(
                         .weight(1f),
 
                     onCLick = {
-                        onAction(CalculatorAction.DoubleDigitOperation(DoubleOperandOperation.Multiply))
+                        onAction(CalculatorAction.Operation(CalculatorOperation.Multiply))
                     }
                 )
             }
@@ -407,7 +405,7 @@ fun ScientificCalculator(
                         .weight(1f),
 
                     onCLick = {
-                        onAction(CalculatorAction.DoubleDigitOperation(DoubleOperandOperation.Subtract))
+                        onAction(CalculatorAction.Operation(CalculatorOperation.Subtract))
                     }
                 )
             }
@@ -470,7 +468,7 @@ fun ScientificCalculator(
                         .weight(1f),
 
                     onCLick = {
-                        onAction(CalculatorAction.DoubleDigitOperation(DoubleOperandOperation.Add))
+                        onAction(CalculatorAction.Operation(CalculatorOperation.Add))
                     }
                 )
             }

@@ -12,7 +12,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
@@ -28,7 +27,7 @@ import com.android.calculator.ui.theme.Orange
 
 // TODO! VERY IMPORTANT NOTE!! - I AM DOING A MAJOR 'EXPERIMENTAL REFACTOR' IN THIS PROJECT TO HANDLE SOME CALCULATOR OPERATIONS IN THE FOLLOWING FILES NAMELY :
 // TODO                          CalculatorViewModel, CalculatorAction ScientificCalculator, CalculatorState and CalculatorOperations. WHEN I'M DONE WITH THE EXPERIMENTATION, I MAY REFACTOR IT ALL-
-// TODO                          INSIDE JUST THE 'Calculator DoubleDigitOperation' if I see how the Scientific Operations can operate with two operands.
+// TODO                          INSIDE JUST THE 'Calculator Operation' if I see how the Scientific Operations can operate with two operands.
 
 @Composable
 fun Calculator(
@@ -68,17 +67,15 @@ fun Calculator(
         ) {
 
             // text for the result of our Calculation.
-            // todo - When I come back, I will continue with Implementing this two states.
             Text(
-                text = state.result,
+                text = state.number1 + (state.operation?.symbol ?: "") + state.number2,
                 textAlign = TextAlign.End,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(vertical = 6.dp),
+                    .padding(vertical = 8.dp),
 
                 style = TextStyle(
-                    fontWeight = FontWeight.Bold,
-                    fontFamily = FontFamily.SansSerif,
+                    fontWeight = FontWeight.SemiBold,
                     fontSize = 58.sp,
                     color = Color.White,
                 ),
@@ -86,19 +83,20 @@ fun Calculator(
             )
 
             Text(
-                text = state.number1 + (state.operation?.symbol ?: "") + state.number2,
+                text = state.result,
                 textAlign = TextAlign.End,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(vertical = 22.dp),
+                    .padding(vertical = 4.dp),
 
                 style = TextStyle(
                     fontWeight = FontWeight.Normal,
                     fontSize = 45.sp,
-                    color = Color.White,
+                    color = Color.LightGray,
                 ),
                 maxLines = 2
             )
+
 
             Divider(
                 color = LightGray,
@@ -107,7 +105,6 @@ fun Calculator(
                     .padding(vertical = 6.dp)
             )
 
-            /** IMPORTANT NOTE : I WILL ADD BACKGROUND(RoundedCornerShape) LATER WHEN I DECIDE IF I WANT TO CHANGE THE STYLE OF THE BUTTONS IN THE CALCULATOR. **/
 
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -124,7 +121,7 @@ fun Calculator(
                         .weight(1f),
 
                     onCLick = {
-                        onAction(CalculatorAction.DoubleDigitOperation(DoubleOperandOperation.Modulo))
+                        onAction(CalculatorAction.Operation(CalculatorOperation.Modulo))
                     }
                 )
                 CalculatorButton(
@@ -166,7 +163,7 @@ fun Calculator(
                         .weight(1f),
 
                     onCLick = {
-                        onAction(CalculatorAction.DoubleDigitOperation(DoubleOperandOperation.Divide))
+                        onAction(CalculatorAction.Operation(CalculatorOperation.Divide))
                     }
                 )
             }
@@ -230,7 +227,7 @@ fun Calculator(
                         .weight(1f),
 
                     onCLick = {
-                        onAction(CalculatorAction.DoubleDigitOperation(DoubleOperandOperation.Multiply))
+                        onAction(CalculatorAction.Operation(CalculatorOperation.Multiply))
                     }
                 )
             }
@@ -293,7 +290,7 @@ fun Calculator(
                         .weight(1f),
 
                     onCLick = {
-                        onAction(CalculatorAction.DoubleDigitOperation(DoubleOperandOperation.Subtract))
+                        onAction(CalculatorAction.Operation(CalculatorOperation.Subtract))
                     }
                 )
             }
@@ -356,7 +353,7 @@ fun Calculator(
                         .weight(1f),
 
                     onCLick = {
-                        onAction(CalculatorAction.DoubleDigitOperation(DoubleOperandOperation.Add))
+                        onAction(CalculatorAction.Operation(CalculatorOperation.Add))
                     }
                 )
             }

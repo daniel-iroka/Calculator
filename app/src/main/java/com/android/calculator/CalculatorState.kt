@@ -7,8 +7,7 @@ package com.android.calculator
 data class CalculatorState(
     val number1 : String = "",
     val number2 : String = "",
-    // Our Calculation DoubleDigitOperation is nullable because it can be in a state where the USER inputs no operation.
+    // Our Calculation Operation is nullable because it can be in a state where the USER inputs no CalculatorOperation.
     val result : String = "",
-    val operation : DoubleOperandOperation? = null,
-    val scientificOperations : SingleOperandOperation? = null
+    val operation : CalculatorOperation? = null
 )

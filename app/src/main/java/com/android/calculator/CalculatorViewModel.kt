@@ -5,7 +5,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
-import kotlin.math.sqrt
+import kotlin.math.*
 
 /** This is our ViewModel and in Jetpack compose, it is responsible for handling the User actions and click events as well as state in compose.
  *  It will also be responsible for handling UI rotation. **/
@@ -65,9 +65,6 @@ class CalculatorViewModel : ViewModel() {
 
                 /** Operations for our ScientificCalculator **/
 
-                // TODO - WHEN I COME BACK, I WILL CONTINUE WITH THE IMPLEMENTING OF OTHER SCIENTIFIC OPERATIONS, IF POSSIBLE ALL OF THEM AT ONCE AND THEN PROCEED WITH OTHER
-                // TODO   IMPLEMENTATIONS.
-
                 // For Calculation Operations
                 is CalculatorOperation.SquareRoot -> {
                     val res = sqrt(number2.toDouble())
@@ -84,14 +81,14 @@ class CalculatorViewModel : ViewModel() {
                     res * number2
                 }
 
-                is CalculatorOperation.Inv -> number1
-                is CalculatorOperation.Brackets -> number1
-                is CalculatorOperation.Sin -> number1
-                is CalculatorOperation.Cos -> number1
-                is CalculatorOperation.Tan -> number1
-                is CalculatorOperation.Log -> number1
-                is CalculatorOperation.In -> number1
-
+                /** IMPORTANT NOTE! I WILL LEAVE THIS IN NULL FOR NOW **/
+                is CalculatorOperation.Inv -> null
+                is CalculatorOperation.Brackets -> null
+                is CalculatorOperation.Sin -> null
+                is CalculatorOperation.Cos -> null
+                is CalculatorOperation.Tan -> null
+                is CalculatorOperation.Log -> null
+                is CalculatorOperation.In -> null
                 null -> return
             }
 
@@ -106,28 +103,25 @@ class CalculatorViewModel : ViewModel() {
         // Calculating the result of our Scientific Operations for Calculations that have a single operand
         if (number1 != null && state.operation != null &&  number2 == null) {
             val result = when(state.operation) {
-                is CalculatorOperation.Squared -> { number1 * number1 }
-                is CalculatorOperation.SquareRoot -> sqrt(number1.toDouble())
-                is CalculatorOperation.Factorial -> { factorial(number1.toInt()) }
-
-
                 is CalculatorOperation.Add -> null
                 is CalculatorOperation.Subtract-> null
                 is CalculatorOperation.Multiply -> null
                 is CalculatorOperation.Divide -> null
                 is CalculatorOperation.Modulo -> null
 
-                /** IMPORTANT NOTE! Later, I will find the proper calculations for just the Factorial, Inv and Brackets for now before going to anything else. **/
+                // TODO - WHEN I COME BACK, I THINK I AM GOING TO HAVE TO REVAMP THE ENTIRE LOGIC OF THIS PROJECT USING TUTORIALS AND PROJECTS
 
-                is CalculatorOperation.Inv -> number1
-                is CalculatorOperation.Brackets -> number1
-                // Operations for our ScientificCalculator
-                /** IMPORTANT NOTE: THIS FIRST 5 LINES ARE DUMMY LISTS OR TESTS. **/
-                is CalculatorOperation.Sin -> number1
-                is CalculatorOperation.Cos-> number1
-                is CalculatorOperation.Tan -> number1
-                is CalculatorOperation.Log -> number1
-                is CalculatorOperation.In -> number1
+                // Our Scientific Calculator Operations.
+                is CalculatorOperation.Squared -> { number1 * number1 }
+                is CalculatorOperation.SquareRoot -> sqrt(number1.toDouble())
+                is CalculatorOperation.Factorial -> { factorial(number1.toInt()) }
+                is CalculatorOperation.Sin -> { sin(Math.toRadians(number1)) }
+                is CalculatorOperation.Cos-> { cos(Math.toRadians(number1)) }
+                is CalculatorOperation.Tan -> { tan(Math.toRadians(number1)) }
+                is CalculatorOperation.Log -> { log10(Math.toRadians(number1)) }
+                is CalculatorOperation.In -> { ln(Math.toRadians(number1)) }
+                is CalculatorOperation.Inv -> null
+                is CalculatorOperation.Brackets -> null
                 null -> return
             }
 
@@ -139,7 +133,7 @@ class CalculatorViewModel : ViewModel() {
     }
 
     private fun enterOperation(operation: CalculatorOperation) {
-        if (state.number1.isNotBlank() && state.operation == null) {
+        if (state.number1.isNotBlank()) {
             state = state.copy(operation = operation)
 
         }
@@ -155,6 +149,7 @@ class CalculatorViewModel : ViewModel() {
         if (state.operation == null && !state.number1.contains(".")
             && state.number1.isNotBlank()
         ) {
+            // TODO - WHEN I COME BACK, I MAY HAVE TO USE A SINGLE STATE FOR OUR RESULT.
             state = state.copy(
                 number1 = state.number1 + "."
             )
@@ -194,7 +189,6 @@ class CalculatorViewModel : ViewModel() {
             num * factorial(num - 1)
          else
             1
-
     }
 
     companion object {

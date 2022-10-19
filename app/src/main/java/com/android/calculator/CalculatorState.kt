@@ -10,4 +10,6 @@ data class CalculatorState(
     // Our Calculation Operation is nullable because it can be in a state where the USER inputs no CalculatorOperation.
     val result : String = "",
     val operation : CalculatorOperation? = null
+
+    // TODO - I MAY HAVE TO USE A 'SINGLE' STATE WHEN I COME BACK TO BE ABLE TO CARRY OUT PROPER SCIENTIFIC CALCULATIONS.
 )

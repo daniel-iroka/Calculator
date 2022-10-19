@@ -23,7 +23,7 @@ sealed class CalculatorOperation(val symbol : String) {
     object Log : CalculatorOperation("log(")
     /**  LATER I FIND THE ACTUAL NAME FOR THIS OPERATION **/
     object In : CalculatorOperation("In(")
-    object Inv : CalculatorOperation("1/x")
+    object Inv : CalculatorOperation("3.14159265")
     object Brackets : CalculatorOperation("()")
 
 }

@@ -5,11 +5,8 @@ package com.android.calculator
 
 // This is kind of like our Model class I guess but in compose we call it state
 data class CalculatorState(
-    val number1 : String = "",
-    val number2 : String = "",
-    // Our Calculation Operation is nullable because it can be in a state where the USER inputs no CalculatorOperation.
-    val result : String = "",
+    val primaryTextState : String = "",
+    val secondaryTextState : String = "",
+    // We put null because it can be in a state where the USER inputs no CalculatorOperation.
     val operation : CalculatorOperation? = null
-
-    // TODO - I MAY HAVE TO USE A 'SINGLE' STATE WHEN I COME BACK TO BE ABLE TO CARRY OUT PROPER SCIENTIFIC CALCULATIONS.
 )

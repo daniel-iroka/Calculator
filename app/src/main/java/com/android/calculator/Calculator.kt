@@ -10,8 +10,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
@@ -40,6 +40,7 @@ fun Calculator(
 
     // this will make whatever layout component we modify it scrollable based on the scrollState
     val scrollState = rememberScrollState()
+    val context = LocalContext.current
 
     Box(
         modifier = modifier
@@ -68,7 +69,7 @@ fun Calculator(
 
             // text for the result of our Calculation.
             Text(
-                text = state.number1 + (state.operation?.symbol ?: "") + state.number2,
+                text = state.primaryTextState + (state.operation?.symbol ?: ""),
                 textAlign = TextAlign.End,
                 modifier = Modifier
                     .fillMaxWidth()
@@ -83,7 +84,7 @@ fun Calculator(
             )
 
             Text(
-                text = state.result,
+                text = state.secondaryTextState,
                 textAlign = TextAlign.End,
                 modifier = Modifier
                     .fillMaxWidth()

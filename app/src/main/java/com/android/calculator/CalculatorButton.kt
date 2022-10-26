@@ -11,6 +11,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight.Companion.Bold
+import androidx.compose.ui.text.font.FontWeight.Companion.Normal
 import androidx.compose.ui.unit.sp
 import com.android.calculator.ui.theme.Shapes
 
@@ -31,10 +32,10 @@ fun CalculatorButton(
     ) {
         Text(
             text = symbol,
-            fontSize = 24.sp,
+            fontSize = 26.sp,
             color = color,
             style = TextStyle(
-                fontWeight = Bold
+                fontWeight = Normal
             )
         )
     }

@@ -1,9 +1,11 @@
-package com.android.calculator
+package com.android.calculator.model
+
+import com.android.calculator.CalculatorOperation
 
 /**   This is our CalculatorState. In JetPack compose, a state is basically any value that changes overtime. The "state" in this sense is the USER input values-
  *    to be calculated, basically the two values that are to be calculated on screen.  **/
 
-// This is kind of like our Model class I guess but in compose we call it state
+
 data class CalculatorState(
     val primaryTextState : String = "",
     val secondaryTextState : String = "",

@@ -8,9 +8,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
-import com.android.calculator.CalculatorViewModel
 import com.android.calculator.ScientificCalculator
 import com.android.calculator.ui.theme.MediumGray
+import com.android.calculator.viewmodel.CalculatorViewModel
 
 /** This is our SecondScreen that holds our Scientific Calculator and it will be the Second. **/
 

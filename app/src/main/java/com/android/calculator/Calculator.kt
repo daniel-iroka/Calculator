@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import com.android.calculator.model.CalculatorState
 import com.android.calculator.ui.theme.LightGray
 import com.android.calculator.ui.theme.Orange
 
@@ -54,7 +55,7 @@ fun Calculator(
             horizontalAlignment = Alignment.End
         ) {
             OverFlowMenu(
-                color = LightGray,
+                color = Color.LightGray,
                 navController
             )
         }
@@ -69,7 +70,7 @@ fun Calculator(
 
             // text for the result of our Calculation.
             Text(
-                text = state.primaryTextState + (state.operation?.symbol ?: ""),
+                text = state.primaryTextState,
                 textAlign = TextAlign.End,
                 modifier = Modifier
                     .fillMaxWidth()

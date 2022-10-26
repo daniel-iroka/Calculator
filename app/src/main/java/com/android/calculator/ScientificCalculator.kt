@@ -1,6 +1,5 @@
 package com.android.calculator
 
-import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -8,7 +7,6 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Divider
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.currentCompositionLocalContext
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -19,10 +17,9 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import com.android.calculator.model.CalculatorState
 import com.android.calculator.ui.theme.LightGray
 import com.android.calculator.ui.theme.Orange
-import kotlin.coroutines.coroutineContext
-import kotlin.math.sqrt
 
 @Composable
 fun ScientificCalculator(
@@ -35,8 +32,6 @@ fun ScientificCalculator(
 
     val scrollState = rememberScrollState()
     /** NOTE! This is an experimental state. **/
-    var state2 = CalculatorState()
-    val context =
 
     Box(
         modifier = modifier
@@ -50,7 +45,7 @@ fun ScientificCalculator(
             horizontalAlignment = Alignment.End
         ) {
             OverFlowMenu(
-                color = LightGray,
+                color = Color.LightGray,
                 navController = navController
             )
         }
@@ -65,7 +60,7 @@ fun ScientificCalculator(
 
             // text for the result of our Calculations
             Text(
-                text = state.primaryTextState + (state.operation?.symbol ?: ""),
+                text = state.primaryTextState,
                 textAlign = TextAlign.End,
                 modifier = Modifier
                     .fillMaxWidth()
@@ -221,7 +216,7 @@ fun ScientificCalculator(
                         .height(30.dp),
 
                     onCLick = {
-                        onAction(CalculatorAction.Brackets)
+                        onAction(CalculatorAction.Brackets("( )"))
                     }
                 )
             }

@@ -1,14 +1,18 @@
-package com.android.calculator
+package com.android.calculator.viewmodel
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import com.android.calculator.CalculatorAction
+import com.android.calculator.CalculatorOperation
+import com.android.calculator.model.CalculatorState
 import kotlin.math.*
 
 /** This is our ViewModel and in Jetpack compose, it is responsible for handling the User actions and click events as well as state in compose.
  *  It will also be responsible for handling UI rotation. **/
 
+private const val TAG = "CalculatorViewModel"
 
 class CalculatorViewModel : ViewModel() {
 
@@ -30,6 +34,7 @@ class CalculatorViewModel : ViewModel() {
             is CalculatorAction.Brackets -> enterBrackets()
         }
     }
+
 
     // We are Basically making the click events possible by modifying the 'state'
 
@@ -57,7 +62,7 @@ class CalculatorViewModel : ViewModel() {
     }
 
     private fun enterOperation(operation: CalculatorOperation) {
-        when(state.operation) {
+        when(operation) {
             is CalculatorOperation.Add -> add(operation)
             is CalculatorOperation.Subtract -> subtract(operation)
             is CalculatorOperation.Multiply -> multiply(operation)
@@ -72,20 +77,24 @@ class CalculatorViewModel : ViewModel() {
             is CalculatorOperation.Log -> log(operation)
             is CalculatorOperation.In -> ln(operation)
             is CalculatorOperation.Inv -> inv(operation)
-            null -> return
+            else -> {}
         }
+
+        state = state.copy(
+            primaryTextState = state.primaryTextState + (state.operation?.symbol ?: "")
+        )
     }
 
     private fun subtract(operation: CalculatorOperation) {
-        val str = state.primaryTextState
-        if (!str.get(index = str.length - 1).equals("-")) {
+        val tvState = state.primaryTextState
+        if (!tvState.get(index = tvState.length - 1).equals("-")) {
             state = state.copy(operation = operation)
         }
     }
 
     private fun multiply(operation: CalculatorOperation) {
         val tvState = state.primaryTextState
-        if (tvState.get(index = tvState.length - 1).equals("×")) {
+        if (!tvState.get(index = tvState.length - 1).equals("×")) {
             state = state.copy(operation = operation)
         }
     }
@@ -98,8 +107,9 @@ class CalculatorViewModel : ViewModel() {
             val result = sqrt(state.primaryTextState.toDouble())
             val calculatedResult = result.toString()
             state = state.copy(
-                primaryTextState = calculatedResult
+                secondaryTextState = calculatedResult
             )
+            state = state.copy(operation = operation)
         }
     }
 
@@ -116,6 +126,8 @@ class CalculatorViewModel : ViewModel() {
             state = state.copy(
                 secondaryTextState = squaredResult.toString()
             )
+
+            state = state.copy(operation = operation)
         }
     }
 
@@ -125,17 +137,20 @@ class CalculatorViewModel : ViewModel() {
         } else {
             val value = factorial(state.primaryTextState.toInt())
             state = state.copy(
-                primaryTextState = value.toString()
-            )
-
-            state = state.copy(
                 secondaryTextState = value.toString()
             )
+
+            state = state.copy(operation = operation)
         }
     }
 
     private fun add(operation: CalculatorOperation) {
         state = state.copy(operation = operation)
+
+        // TODO - WHEN I COME BACK TOMORROW, I WILL SEE IF I CAN IMPROVE THIS THING WHICH IS SEE IF IT CAN IMMEDIATELY GET CALCULATED AS WE ENTER THE VALUES.
+
+        val result = evaluate(state.primaryTextState)
+        state = state.copy(secondaryTextState = result.toString())
     }
 
     private fun divide(operation: CalculatorOperation) {
@@ -198,7 +213,6 @@ class CalculatorViewModel : ViewModel() {
     }
 
     private fun enterNumber(number: Int) {
-        /** NOTE! I removed the 'if' check that checks if the state.operation is null before entering a number. **/
         if (state.primaryTextState.length >= MAX_NUM_LENGTH) {
             return
         }
@@ -214,6 +228,7 @@ class CalculatorViewModel : ViewModel() {
          else
             1
     }
+
 
     // this is the function to perform our Calculation
     private fun evaluate(value : String): Double {
@@ -245,118 +260,68 @@ class CalculatorViewModel : ViewModel() {
             fun parseExpression(): Double {
                 var x = parseTerm()
                 while (true) {
-                    if (eat('+'.toInt()))x +=parseTerm()
-                    else if (eat('-'))
-                        // TODO - WHEN I COME BACK, I WILL CONTINUE THIS.
+                    if (eat('+'.code))x += parseTerm()
+                    else if (eat('-'.code))x -= parseTerm()
+                    else return x
                 }
             }
 
             fun parseTerm(): Double {
-                var x =
+                var x = parseFactor()
+                while (true) {
+                    if(eat('*'.toInt()))x *= parseFactor()
+                    else if(eat('/'.toInt()))x/= parseFactor()
+                    else return x
+                }
             }
-        }
+
+            fun parseFactor(): Double {
+                if (eat('+'.toInt()))return parseFactor()
+                if (eat('-'.toInt()))return parseFactor()
+
+                var x: Double
+                val startPos = pos
+
+                if (eat('('.toInt())) {
+                    x = parseExpression()
+                    eat(')'.toInt())
+                } else if(ch>= '0'.toInt() && ch<= '9'.toInt() || ch=='.'.toInt()) {
+
+                    while (ch>='0'.toInt() && ch<= '9'.toInt() || ch=='.'.toInt())nextChar()
+                    x = value.substring(startPos, pos).toDouble()
+
+                } else if (ch>= 'a'.toInt() && ch<='z'.toInt()) {
+                    while (ch>= 'a'.toInt() && ch<='z'.toInt())nextChar()
+                    val func = value.substring(startPos, pos)
+                    x = parseFactor()
+                    if (func == "sqrt") {
+                        x = sqrt(x)
+                    }
+                    else if (func == "sin") {
+                        x = sin(Math.toRadians(x))
+                    }
+                    else if (func == "cos") {
+                        x = cos(Math.toRadians(x))
+                    }
+                    else if (func == "tan") {
+                        x = tan(Math.toRadians(x))
+                    }
+                    else if (func == "log") {
+                        x = log10(x)
+                    }
+                    else if (func == "ln") {
+                        x = ln(x)
+                    }
+                } else {
+                    throw RuntimeException("Unexpected : " + ch.toChar())
+                }
+                if (eat('^'.toInt()))x = x.pow(parseFactor())
+                return x
+            }
+        }.parse()
     }
 
     companion object {
         private const val MAX_NUM_LENGTH = 8
     }
 }
-
-
-
-
-
-
-
-////////////////////////////////////// THIS ARE ALL THE CODES I WILL PUT BELOW DURING THIS REFACTOR /////////////////////////////////
-// For our second state(Decimal function)
-//if (!state.number2.contains(".") && state.number2.isNotBlank()
-//) {
-//    state = state.copy(
-//        number2 = state.number2 + "."
-//    )
-//}
-
-
-//(enterNumber function)
-//if (state.number2.length >= MAX_NUM_LENGTH) {
-//    return
-//}
-//state = state.copy(
-//number2 = state.number2 + number
-//)
-
-
-//state.number2.isNotBlank() -> state = state.copy(
-//// will drop the last digit of the value entered
-//number2 = state.number2.dropLast(1)
-//)
-
-//
-//// Calculating the result of our standard and Scientific Calculator operations that have two operands
-//if (number1 != null && number2 != null){
-//    val result = when(state.operation) {
-//        is CalculatorOperation.Add -> number1 + number2
-//        is CalculatorOperation.Subtract -> number1 - number2
-//        is CalculatorOperation.Multiply -> number1 * number2
-//        is CalculatorOperation.Divide -> number1 / number2
-//        is CalculatorOperation.Modulo -> number1 % number2
-//
-//        /** Operations for our ScientificCalculator **/
-//
-//        // For Calculation Operations
-//        is CalculatorOperation.SquareRoot -> {
-//            val res = sqrt(number2.toDouble())
-//            number1 * res
-//
-//        }
-//        is CalculatorOperation.Squared -> {
-//            val res = number1 * number1
-//            res * number2
-//        }
-//
-//        is CalculatorOperation.Factorial -> {
-//            val res = factorial(number1.toInt())
-//            res * number2
-//        }
-//
-//        /** IMPORTANT NOTE! I WILL LEAVE THIS IN NULL FOR NOW **/
-//        is CalculatorOperation.Inv -> null
-//        is CalculatorOperation.Brackets -> null
-//        is CalculatorOperation.Sin -> null
-//        is CalculatorOperation.Cos -> null
-//        is CalculatorOperation.Tan -> null
-//        is CalculatorOperation.Log -> null
-//        is CalculatorOperation.In -> null
-//        null -> return
-//    }
-
-
-
-//// NOTE! Since All Single Calculator Operations are 'Scientific', this will not involve Standard Scientific Calculator Operations
-//// Calculating the result of our Scientific Operations for Calculations that have a single operand
-//if (number1 != null && state.operation != null &&  number2 == null) {
-//    val result = when(state.operation) {
-//        is CalculatorOperation.Add -> null
-//        is CalculatorOperation.Subtract-> null
-//        is CalculatorOperation.Multiply -> null
-//        is CalculatorOperation.Divide -> null
-//        is CalculatorOperation.Modulo -> null
-//
-//        // TODO - WHEN I COME BACK, I THINK I AM GOING TO HAVE TO REVAMP THE ENTIRE LOGIC OF THIS PROJECT USING TUTORIALS AND PROJECTS
-//
-//        // Our Scientific Calculator Operations.
-//        is CalculatorOperation.Squared -> { number1 * number1 }
-//        is CalculatorOperation.SquareRoot -> sqrt(number1.toDouble())
-//        is CalculatorOperation.Factorial -> { factorial(number1.toInt()) }
-//        is CalculatorOperation.Sin -> { sin(Math.toRadians(number1)) }
-//        is CalculatorOperation.Cos-> { cos(Math.toRadians(number1)) }
-//        is CalculatorOperation.Tan -> { tan(Math.toRadians(number1)) }
-//        is CalculatorOperation.Log -> { log10(Math.toRadians(number1)) }
-//        is CalculatorOperation.In -> { ln(Math.toRadians(number1)) }
-//        is CalculatorOperation.Inv -> null
-//        is CalculatorOperation.Brackets -> null
-//        null -> return
-//    }
-
-//

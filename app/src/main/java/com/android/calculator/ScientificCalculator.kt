@@ -208,11 +208,25 @@ fun ScientificCalculator(
                         onAction(CalculatorAction.Operation(CalculatorOperation.Inv))
                     }
                 )
+                // todo - WHEN I COME BACK NEXT TIME, I WILL CONTINUE THE IMPLEMENTATION OF THIS BRACKETS
+                // TODO - WHEN I COME BACK, I WILL ALSO TEST WHAT I HAVE WROTE
                 ScientificCalculatorButton(
-                    symbol = "( )",
+                    symbol = "(",
                     color = Orange,
                     modifier = Modifier
-                        .width(50.dp)
+                        .width(25.dp)
+                        .height(30.dp),
+
+                    onCLick = {
+                        onAction(CalculatorAction.Brackets("("))
+                    }
+                )
+
+                ScientificCalculatorButton(
+                    symbol = ")",
+                    color = Orange,
+                    modifier = Modifier
+                        .width(25.dp)
                         .height(30.dp),
 
                     onCLick = {

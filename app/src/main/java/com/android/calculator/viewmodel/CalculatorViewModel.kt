@@ -12,7 +12,6 @@ import kotlin.math.*
 /** This is our ViewModel and in Jetpack compose, it is responsible for handling the User actions and click events as well as state in compose.
  *  It will also be responsible for handling UI rotation. **/
 
-private const val TAG = "CalculatorViewModel"
 
 class CalculatorViewModel : ViewModel() {
 
@@ -237,11 +236,11 @@ class CalculatorViewModel : ViewModel() {
             var ch = 0
 
             fun nextChar() {
-                ch = if (++pos <value.length)value[pos].toInt()else -1
+                ch = if (++pos <value.length) value[pos].code else -1
             }
 
             fun eat(charToEdt: Int): Boolean {
-                while (ch== ' '.toInt())nextChar()
+                while (ch== ' '.code)nextChar()
 
                 if (ch==charToEdt){
                     nextChar()
@@ -269,29 +268,29 @@ class CalculatorViewModel : ViewModel() {
             fun parseTerm(): Double {
                 var x = parseFactor()
                 while (true) {
-                    if(eat('*'.toInt()))x *= parseFactor()
-                    else if(eat('/'.toInt()))x/= parseFactor()
+                    if(eat('*'.code))x *= parseFactor()
+                    else if(eat('/'.code))x/= parseFactor()
                     else return x
                 }
             }
 
             fun parseFactor(): Double {
-                if (eat('+'.toInt()))return parseFactor()
-                if (eat('-'.toInt()))return parseFactor()
+                if (eat('+'.code))return parseFactor()
+                if (eat('-'.code))return parseFactor()
 
                 var x: Double
                 val startPos = pos
 
-                if (eat('('.toInt())) {
+                if (eat('('.code)) {
                     x = parseExpression()
-                    eat(')'.toInt())
-                } else if(ch>= '0'.toInt() && ch<= '9'.toInt() || ch=='.'.toInt()) {
+                    eat(')'.code)
+                } else if(ch>= '0'.code && ch<= '9'.code || ch== '.'.code) {
 
-                    while (ch>='0'.toInt() && ch<= '9'.toInt() || ch=='.'.toInt())nextChar()
+                    while (ch>= '0'.code && ch<= '9'.code || ch== '.'.code)nextChar()
                     x = value.substring(startPos, pos).toDouble()
 
-                } else if (ch>= 'a'.toInt() && ch<='z'.toInt()) {
-                    while (ch>= 'a'.toInt() && ch<='z'.toInt())nextChar()
+                } else if (ch>= 'a'.code && ch<= 'z'.code) {
+                    while (ch>= 'a'.code && ch<= 'z'.code)nextChar()
                     val func = value.substring(startPos, pos)
                     x = parseFactor()
                     if (func == "sqrt") {
@@ -315,7 +314,7 @@ class CalculatorViewModel : ViewModel() {
                 } else {
                     throw RuntimeException("Unexpected : " + ch.toChar())
                 }
-                if (eat('^'.toInt()))x = x.pow(parseFactor())
+                if (eat('^'.code))x = x.pow(parseFactor())
                 return x
             }
         }.parse()

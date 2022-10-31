@@ -162,11 +162,12 @@ fun ScientificCalculator(
             // Second Scientific Symbols row..
             Row(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween
+                horizontalArrangement = Arrangement.SpaceBetween,
             ) {
                 ScientificCalculatorButton(
                     symbol = "x!",
                     color = Orange,
+                    fontSize = 18.sp,
                     modifier = Modifier
                         .width(50.dp)
                         .height(30.dp),
@@ -178,6 +179,7 @@ fun ScientificCalculator(
                 ScientificCalculatorButton(
                     symbol = "x²",
                     color = Orange,
+                    fontSize = 18.sp,
                     modifier = Modifier
                         .width(50.dp)
                         .height(30.dp),
@@ -189,6 +191,7 @@ fun ScientificCalculator(
                 ScientificCalculatorButton(
                     symbol = "√",
                     color = Orange,
+                    fontSize = 18.sp,
                     modifier = Modifier
                         .width(50.dp)
                         .height(30.dp),
@@ -200,6 +203,7 @@ fun ScientificCalculator(
                 ScientificCalculatorButton(
                     symbol = "1/x",
                     color = Orange,
+                    fontSize = 18.sp,
                     modifier = Modifier
                         .width(50.dp)
                         .height(30.dp),
@@ -208,33 +212,31 @@ fun ScientificCalculator(
                         onAction(CalculatorAction.Operation(CalculatorOperation.Inv))
                     }
                 )
-                // todo - WHEN I COME BACK NEXT TIME, I WILL CONTINUE THE IMPLEMENTATION OF THIS BRACKETS
-                // TODO - WHEN I COME BACK, I WILL ALSO TEST WHAT I HAVE WROTE
                 ScientificCalculatorButton(
                     symbol = "(",
                     color = Orange,
+                    fontSize = 18.sp,
                     modifier = Modifier
                         .width(25.dp)
                         .height(30.dp),
 
                     onCLick = {
-                        onAction(CalculatorAction.Brackets("("))
+                        onAction(CalculatorAction.Operation(CalculatorOperation.Bracket1))
                     }
                 )
-
                 ScientificCalculatorButton(
                     symbol = ")",
                     color = Orange,
+                    fontSize = 18.sp,
                     modifier = Modifier
                         .width(25.dp)
                         .height(30.dp),
 
                     onCLick = {
-                        onAction(CalculatorAction.Brackets("( )"))
+                        onAction(CalculatorAction.Operation(CalculatorOperation.Bracket2))
                     }
                 )
             }
-
 
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -255,20 +257,6 @@ fun ScientificCalculator(
                     }
                 )
                 CalculatorButton(
-                    symbol = "AC",
-                    color = Color.White,
-                    modifier = Modifier
-                        .width(70.dp)
-                        .height(60.dp)
-                        .background(Orange)
-                        .aspectRatio(1f)
-                        .weight(1f),
-
-                    onCLick = {
-                        onAction(CalculatorAction.Clear)
-                    }
-                )
-                CalculatorButton(
                     symbol = "Del",
                     color = Color.White,
                     modifier = Modifier
@@ -280,6 +268,20 @@ fun ScientificCalculator(
 
                     onCLick = {
                         onAction(CalculatorAction.Delete)
+                    }
+                )
+                CalculatorButton(
+                    symbol = "AC",
+                    color = Color.White,
+                    modifier = Modifier
+                        .width(70.dp)
+                        .height(60.dp)
+                        .background(Orange)
+                        .aspectRatio(1f)
+                        .weight(1f),
+
+                    onCLick = {
+                        onAction(CalculatorAction.Clear)
                     }
                 )
                 CalculatorButton(

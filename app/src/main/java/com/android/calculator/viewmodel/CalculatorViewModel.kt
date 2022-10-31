@@ -30,22 +30,29 @@ class CalculatorViewModel : ViewModel() {
             is CalculatorAction.Operation -> enterOperation(action.operation)
             is CalculatorAction.Calculate -> performCalculation()
             is CalculatorAction.Delete -> performDeletion()
-            is CalculatorAction.Brackets -> enterBrackets()
         }
     }
-
 
     // We are Basically making the click events possible by modifying the 'state'
 
     private fun performCalculation() {
         val primaryState = state.primaryTextState
-        val value = evaluate(primaryState)
-        val fValue = value.toString()
-        state = state.copy(
-            primaryTextState = fValue
-        )
+        val secondaryState = state.secondaryTextState
 
-        state = state.copy(secondaryTextState = "")
+        if (secondaryState.isNotEmpty()) {
+            state = state.copy(
+                primaryTextState = secondaryState
+            )
+            state = state.copy(secondaryTextState = "")
+        } else {
+            val value = evaluate(primaryState)
+            val fValue = value.toString()
+
+            state = state.copy(
+                primaryTextState = fValue
+            )
+            state = state.copy(secondaryTextState = "")
+        }
     }
 
     private fun performDeletion() {
@@ -76,6 +83,8 @@ class CalculatorViewModel : ViewModel() {
             is CalculatorOperation.Log -> log(operation)
             is CalculatorOperation.In -> ln(operation)
             is CalculatorOperation.Inv -> inv(operation)
+            is CalculatorOperation.Bracket1 -> enterBracket1(operation)
+            is CalculatorOperation.Bracket2 -> enterBracket2(operation)
             else -> {}
         }
 
@@ -119,13 +128,8 @@ class CalculatorViewModel : ViewModel() {
             val result = state.primaryTextState.toDouble()
             val squaredResult = result * result
             state = state.copy(
-                primaryTextState = squaredResult.toString()
-            )
-
-            state = state.copy(
                 secondaryTextState = squaredResult.toString()
             )
-
             state = state.copy(operation = operation)
         }
     }
@@ -145,11 +149,6 @@ class CalculatorViewModel : ViewModel() {
 
     private fun add(operation: CalculatorOperation) {
         state = state.copy(operation = operation)
-
-        // TODO - WHEN I COME BACK TOMORROW, I WILL SEE IF I CAN IMPROVE THIS THING WHICH IS SEE IF IT CAN IMMEDIATELY GET CALCULATED AS WE ENTER THE VALUES.
-
-        val result = evaluate(state.primaryTextState)
-        state = state.copy(secondaryTextState = result.toString())
     }
 
     private fun divide(operation: CalculatorOperation) {
@@ -161,6 +160,16 @@ class CalculatorViewModel : ViewModel() {
     }
 
     private fun sin(operation: CalculatorOperation) {
+        if (state.primaryTextState.isEmpty()) {
+            return
+        } else {
+            val value = sin(Math.toRadians(state.primaryTextState.toDouble()))
+            state = state.copy(
+                secondaryTextState = value.toString()
+            )
+
+            state = state.copy(operation = operation)
+        }
         state = state.copy(operation = operation)
     }
 
@@ -184,7 +193,6 @@ class CalculatorViewModel : ViewModel() {
         state = state.copy(operation = operation)
     }
 
-
     private fun enterDecimal() {
         // A reminder that this will only execute when == true
         if (state.operation == null && !state.primaryTextState.contains(".")
@@ -197,18 +205,12 @@ class CalculatorViewModel : ViewModel() {
         }
     }
 
-    private fun enterBrackets() {
-        val tvState = state.primaryTextState
-        // TODO NOTE! LATER I WILL WORK ON THIS BRACKET
-        state = if (!tvState.contains("(") || tvState.contains(")")) {
-            state.copy(
-                primaryTextState = state.primaryTextState + "("
-            )
-        } else {
-            state.copy(
-                primaryTextState = state.primaryTextState + ")"
-            )
-        }
+    private fun enterBracket1(operation: CalculatorOperation) {
+        state = state.copy(operation = operation)
+    }
+
+    private fun enterBracket2(operation: CalculatorOperation) {
+        state = state.copy(operation = operation)
     }
 
     private fun enterNumber(number: Int) {
@@ -227,7 +229,6 @@ class CalculatorViewModel : ViewModel() {
          else
             1
     }
-
 
     // this is the function to perform our Calculation
     private fun evaluate(value : String): Double {
@@ -268,7 +269,7 @@ class CalculatorViewModel : ViewModel() {
             fun parseTerm(): Double {
                 var x = parseFactor()
                 while (true) {
-                    if(eat('*'.code))x *= parseFactor()
+                    if(eat('×'.code))x *= parseFactor()
                     else if(eat('/'.code))x/= parseFactor()
                     else return x
                 }
@@ -293,26 +294,28 @@ class CalculatorViewModel : ViewModel() {
                     while (ch>= 'a'.code && ch<= 'z'.code)nextChar()
                     val func = value.substring(startPos, pos)
                     x = parseFactor()
-                    if (func == "sqrt") {
-                        x = sqrt(x)
-                    }
-                    else if (func == "sin") {
-                        x = sin(Math.toRadians(x))
-                    }
-                    else if (func == "cos") {
-                        x = cos(Math.toRadians(x))
-                    }
-                    else if (func == "tan") {
-                        x = tan(Math.toRadians(x))
-                    }
-                    else if (func == "log") {
-                        x = log10(x)
-                    }
-                    else if (func == "ln") {
-                        x = ln(x)
+                    when (func) {
+                        "sqrt" -> {
+                            x = sqrt(x)
+                        }
+                        "sin" -> {
+                            x = sin(Math.toRadians(x))
+                        }
+                        "cos" -> {
+                            x = cos(Math.toRadians(x))
+                        }
+                        "tan" -> {
+                            x = tan(Math.toRadians(x))
+                        }
+                        "log" -> {
+                            x = log10(x)
+                        }
+                        "ln" -> {
+                            x = ln(x)
+                        }
                     }
                 } else {
-                    throw RuntimeException("Unexpected : " + ch.toChar())
+                    throw RuntimeException("Unexpected char : " + ch.toChar())
                 }
                 if (eat('^'.code))x = x.pow(parseFactor())
                 return x

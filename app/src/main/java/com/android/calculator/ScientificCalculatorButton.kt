@@ -10,6 +10,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight.Companion.Bold
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.sp
 import com.android.calculator.ui.theme.Shapes
 
@@ -17,6 +18,7 @@ import com.android.calculator.ui.theme.Shapes
 fun ScientificCalculatorButton(
     symbol : String,
     color : Color = Color.White,
+    fontSize : TextUnit = 20.sp,
     modifier : Modifier,
     onCLick: () -> Unit
 ) {
@@ -30,7 +32,7 @@ fun ScientificCalculatorButton(
     ) {
         Text(
             text = symbol,
-            fontSize = 18.sp,
+            fontSize = fontSize,
             color = color,
             style = TextStyle(
                 fontWeight = Bold

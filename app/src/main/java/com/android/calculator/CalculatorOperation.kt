@@ -19,6 +19,8 @@ sealed class CalculatorOperation(val symbol : String) {
     object Cos : CalculatorOperation("cos(")
     object Tan : CalculatorOperation("tan(")
     object Log : CalculatorOperation("log(")
-    object In : CalculatorOperation("In(")
+    object In : CalculatorOperation("ln(")
     object Inv : CalculatorOperation("3.14159265")
+    object Bracket1 : CalculatorOperation("(")
+    object Bracket2 : CalculatorOperation(")")
 }

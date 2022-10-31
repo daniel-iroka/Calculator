@@ -10,7 +10,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -41,7 +40,6 @@ fun Calculator(
 
     // this will make whatever layout component we modify it scrollable based on the scrollState
     val scrollState = rememberScrollState()
-    val context = LocalContext.current
 
     Box(
         modifier = modifier
@@ -69,6 +67,8 @@ fun Calculator(
         ) {
 
             // text for the result of our Calculation.
+
+            // TODO - WHEN I COME BACK, I WILL PROCEED WITH THE REDUCING THE SIZE OF THE RESULTS TEXT AND TRY TO FIX OTHER THINGS AS WELL.
             Text(
                 text = state.primaryTextState,
                 textAlign = TextAlign.End,
@@ -99,14 +99,12 @@ fun Calculator(
                 maxLines = 2
             )
 
-
             Divider(
                 color = LightGray,
                 thickness = 4.dp,
                 modifier = Modifier
                     .padding(vertical = 6.dp)
             )
-
 
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -127,20 +125,6 @@ fun Calculator(
                     }
                 )
                 CalculatorButton(
-                    symbol = "AC",
-                    color = Color.White,
-                    modifier = Modifier
-                        .width(80.dp)
-                        .height(65.dp)
-                        .background(Orange)
-                        .aspectRatio(1f)
-                        .weight(1f),
-
-                    onCLick = {
-                        onAction(CalculatorAction.Clear)
-                    }
-                )
-                CalculatorButton(
                     symbol = "Del",
                     color = Color.White,
                     modifier = Modifier
@@ -152,6 +136,20 @@ fun Calculator(
 
                     onCLick = {
                         onAction(CalculatorAction.Delete)
+                    }
+                )
+                CalculatorButton(
+                    symbol = "AC",
+                    color = Color.White,
+                    modifier = Modifier
+                        .width(80.dp)
+                        .height(65.dp)
+                        .background(Orange)
+                        .aspectRatio(1f)
+                        .weight(1f),
+
+                    onCLick = {
+                        onAction(CalculatorAction.Clear)
                     }
                 )
                 CalculatorButton(
@@ -169,7 +167,6 @@ fun Calculator(
                     }
                 )
             }
-
 
             // our Second Number ROW
             Row(

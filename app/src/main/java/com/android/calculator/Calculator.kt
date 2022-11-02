@@ -68,17 +68,16 @@ fun Calculator(
 
             // text for the result of our Calculation.
 
-            // TODO - WHEN I COME BACK, I WILL PROCEED WITH THE REDUCING THE SIZE OF THE RESULTS TEXT AND TRY TO FIX OTHER THINGS AS WELL.
             Text(
                 text = state.primaryTextState,
                 textAlign = TextAlign.End,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(vertical = 8.dp),
+                    .padding(vertical = 7.dp),
 
                 style = TextStyle(
-                    fontWeight = FontWeight.SemiBold,
-                    fontSize = 58.sp,
+                    fontWeight = FontWeight.Normal,
+                    fontSize = 56.sp,
                     color = Color.White,
                 ),
                 maxLines = 2
@@ -93,7 +92,7 @@ fun Calculator(
 
                 style = TextStyle(
                     fontWeight = FontWeight.Normal,
-                    fontSize = 45.sp,
+                    fontSize = 42.sp,
                     color = Color.LightGray,
                 ),
                 maxLines = 2

@@ -35,6 +35,8 @@ class CalculatorViewModel : ViewModel() {
 
     // We are Basically making the click events possible by modifying the 'state'
 
+    // TODO - NOW IS TO SEE IF I CAN REDUCE THE SIZE OF THIS TEXT WHEN I SEE THAT THE CHARACTER NUMBER EXCEEDS A CERTAIN SIZE(THAT IS FOR BIG CALCULATIONS)
+
     private fun performCalculation() {
         val primaryState = state.primaryTextState
         val secondaryState = state.secondaryTextState
@@ -77,12 +79,12 @@ class CalculatorViewModel : ViewModel() {
             is CalculatorOperation.SquareRoot -> squareRoot(operation)
             is CalculatorOperation.Squared -> squared(operation)
             is CalculatorOperation.Factorial -> factorial(operation)
-            is CalculatorOperation.Sin -> sin(operation)
-            is CalculatorOperation.Cos -> cos(operation)
-            is CalculatorOperation.Tan -> tan(operation)
-            is CalculatorOperation.Log -> log(operation)
+            is CalculatorOperation.Sin -> sinOpr(operation)
+            is CalculatorOperation.Cos -> cosOpr(operation)
+            is CalculatorOperation.Tan -> tanOpr(operation)
+            is CalculatorOperation.Log -> logOpr(operation)
             is CalculatorOperation.In -> ln(operation)
-            is CalculatorOperation.Inv -> inv(operation)
+            is CalculatorOperation.Inv -> invOpr(operation)
             is CalculatorOperation.Bracket1 -> enterBracket1(operation)
             is CalculatorOperation.Bracket2 -> enterBracket2(operation)
             else -> {}
@@ -92,6 +94,8 @@ class CalculatorViewModel : ViewModel() {
             primaryTextState = state.primaryTextState + (state.operation?.symbol ?: "")
         )
     }
+
+    // TODO - WHEN I COME BACK, I WILL TEST THIS NEWLY REFACTORED CODE I JUST ADDED WHICH IS THE SCIENTIFIC CALCULATION FUNCTIONS TO BE SPECIFIC.
 
     private fun subtract(operation: CalculatorOperation) {
         val tvState = state.primaryTextState
@@ -159,37 +163,56 @@ class CalculatorViewModel : ViewModel() {
         state = state.copy(operation = operation)
     }
 
-    private fun sin(operation: CalculatorOperation) {
-        if (state.primaryTextState.isEmpty()) {
-            return
-        } else {
-            val value = sin(Math.toRadians(state.primaryTextState.toDouble()))
-            state = state.copy(
-                secondaryTextState = value.toString()
-            )
+    private fun sinOpr(operation: CalculatorOperation) {
 
-            state = state.copy(operation = operation)
-        }
+        // TODO - WHEN I COME BACK, I WILL TEST THIS THING I JUST ADDED NOW AND IF IT WORKS I WILL ALSO REFACTOR THE OTHER OPERATIONS SUCH AS tan, cos, ln and log
+
+        val value = sin(Math.toRadians(state.primaryTextState.toDouble()))
+        state = state.copy(
+            secondaryTextState = value.toString()
+        )
+
         state = state.copy(operation = operation)
     }
 
-    private fun cos(operation: CalculatorOperation) {
+    private fun cosOpr(operation: CalculatorOperation) {
+        val value = cos(Math.toRadians(state.primaryTextState.toDouble()))
+        state = state.copy(
+            secondaryTextState = value.toString()
+        )
         state = state.copy(operation = operation)
     }
 
-    private fun tan(operation: CalculatorOperation) {
+    private fun tanOpr(operation: CalculatorOperation) {
+        val value = tan(Math.toRadians(state.primaryTextState.toDouble()))
+        state = state.copy(
+            secondaryTextState = value.toString()
+        )
         state = state.copy(operation = operation)
     }
 
-    private fun log(operation: CalculatorOperation) {
+    private fun logOpr(operation: CalculatorOperation) {
+        val value = log10(state.primaryTextState.toDouble())
+        state = state.copy(
+            secondaryTextState = value.toString()
+        )
         state = state.copy(operation = operation)
     }
 
     private fun ln(operation: CalculatorOperation) {
+        val value = tan(Math.toRadians(state.primaryTextState.toDouble()))
+        state = state.copy(
+            secondaryTextState = value.toString()
+        )
         state = state.copy(operation = operation)
     }
 
-    private fun inv(operation: CalculatorOperation) {
+    private fun invOpr(operation: CalculatorOperation) {
+        val value = ln(state.primaryTextState.toDouble())
+        state = state.copy(
+            secondaryTextState = value.toString()
+        )
+
         state = state.copy(operation = operation)
     }
 
@@ -214,9 +237,8 @@ class CalculatorViewModel : ViewModel() {
     }
 
     private fun enterNumber(number: Int) {
-        if (state.primaryTextState.length >= MAX_NUM_LENGTH) {
-            return
-        }
+
+        // TODO - WHEN I COME BACK, I WILL SEE IF THERE IS ANYHOW I CAN AUTOMATICALLY ADJUST TEXT SIZE AS IT FIILLS UP THE SCREEN.
         state = state.copy(
             primaryTextState = state.primaryTextState + number
         )
@@ -264,6 +286,7 @@ class CalculatorViewModel : ViewModel() {
                     else if (eat('-'.code))x -= parseTerm()
                     else return x
                 }
+
             }
 
             fun parseTerm(): Double {
@@ -323,7 +346,8 @@ class CalculatorViewModel : ViewModel() {
         }.parse()
     }
 
-    companion object {
-        private const val MAX_NUM_LENGTH = 8
-    }
+    // I don't know if i will need this but i will just comment on it for now
+//    companion object {
+//        private const val MAX_NUM_LENGTH = 8
+//    }
 }

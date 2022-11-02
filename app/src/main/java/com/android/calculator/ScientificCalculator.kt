@@ -31,7 +31,6 @@ fun ScientificCalculator(
 )  {
 
     val scrollState = rememberScrollState()
-    /** NOTE! This is an experimental state. **/
 
     Box(
         modifier = modifier
@@ -66,8 +65,8 @@ fun ScientificCalculator(
                     .fillMaxWidth()
                     .padding(vertical = 8.dp),
                 style = TextStyle(
-                    fontWeight = FontWeight.SemiBold,
-                    fontSize = 58.sp,
+                    fontWeight = FontWeight.Normal,
+                    fontSize = 56.sp,
                     color = Color.White,
                 ),
                 maxLines = 2
@@ -84,8 +83,7 @@ fun ScientificCalculator(
                     fontWeight = FontWeight.Normal,
                     fontSize = 45.sp,
                     color = Color.LightGray,
-                ),
-                maxLines = 1
+                )
             )
 
             // This is our Divider
@@ -96,7 +94,7 @@ fun ScientificCalculator(
                     .padding(vertical = 3.dp)
             )
 
-            // First Scientific Symbols row..
+            // First Scientific Symbols row.
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween

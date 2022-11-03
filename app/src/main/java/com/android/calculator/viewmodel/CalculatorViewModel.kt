@@ -19,6 +19,8 @@ class CalculatorViewModel : ViewModel() {
         // This means that we can change the state from the outside but we can still read it
         private set
 
+    var valueState by mutableStateOf(false)
+
 
     // So this function is where and how we will register our click events based on how we set in the Calculator Composable. Which basically means what will happen-
     // when the User clicks on the buttons or anything set in our Calculator Composable.
@@ -95,8 +97,6 @@ class CalculatorViewModel : ViewModel() {
         )
     }
 
-    // TODO - WHEN I COME BACK, I WILL TEST THIS NEWLY REFACTORED CODE I JUST ADDED WHICH IS THE SCIENTIFIC CALCULATION FUNCTIONS TO BE SPECIFIC.
-
     private fun subtract(operation: CalculatorOperation) {
         val tvState = state.primaryTextState
         if (!tvState.get(index = tvState.length - 1).equals("-")) {
@@ -164,56 +164,83 @@ class CalculatorViewModel : ViewModel() {
     }
 
     private fun sinOpr(operation: CalculatorOperation) {
-
-        // TODO - WHEN I COME BACK, I WILL TEST THIS THING I JUST ADDED NOW AND IF IT WORKS I WILL ALSO REFACTOR THE OTHER OPERATIONS SUCH AS tan, cos, ln and log
-
-        val value = sin(Math.toRadians(state.primaryTextState.toDouble()))
-        state = state.copy(
-            secondaryTextState = value.toString()
-        )
-
         state = state.copy(operation = operation)
+
+        if (state.primaryTextState.isEmpty()) {
+            return
+        } else {
+            val value = sin(Math.toRadians(state.primaryTextState.toDouble()))
+            state = state.copy(
+                secondaryTextState = value.toString()
+            )
+
+            valueState = true
+        }
     }
 
     private fun cosOpr(operation: CalculatorOperation) {
-        val value = cos(Math.toRadians(state.primaryTextState.toDouble()))
-        state = state.copy(
-            secondaryTextState = value.toString()
-        )
         state = state.copy(operation = operation)
+
+        if (state.primaryTextState.isEmpty()) {
+            return
+        } else {
+            val value = cos(Math.toRadians(state.primaryTextState.toDouble()))
+            state = state.copy(
+                secondaryTextState = value.toString()
+            )
+        }
     }
 
     private fun tanOpr(operation: CalculatorOperation) {
-        val value = tan(Math.toRadians(state.primaryTextState.toDouble()))
-        state = state.copy(
-            secondaryTextState = value.toString()
-        )
         state = state.copy(operation = operation)
+
+        if (state.primaryTextState.isEmpty()) {
+            return
+        } else {
+            val value = tan(Math.toRadians(state.primaryTextState.toDouble()))
+            state = state.copy(
+                secondaryTextState = value.toString()
+            )
+        }
     }
 
     private fun logOpr(operation: CalculatorOperation) {
-        val value = log10(state.primaryTextState.toDouble())
-        state = state.copy(
-            secondaryTextState = value.toString()
-        )
         state = state.copy(operation = operation)
+
+        if (state.primaryTextState.isEmpty()) {
+            return
+        } else {
+            val value = log10(state.primaryTextState.toDouble())
+            state = state.copy(
+                secondaryTextState = value.toString()
+            )
+        }
     }
 
     private fun ln(operation: CalculatorOperation) {
-        val value = tan(Math.toRadians(state.primaryTextState.toDouble()))
-        state = state.copy(
-            secondaryTextState = value.toString()
-        )
         state = state.copy(operation = operation)
+
+        if (state.primaryTextState.isEmpty()) {
+            return
+        } else {
+            val value = tan(Math.toRadians(state.primaryTextState.toDouble()))
+            state = state.copy(
+                secondaryTextState = value.toString()
+            )
+        }
     }
 
     private fun invOpr(operation: CalculatorOperation) {
-        val value = ln(state.primaryTextState.toDouble())
-        state = state.copy(
-            secondaryTextState = value.toString()
-        )
-
         state = state.copy(operation = operation)
+
+        if (state.primaryTextState.isEmpty()) {
+            return
+        } else {
+            val value = ln(state.primaryTextState.toDouble())
+            state = state.copy(
+                secondaryTextState = value.toString()
+            )
+        }
     }
 
     private fun enterDecimal() {
@@ -242,6 +269,15 @@ class CalculatorViewModel : ViewModel() {
         state = state.copy(
             primaryTextState = state.primaryTextState + number
         )
+
+    }
+
+    private fun operationCheck(operation: CalculatorOperation) {
+        if (valueState) {
+            when (operation) {
+
+            }
+        }
     }
 
     // Our factorial function
@@ -286,7 +322,6 @@ class CalculatorViewModel : ViewModel() {
                     else if (eat('-'.code))x -= parseTerm()
                     else return x
                 }
-
             }
 
             fun parseTerm(): Double {

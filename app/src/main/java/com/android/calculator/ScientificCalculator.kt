@@ -13,6 +13,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -59,6 +60,9 @@ fun ScientificCalculator(
 
             // text for the result of our Calculations
             Text(
+
+                // TODO - WHEN I COME BACK, I WILL CONTINUE TESTING THIS THING TO SEE HOW I CAN MAKE THE TEXT AUTOMATICALLY REDUCE AND SCROLL THROUGH IT HORIZONTALLY.
+
                 text = state.primaryTextState,
                 textAlign = TextAlign.End,
                 modifier = Modifier
@@ -69,7 +73,8 @@ fun ScientificCalculator(
                     fontSize = 56.sp,
                     color = Color.White,
                 ),
-                maxLines = 2
+                softWrap = false,
+                maxLines = 1
             )
 
             Text(
@@ -144,7 +149,7 @@ fun ScientificCalculator(
                     }
                 )
                 ScientificCalculatorButton(
-                    symbol = "1n",
+                    symbol = "ln",
                     color = Orange,
                     modifier = Modifier
                         .width(50.dp)

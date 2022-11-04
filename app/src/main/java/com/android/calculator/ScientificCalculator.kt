@@ -33,6 +33,8 @@ fun ScientificCalculator(
 
     val scrollState = rememberScrollState()
 
+    // TODO - WHEN I ALSO COME BACK AND I'M DONE WITH THE OTHER FIXES, I WILL PROCEEED WITH ADING SOME REDESIGN IDEAS TO MY APP
+
     Box(
         modifier = modifier
             .verticalScroll(state = scrollState)
@@ -61,8 +63,6 @@ fun ScientificCalculator(
             // text for the result of our Calculations
             Text(
 
-                // TODO - WHEN I COME BACK, I WILL CONTINUE TESTING THIS THING TO SEE HOW I CAN MAKE THE TEXT AUTOMATICALLY REDUCE AND SCROLL THROUGH IT HORIZONTALLY.
-
                 text = state.primaryTextState,
                 textAlign = TextAlign.End,
                 modifier = Modifier
@@ -73,7 +73,6 @@ fun ScientificCalculator(
                     fontSize = 56.sp,
                     color = Color.White,
                 ),
-                softWrap = false,
                 maxLines = 1
             )
 

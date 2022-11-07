@@ -215,27 +215,15 @@ fun ScientificCalculator(
                     }
                 )
                 ScientificCalculatorButton(
-                    symbol = "(",
+                    symbol = "( )",
                     color = Orange,
                     fontSize = 18.sp,
                     modifier = Modifier
-                        .width(25.dp)
+                        .width(50.dp)
                         .height(30.dp),
 
                     onCLick = {
-                        onAction(CalculatorAction.Operation(CalculatorOperation.Bracket1))
-                    }
-                )
-                ScientificCalculatorButton(
-                    symbol = ")",
-                    color = Orange,
-                    fontSize = 18.sp,
-                    modifier = Modifier
-                        .width(25.dp)
-                        .height(30.dp),
-
-                    onCLick = {
-                        onAction(CalculatorAction.Operation(CalculatorOperation.Bracket2))
+                        onAction(CalculatorAction.Brackets)
                     }
                 )
             }

@@ -19,6 +19,8 @@ class CalculatorViewModel : ViewModel() {
         // This means that we can change the state from the outside but we can still read it
         private set
 
+    var leftBracket by mutableStateOf(true)
+
 
     // So this function is where and how we will register our click events based on how we set in the Calculator Composable. Which basically means what will happen-
     // when the User clicks on the buttons or anything set in our Calculator Composable.
@@ -30,6 +32,7 @@ class CalculatorViewModel : ViewModel() {
             is CalculatorAction.Operation -> enterOperation(action.operation)
             is CalculatorAction.Calculate -> performCalculation()
             is CalculatorAction.Delete -> performDeletion()
+            is CalculatorAction.Brackets -> enterBrackets()
         }
     }
 
@@ -65,6 +68,7 @@ class CalculatorViewModel : ViewModel() {
                 operation = null
             )
         }
+        leftBracket = true
     }
 
     private fun enterOperation(operation: CalculatorOperation) {
@@ -83,8 +87,6 @@ class CalculatorViewModel : ViewModel() {
             is CalculatorOperation.Log -> logOpr(operation)
             is CalculatorOperation.In -> ln(operation)
             is CalculatorOperation.Inv -> invOpr(operation)
-            is CalculatorOperation.Bracket1 -> enterBracket1(operation)
-            is CalculatorOperation.Bracket2 -> enterBracket2(operation)
             else -> {}
         }
 
@@ -199,12 +201,18 @@ class CalculatorViewModel : ViewModel() {
         }
     }
 
-    private fun enterBracket1(operation: CalculatorOperation) {
-        state = state.copy(operation = operation)
-    }
-
-    private fun enterBracket2(operation: CalculatorOperation) {
-        state = state.copy(operation = operation)
+    private fun enterBrackets() {
+        if (leftBracket) {
+            state = state.copy(
+                primaryTextState = state.primaryTextState + "("
+            )
+            leftBracket = false
+        } else {
+            state = state.copy(
+                primaryTextState = state.primaryTextState + ")"
+            )
+            leftBracket = true
+        }
     }
 
     private fun enterNumber(number: Int) {
@@ -213,7 +221,6 @@ class CalculatorViewModel : ViewModel() {
         state = state.copy(
             primaryTextState = state.primaryTextState + number
         )
-
     }
 
     // Our factorial function

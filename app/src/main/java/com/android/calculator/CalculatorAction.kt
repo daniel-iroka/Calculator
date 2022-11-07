@@ -5,10 +5,11 @@ package com.android.calculator
 
 // A Sealed class in kotlin is basically a class that defines a set of subclasses in it like objects and the rest
 sealed class CalculatorAction {
-    data class Number(val number : Int) : CalculatorAction()
+    data class Number(val number: Int) : CalculatorAction()
     object Clear : CalculatorAction()
     object Delete : CalculatorAction()
     object Decimal : CalculatorAction()
-    object Calculate  : CalculatorAction()
-    data class Operation(val operation : CalculatorOperation) : CalculatorAction()
+    object Calculate : CalculatorAction()
+    object Brackets : CalculatorAction()
+    data class Operation(val operation: CalculatorOperation) : CalculatorAction()
 }

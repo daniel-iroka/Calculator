@@ -1,5 +1,6 @@
 package com.android.calculator.viewmodel
 
+import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -12,6 +13,7 @@ import kotlin.math.*
 /** This is our ViewModel and in Jetpack compose, it is responsible for handling the User actions and click events as well as state in compose.
  *  It will also be responsible for handling UI rotation. **/
 
+private const val TAG = "CalculatorViewModel"
 
 class CalculatorViewModel : ViewModel() {
 
@@ -19,7 +21,8 @@ class CalculatorViewModel : ViewModel() {
         // This means that we can change the state from the outside but we can still read it
         private set
 
-    var leftBracket by mutableStateOf(true)
+    private var leftBracket by mutableStateOf(true)
+    private var check = 0
 
 
     // So this function is where and how we will register our click events based on how we set in the Calculator Composable. Which basically means what will happen-
@@ -48,27 +51,39 @@ class CalculatorViewModel : ViewModel() {
             )
             state = state.copy(secondaryTextState = "")
         } else {
-            val value = evaluate(primaryState)
-            val fValue = value.toString()
+//            val value = eval(primaryState)
+//            val fValue = value.toString()
 
             state = state.copy(
-                primaryTextState = fValue
+                primaryTextState = secondaryState
             )
             state = state.copy(secondaryTextState = "")
         }
     }
 
     private fun performDeletion() {
-        when {
-            state.primaryTextState.isNotBlank() -> state = state.copy(
-                primaryTextState = state.primaryTextState.dropLast(1)
-            )
+        val find = state.primaryTextState // This variables will look to see if the listed operands are in our user input
+        val find2 = find.last()
+        var res = ""
 
-            state.operation != null -> state = state.copy(
+        if (state.primaryTextState.isNotBlank()) {
+
+            res = state.primaryTextState.dropLast(1)
+            state = state.copy(
+                primaryTextState = res
+            )
+            result(res)
+
+            // Will check if the uer input contains any operands and then decrement the check variable
+            if (find2 == '+' || find2 == '-' || find2 == '×' || find2 == '÷' || find2 == '%') {
+                check -= 1
+            }
+        } else if (state.operation != null) {
+            state = state.copy(
                 operation = null
             )
+            leftBracket = true
         }
-        leftBracket = true
     }
 
     private fun enterOperation(operation: CalculatorOperation) {
@@ -100,6 +115,8 @@ class CalculatorViewModel : ViewModel() {
         if (!tvState.get(index = tvState.length - 1).equals("-")) {
             state = state.copy(operation = operation)
         }
+        /** NOTE! I WILL ONLY ADD THIS CHECK REASSIGNMENT IN THE NORMAL OPERATIONS FOR NOW. **/
+        check += 1
     }
 
     private fun multiply(operation: CalculatorOperation) {
@@ -107,8 +124,7 @@ class CalculatorViewModel : ViewModel() {
         if (!tvState.get(index = tvState.length - 1).equals("×")) {
             state = state.copy(operation = operation)
         }
-
-        // TODO - When I come back, I will see if I can find a way to handle the crashes and exceptions that I keep seeing here especially with these functions that have an if check to it.
+        check += 1
     }
 
     private fun squareRoot(operation: CalculatorOperation) {
@@ -155,14 +171,17 @@ class CalculatorViewModel : ViewModel() {
 
     private fun add(operation: CalculatorOperation) {
         state = state.copy(operation = operation)
+        check += 1
     }
 
     private fun divide(operation: CalculatorOperation) {
         state = state.copy(operation = operation)
+        check += 1
     }
 
     private fun modulo(operation: CalculatorOperation) {
         state = state.copy(operation = operation)
+        check += 1
     }
 
     private fun sinOpr(operation: CalculatorOperation) {
@@ -216,11 +235,10 @@ class CalculatorViewModel : ViewModel() {
     }
 
     private fun enterNumber(number: Int) {
-
-        // TODO - WHEN I COME BACK, I WILL SEE IF THERE IS ANYHOW I CAN AUTOMATICALLY ADJUST TEXT SIZE AS IT FIILLS UP THE SCREEN.
         state = state.copy(
             primaryTextState = state.primaryTextState + number
         )
+        result(state.primaryTextState)
     }
 
     // Our factorial function
@@ -232,7 +250,7 @@ class CalculatorViewModel : ViewModel() {
     }
 
     // this is the function to perform our Calculation
-    private fun evaluate(value : String): Double {
+    private fun eval(value : String): Double {
         return object : Any() {
             var pos = -1
             var ch = 0
@@ -322,5 +340,26 @@ class CalculatorViewModel : ViewModel() {
                 return x
             }
         }.parse()
+    }
+
+    // TODO - NOTE!!! THIS WILL BE THE FIRST THING I WILL DO! WHEN I COME BACK, I WILL TEST THIS SHII I JUST WROTE BECAUSE I AM TIRED ALREADY.
+
+    private fun result(text : String) {
+        try {
+            val result = eval(text)
+            val mainResult = result.toString()
+            state = if (check == 0) {
+                state.copy(
+                    secondaryTextState = ""
+                )
+            } else {
+                state.copy(
+                    secondaryTextState = mainResult
+                )
+            }
+        }
+        catch (e : Exception) {
+            Log.e(TAG, "ERROR!")
+        }
     }
 }

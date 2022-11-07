@@ -123,8 +123,7 @@ fun Calculator(
                         onAction(CalculatorAction.Operation(CalculatorOperation.Modulo))
                     }
                 )
-                CalculatorButton(
-                    symbol = "Del",
+                CalculatorIcons(
                     color = Color.White,
                     modifier = Modifier
                         .width(80.dp)

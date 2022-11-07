@@ -62,7 +62,6 @@ fun ScientificCalculator(
 
             // text for the result of our Calculations
             Text(
-
                 text = state.primaryTextState,
                 textAlign = TextAlign.End,
                 modifier = Modifier
@@ -215,7 +214,7 @@ fun ScientificCalculator(
                     }
                 )
                 ScientificCalculatorButton(
-                    symbol = "( )",
+                    symbol = "(  )",
                     color = Orange,
                     fontSize = 18.sp,
                     modifier = Modifier
@@ -246,8 +245,7 @@ fun ScientificCalculator(
                         onAction(CalculatorAction.Operation(CalculatorOperation.Modulo))
                     }
                 )
-                CalculatorButton(
-                    symbol = "Del",
+                CalculatorIcons(
                     color = Color.White,
                     modifier = Modifier
                         .width(70.dp)

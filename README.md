@@ -1,6 +1,6 @@
 # Calculator
 
-This App is a Simple Calculator App that makes use of the elements of Jetpack Compose.
+This App is a Simple Calculator App that was created using Jetpack Compose. This App has both the Standard and Scientific mode.
 
 ## Description
 

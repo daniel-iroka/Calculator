@@ -22,8 +22,8 @@ class CalculatorViewModel : ViewModel() {
         private set
 
     private var leftBracket by mutableStateOf(true)
+    // TODO - WHEN I COME BACK, I WILL BETTER UNDERSTAND THIS 'check' VARIABLE.
     private var check = 0
-
 
     // So this function is where and how we will register our click events based on how we set in the Calculator Composable. Which basically means what will happen-
     // when the User clicks on the buttons or anything set in our Calculator Composable.
@@ -31,7 +31,12 @@ class CalculatorViewModel : ViewModel() {
         when(action) {
             is CalculatorAction.Number -> enterNumber(action.number)
             is CalculatorAction.Decimal -> enterDecimal()
-            is CalculatorAction.Clear -> state = CalculatorState() // will clear everything
+            // TODO - WHEN I COME BACK TOMORROW, THE FIRST THING I WILL DO IS CONTINUE TESTING FIRST(I added this check variable
+            // TODO - I WILL ALSO WANT TO DO SOME OTHER IMPROVEMENTS LIKE SHOW ERROR MESSAGES AND REFUSE SOME CALCULATIONS.
+            is CalculatorAction.Clear -> {
+                state = CalculatorState()  // will clear everything
+                check -=1
+            }
             is CalculatorAction.Operation -> enterOperation(action.operation)
             is CalculatorAction.Calculate -> performCalculation()
             is CalculatorAction.Delete -> performDeletion()
@@ -42,7 +47,6 @@ class CalculatorViewModel : ViewModel() {
     // We are Basically making the click events possible by modifying the 'state'
 
     private fun performCalculation() {
-        val primaryState = state.primaryTextState
         val secondaryState = state.secondaryTextState
 
         if (secondaryState.isNotEmpty()) {
@@ -50,23 +54,21 @@ class CalculatorViewModel : ViewModel() {
                 primaryTextState = secondaryState
             )
             state = state.copy(secondaryTextState = "")
-        } else {
-//            val value = eval(primaryState)
-//            val fValue = value.toString()
-
-            state = state.copy(
-                primaryTextState = secondaryState
-            )
-            state = state.copy(secondaryTextState = "")
         }
     }
 
+
+    // TODO - I HAVE GOTTEN AN IDEA OF WHAT TO DO WHEN I COME BACK(which was possible through some light debugging). I AM GOING TO TRY AND
+    // TODO
+
     private fun performDeletion() {
-        val find = state.primaryTextState // This variables will look to see if the listed operands are in our user input
-        val find2 = find.last()
-        var res = ""
+        val res: String
 
         if (state.primaryTextState.isNotBlank()) {
+            // This variables will look to see if the listed operands are in our user input
+            val value = state.primaryTextState
+            val findFirstOpr = value.first()
+            val findLastOpr = value.last()
 
             res = state.primaryTextState.dropLast(1)
             state = state.copy(
@@ -75,9 +77,18 @@ class CalculatorViewModel : ViewModel() {
             result(res)
 
             // Will check if the uer input contains any operands and then decrement the check variable
-            if (find2 == '+' || find2 == '-' || find2 == '×' || find2 == '÷' || find2 == '%') {
-                check -= 1
+            when (findLastOpr) {
+                '+', '-', '×', '÷', '%' -> {
+                    check -= 1
+                }
             }
+            // will do the same as the above but for the scientific operations
+            when {
+                findFirstOpr.equals("sin(") || findFirstOpr.equals("cos(") || findFirstOpr.equals("tan(") || findFirstOpr.equals("log(") || findFirstOpr.equals("ln(") -> {
+                    check -= 1
+                }
+            }
+
         } else if (state.operation != null) {
             state = state.copy(
                 operation = null
@@ -164,7 +175,6 @@ class CalculatorViewModel : ViewModel() {
             state = state.copy(
                 secondaryTextState = value.toString()
             )
-
             state = state.copy(operation = operation)
         }
     }
@@ -186,26 +196,32 @@ class CalculatorViewModel : ViewModel() {
 
     private fun sinOpr(operation: CalculatorOperation) {
         state = state.copy(operation = operation)
+        check += 1
     }
 
     private fun cosOpr(operation: CalculatorOperation) {
         state = state.copy(operation = operation)
+        check += 1
     }
 
     private fun tanOpr(operation: CalculatorOperation) {
         state = state.copy(operation = operation)
+        check += 1
     }
 
     private fun logOpr(operation: CalculatorOperation) {
         state = state.copy(operation = operation)
+        check += 1
     }
 
     private fun ln(operation: CalculatorOperation) {
         state = state.copy(operation = operation)
+        check += 1
     }
 
     private fun invOpr(operation: CalculatorOperation) {
         state = state.copy(operation = operation)
+        check += 1
     }
 
     private fun enterDecimal() {
@@ -239,6 +255,8 @@ class CalculatorViewModel : ViewModel() {
             primaryTextState = state.primaryTextState + number
         )
         result(state.primaryTextState)
+
+        Log.i(TAG, "This is our total number of checks $check")
     }
 
     // Our factorial function
@@ -341,8 +359,6 @@ class CalculatorViewModel : ViewModel() {
             }
         }.parse()
     }
-
-    // TODO - NOTE!!! THIS WILL BE THE FIRST THING I WILL DO! WHEN I COME BACK, I WILL TEST THIS SHII I JUST WROTE BECAUSE I AM TIRED ALREADY.
 
     private fun result(text : String) {
         try {

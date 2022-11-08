@@ -80,7 +80,7 @@ fun Calculator(
                     fontSize = 56.sp,
                     color = Color.White,
                 ),
-                maxLines = 2
+                maxLines = 1
             )
 
             Text(
@@ -95,7 +95,7 @@ fun Calculator(
                     fontSize = 42.sp,
                     color = Color.LightGray,
                 ),
-                maxLines = 2
+                maxLines = 1
             )
 
             Divider(

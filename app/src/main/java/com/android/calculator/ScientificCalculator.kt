@@ -33,8 +33,6 @@ fun ScientificCalculator(
 
     val scrollState = rememberScrollState()
 
-    // TODO - WHEN I ALSO COME BACK AND I'M DONE WITH THE OTHER FIXES, I WILL PROCEEED WITH ADING SOME REDESIGN IDEAS TO MY APP
-
     Box(
         modifier = modifier
             .verticalScroll(state = scrollState)
@@ -86,7 +84,8 @@ fun ScientificCalculator(
                     fontWeight = FontWeight.Normal,
                     fontSize = 45.sp,
                     color = Color.LightGray,
-                )
+                ),
+                maxLines = 1
             )
 
             // This is our Divider

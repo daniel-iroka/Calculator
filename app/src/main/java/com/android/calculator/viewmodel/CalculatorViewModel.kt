@@ -31,11 +31,10 @@ class CalculatorViewModel : ViewModel() {
         when(action) {
             is CalculatorAction.Number -> enterNumber(action.number)
             is CalculatorAction.Decimal -> enterDecimal()
-            // TODO - WHEN I COME BACK TOMORROW, THE FIRST THING I WILL DO IS CONTINUE TESTING FIRST(I added this check variable
-            // TODO - I WILL ALSO WANT TO DO SOME OTHER IMPROVEMENTS LIKE SHOW ERROR MESSAGES AND REFUSE SOME CALCULATIONS.
+            // TODO - WHEN I COME BACK TOMORROW, I WILL CONTINUE TESTING THIS IMPLEMENTATION
             is CalculatorAction.Clear -> {
-                state = CalculatorState()  // will clear everything
-                check -=1
+                state = CalculatorState()
+                check -= 1
             }
             is CalculatorAction.Operation -> enterOperation(action.operation)
             is CalculatorAction.Calculate -> performCalculation()
@@ -74,7 +73,11 @@ class CalculatorViewModel : ViewModel() {
             state = state.copy(
                 primaryTextState = res
             )
-            result(res)
+            state = state.copy(
+                secondaryTextState = ""
+            )
+            // TODO - WHEN I COME BACK, I WILL CONTINUE DEBUGGING THIS THING
+//            result(res)
 
             // Will check if the uer input contains any operands and then decrement the check variable
             when (findLastOpr) {

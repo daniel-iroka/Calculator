@@ -22,19 +22,16 @@ class CalculatorViewModel : ViewModel() {
         private set
 
     private var leftBracket by mutableStateOf(true)
-    // TODO - WHEN I COME BACK, I WILL BETTER UNDERSTAND THIS 'check' VARIABLE.
     private var check = 0
 
-    // So this function is where and how we will register our click events based on how we set in the Calculator Composable. Which basically means what will happen-
-    // when the User clicks on the buttons or anything set in our Calculator Composable.
+    // So this function is where and how we will register our click events based on how we set in the Calculator Composable.
     fun onAction(action : CalculatorAction) {
         when(action) {
             is CalculatorAction.Number -> enterNumber(action.number)
             is CalculatorAction.Decimal -> enterDecimal()
-            // TODO - WHEN I COME BACK TOMORROW, I WILL CONTINUE TESTING THIS IMPLEMENTATION
             is CalculatorAction.Clear -> {
                 state = CalculatorState()
-                check -= 1
+                check = 0
             }
             is CalculatorAction.Operation -> enterOperation(action.operation)
             is CalculatorAction.Calculate -> performCalculation()
@@ -47,7 +44,6 @@ class CalculatorViewModel : ViewModel() {
 
     private fun performCalculation() {
         val secondaryState = state.secondaryTextState
-
         if (secondaryState.isNotEmpty()) {
             state = state.copy(
                 primaryTextState = secondaryState
@@ -73,11 +69,7 @@ class CalculatorViewModel : ViewModel() {
             state = state.copy(
                 primaryTextState = res
             )
-            state = state.copy(
-                secondaryTextState = ""
-            )
-            // TODO - WHEN I COME BACK, I WILL CONTINUE DEBUGGING THIS THING
-//            result(res)
+            result(res)
 
             // Will check if the uer input contains any operands and then decrement the check variable
             when (findLastOpr) {
@@ -90,6 +82,13 @@ class CalculatorViewModel : ViewModel() {
                 findFirstOpr.equals("sin(") || findFirstOpr.equals("cos(") || findFirstOpr.equals("tan(") || findFirstOpr.equals("log(") || findFirstOpr.equals("ln(") -> {
                     check -= 1
                 }
+            }
+
+            // TODO - WHEN I COME BACK, I WILL TEST THIS IMPLEMENTATION I JUS MADE
+            if (!(value.contains('+') || value.contains('-') || value.contains('×') || value.contains('%'))) {
+                state = state.copy(
+                    secondaryTextState = ""
+                )
             }
 
         } else if (state.operation != null) {
@@ -134,6 +133,7 @@ class CalculatorViewModel : ViewModel() {
     }
 
     private fun multiply(operation: CalculatorOperation) {
+        // TODO - THERE IS AN ERROR HERE AND I WILL DEAL WITH IT LATER.
         val tvState = state.primaryTextState
         if (!tvState.get(index = tvState.length - 1).equals("×")) {
             state = state.copy(operation = operation)
@@ -193,6 +193,8 @@ class CalculatorViewModel : ViewModel() {
     }
 
     private fun modulo(operation: CalculatorOperation) {
+        // TODO - THE MODULO OPERATOR DOES NOT SEEM TO WORK, BUT IF AFTER I HAVE TRIED TO MAKE IT WORK AND IT DOESN'T I WILL PROBABLY JUST USE THE SCRIPT ENGINE TO
+        // TODO   CARRY OUT THE CALCULATIONS.
         state = state.copy(operation = operation)
         check += 1
     }
@@ -310,7 +312,7 @@ class CalculatorViewModel : ViewModel() {
                 var x = parseFactor()
                 while (true) {
                     if(eat('×'.code))x *= parseFactor()
-                    else if(eat('/'.code))x/= parseFactor()
+                    else if(eat('÷'.code))x/= parseFactor()
                     else return x
                 }
             }

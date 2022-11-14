@@ -23,6 +23,7 @@ class CalculatorViewModel : ViewModel() {
 
     private var leftBracket by mutableStateOf(true)
     private var check = 0
+    private var number = 0
 
     // So this function is where and how we will register our click events based on how we set in the Calculator Composable.
     fun onAction(action : CalculatorAction) {
@@ -52,10 +53,6 @@ class CalculatorViewModel : ViewModel() {
         }
     }
 
-
-    // TODO - I HAVE GOTTEN AN IDEA OF WHAT TO DO WHEN I COME BACK(which was possible through some light debugging). I AM GOING TO TRY AND
-    // TODO
-
     private fun performDeletion() {
         val res: String
 
@@ -83,9 +80,8 @@ class CalculatorViewModel : ViewModel() {
                     check -= 1
                 }
             }
-
-            // TODO - WHEN I COME BACK, I WILL TEST THIS IMPLEMENTATION I JUS MADE
-            if (!(value.contains('+') || value.contains('-') || value.contains('×') || value.contains('%'))) {
+            // will make sure it only deletes the secondary state when all the operations are gone
+            if (!(value.contains('+') || value.contains('-') || value.contains('×') || value.contains('÷') || value.contains('%'))) {
                 state = state.copy(
                     secondaryTextState = ""
                 )
@@ -124,47 +120,30 @@ class CalculatorViewModel : ViewModel() {
     }
 
     private fun subtract(operation: CalculatorOperation) {
-        val tvState = state.primaryTextState
-        if (!tvState.get(index = tvState.length - 1).equals("-")) {
-            state = state.copy(operation = operation)
-        }
-        /** NOTE! I WILL ONLY ADD THIS CHECK REASSIGNMENT IN THE NORMAL OPERATIONS FOR NOW. **/
+        state = state.copy(operation = operation)
         check += 1
     }
 
     private fun multiply(operation: CalculatorOperation) {
-        // TODO - THERE IS AN ERROR HERE AND I WILL DEAL WITH IT LATER.
-        val tvState = state.primaryTextState
-        if (!tvState.get(index = tvState.length - 1).equals("×")) {
+        if (state.primaryTextState.isNotEmpty()) {
             state = state.copy(operation = operation)
         }
         check += 1
     }
 
     private fun squareRoot(operation: CalculatorOperation) {
-
         state = state.copy(operation = operation)
-
-        if (state.primaryTextState.isEmpty()) {
-
-            return // I'm not so sure about this, but I think it will likely return nothing
-        } else {
-            val result = sqrt(state.primaryTextState.toDouble())
-            val calculatedResult = result.toString()
-            state = state.copy(
-                secondaryTextState = calculatedResult
-            )
-        }
+        check += 1
     }
 
     private fun squared(operation: CalculatorOperation) {
         if (state.primaryTextState.isEmpty()) {
             return
         } else {
-            val result = state.primaryTextState.toDouble()
-            val squaredResult = result * result
+            val value = state.primaryTextState.toInt()
+            val result = value * value
             state = state.copy(
-                secondaryTextState = squaredResult.toString()
+                secondaryTextState = result.toString()
             )
             state = state.copy(operation = operation)
         }
@@ -183,19 +162,25 @@ class CalculatorViewModel : ViewModel() {
     }
 
     private fun add(operation: CalculatorOperation) {
-        state = state.copy(operation = operation)
+        if (state.primaryTextState.isNotEmpty()) {
+            state = state.copy(operation = operation)
+        }
         check += 1
     }
 
     private fun divide(operation: CalculatorOperation) {
-        state = state.copy(operation = operation)
+        if (state.primaryTextState.isNotEmpty()) {
+            state = state.copy(operation = operation)
+        }
         check += 1
     }
 
     private fun modulo(operation: CalculatorOperation) {
         // TODO - THE MODULO OPERATOR DOES NOT SEEM TO WORK, BUT IF AFTER I HAVE TRIED TO MAKE IT WORK AND IT DOESN'T I WILL PROBABLY JUST USE THE SCRIPT ENGINE TO
         // TODO   CARRY OUT THE CALCULATIONS.
+
         state = state.copy(operation = operation)
+
         check += 1
     }
 
@@ -261,7 +246,12 @@ class CalculatorViewModel : ViewModel() {
         )
         result(state.primaryTextState)
 
-        Log.i(TAG, "This is our total number of checks $check")
+        when(state.operation) {
+            is CalculatorOperation.SquareRoot -> {
+                doSquareRoot(number)
+            }
+            else -> {}
+        }
     }
 
     // Our factorial function
@@ -270,6 +260,26 @@ class CalculatorViewModel : ViewModel() {
             num * factorial(num - 1)
          else
             1
+    }
+
+    private fun doSquareRoot(number : Int) {
+        val result = sqrt(number.toDouble())
+
+        // TODO - LATER, I WILL TRY TO MAKE THIS WORK WHICH IS BY TRYING TO MAKE IT WORK WITH OTHER STANDARD CALCULATIONS(Maybe use the Index method).
+
+        state = state.copy(
+            secondaryTextState = result.toString()
+        )
+
+//        result(result.toString())
+
+
+
+
+//        val value = state.primaryTextState.first().code
+//        when(value) {
+//            0, 1, 2, 3, 4, 5, 6, 7, 8, 9 -> { "Later I will try and accomplish this..." }
+//        }
     }
 
     // this is the function to perform our Calculation

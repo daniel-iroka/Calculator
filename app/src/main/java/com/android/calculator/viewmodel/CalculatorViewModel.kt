@@ -23,7 +23,8 @@ class CalculatorViewModel : ViewModel() {
 
     private var leftBracket by mutableStateOf(true)
     private var check = 0
-    private var number = 0
+    private var _text = ""
+    private var otherCheck = 0
 
     // So this function is where and how we will register our click events based on how we set in the Calculator Composable.
     fun onAction(action : CalculatorAction) {
@@ -76,7 +77,8 @@ class CalculatorViewModel : ViewModel() {
             }
             // will do the same as the above but for the scientific operations
             when {
-                findFirstOpr.equals("sin(") || findFirstOpr.equals("cos(") || findFirstOpr.equals("tan(") || findFirstOpr.equals("log(") || findFirstOpr.equals("ln(") -> {
+                findFirstOpr.equals("sin(") || findFirstOpr.equals("cos(") || findFirstOpr.equals("tan(") || findFirstOpr.equals("log(")
+                        || findFirstOpr.equals("ln(") || findFirstOpr.equals("√") -> {
                     check -= 1
                 }
             }
@@ -252,6 +254,11 @@ class CalculatorViewModel : ViewModel() {
             }
             else -> {}
         }
+
+        Log.i(TAG, "LOG- This is the number of our checks $check")
+
+        Log.i(TAG, "LOG- This is our passed result $_text")
+
     }
 
     // Our factorial function
@@ -265,15 +272,13 @@ class CalculatorViewModel : ViewModel() {
     private fun doSquareRoot(number : Int) {
         val result = sqrt(number.toDouble())
 
+        // TODO- BUT WHEN I COME BACK, I WILL FIRST RUN THIS IMPLEMENTATION.
+
         // TODO - LATER, I WILL TRY TO MAKE THIS WORK WHICH IS BY TRYING TO MAKE IT WORK WITH OTHER STANDARD CALCULATIONS(Maybe use the Index method).
 
-        state = state.copy(
-            secondaryTextState = result.toString()
-        )
+        _text = result.toString()
 
-//        result(result.toString())
-
-
+        otherCheck =+ 1
 
 
 //        val value = state.primaryTextState.first().code
@@ -379,15 +384,22 @@ class CalculatorViewModel : ViewModel() {
         try {
             val result = eval(text)
             val mainResult = result.toString()
+            val otherResult = _text
             state = if (check == 0) {
                 state.copy(
                     secondaryTextState = ""
+                )
+                // TODO - WHEN I COME BACK, I WILL PROCEED WITH THIS IMPLEMENTATION. I MAY TRY THE INDEX METHOD TO TRY AND MAKE IT WORK.
+            } else if (otherCheck == 1) {
+                state.copy(
+                    secondaryTextState = otherResult
                 )
             } else {
                 state.copy(
                     secondaryTextState = mainResult
                 )
             }
+            Log.i(TAG, "LOG- Result $otherResult")
         }
         catch (e : Exception) {
             Log.e(TAG, "ERROR!")

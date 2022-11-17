@@ -1,5 +1,6 @@
 package com.android.calculator.model
 
+import androidx.compose.ui.graphics.Color
 import com.android.calculator.CalculatorOperation
 
 /**   This is our CalculatorState. In JetPack compose, a state is basically any value that changes overtime. The "state" in this sense is the USER input values-
@@ -9,6 +10,6 @@ import com.android.calculator.CalculatorOperation
 data class CalculatorState(
     val primaryTextState : String = "",
     val secondaryTextState : String = "",
-    // We put null because it can be in a state where the USER inputs no CalculatorOperation.
-    val operation : CalculatorOperation? = null
+    val operation : CalculatorOperation? = null,
+    val color : Color = Color.White,
 )

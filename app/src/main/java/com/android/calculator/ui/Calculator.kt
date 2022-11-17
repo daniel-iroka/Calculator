@@ -1,4 +1,4 @@
-package com.android.calculator
+package com.android.calculator.ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -17,6 +17,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import com.android.calculator.*
 import com.android.calculator.model.CalculatorState
 import com.android.calculator.ui.theme.LightGray
 import com.android.calculator.ui.theme.Orange

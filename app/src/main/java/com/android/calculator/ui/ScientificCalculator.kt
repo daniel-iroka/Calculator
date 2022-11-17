@@ -1,4 +1,4 @@
-package com.android.calculator
+package com.android.calculator.ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -13,11 +13,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import com.android.calculator.*
 import com.android.calculator.model.CalculatorState
 import com.android.calculator.ui.theme.LightGray
 import com.android.calculator.ui.theme.Orange
@@ -32,6 +32,13 @@ fun ScientificCalculator(
 )  {
 
     val scrollState = rememberScrollState()
+//    var color : Color? = null
+//
+//    color = if (state.color == Color.Red) {
+//        state.color
+//    } else {
+//        Color.White
+//    }
 
     Box(
         modifier = modifier
@@ -68,7 +75,7 @@ fun ScientificCalculator(
                 style = TextStyle(
                     fontWeight = FontWeight.Normal,
                     fontSize = 56.sp,
-                    color = Color.White,
+                    color = state.color,
                 ),
                 maxLines = 1
             )
@@ -83,7 +90,7 @@ fun ScientificCalculator(
                 style = TextStyle(
                     fontWeight = FontWeight.Normal,
                     fontSize = 45.sp,
-                    color = Color.LightGray,
+                    color = state.color,
                 ),
                 maxLines = 1
             )
@@ -157,7 +164,6 @@ fun ScientificCalculator(
                     }
                 )
             }
-
 
             // Second Scientific Symbols row..
             Row(
@@ -286,7 +292,6 @@ fun ScientificCalculator(
                     }
                 )
             }
-
 
             // our Second Number ROW
             Row(

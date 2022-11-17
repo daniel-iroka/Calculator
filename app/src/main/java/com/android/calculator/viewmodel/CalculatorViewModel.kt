@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
 import com.android.calculator.CalculatorAction
 import com.android.calculator.CalculatorOperation
@@ -24,7 +25,6 @@ class CalculatorViewModel : ViewModel() {
     private var leftBracket by mutableStateOf(true)
     private var check = 0
     private var _text = ""
-    private var otherCheck = 0
 
     // So this function is where and how we will register our click events based on how we set in the Calculator Composable.
     fun onAction(action : CalculatorAction) {
@@ -44,14 +44,35 @@ class CalculatorViewModel : ViewModel() {
 
     // We are Basically making the click events possible by modifying the 'state'
 
+    private fun changeColor() {
+
+    }
+
     private fun performCalculation() {
+        val primaryState = state.primaryTextState.last()
         val secondaryState = state.secondaryTextState
-        if (secondaryState.isNotEmpty()) {
+
+        // TODO - WHEN I COME BACK, I WILL WORK TO IMPROVE THIS.
+        // TODO - WHEN I COME BACK, WHAT I WILL SPECIFICALLY DO IS CRETE A DUMMY BOOLEAN CHECK(A variable to be changed in both of the conditionals)
+
+        if ((primaryState.equals("(") || primaryState.equals("√") || primaryState.equals("sin(") || primaryState.equals("cos(")
+            || primaryState.equals("tan(") || primaryState.equals("log(") || primaryState.equals("ln(")) && secondaryState.isNotEmpty()) {
+
             state = state.copy(
                 primaryTextState = secondaryState
             )
             state = state.copy(secondaryTextState = "")
+        } else {
+            state = state.copy(
+                secondaryTextState = "Format Error"
+            )
+
+            state = state.copy(
+                color = Color.Red
+            )
         }
+
+        Log.i(TAG, "Our Boolean Check is $bolCheck")
     }
 
     private fun performDeletion() {
@@ -87,8 +108,15 @@ class CalculatorViewModel : ViewModel() {
                 state = state.copy(
                     secondaryTextState = ""
                 )
+
+                state = state.copy(
+                    color = Color.White
+                )
             }
 
+            state = state.copy(
+                color = Color.White
+            )
         } else if (state.operation != null) {
             state = state.copy(
                 operation = null
@@ -135,7 +163,7 @@ class CalculatorViewModel : ViewModel() {
 
     private fun squareRoot(operation: CalculatorOperation) {
         state = state.copy(operation = operation)
-        check += 1
+//        check += 1 pretty useless so no need to even put this here...
     }
 
     private fun squared(operation: CalculatorOperation) {
@@ -178,11 +206,7 @@ class CalculatorViewModel : ViewModel() {
     }
 
     private fun modulo(operation: CalculatorOperation) {
-        // TODO - THE MODULO OPERATOR DOES NOT SEEM TO WORK, BUT IF AFTER I HAVE TRIED TO MAKE IT WORK AND IT DOESN'T I WILL PROBABLY JUST USE THE SCRIPT ENGINE TO
-        // TODO   CARRY OUT THE CALCULATIONS.
-
         state = state.copy(operation = operation)
-
         check += 1
     }
 
@@ -243,6 +267,8 @@ class CalculatorViewModel : ViewModel() {
     }
 
     private fun enterNumber(number: Int) {
+
+
         state = state.copy(
             primaryTextState = state.primaryTextState + number
         )
@@ -252,13 +278,11 @@ class CalculatorViewModel : ViewModel() {
             is CalculatorOperation.SquareRoot -> {
                 doSquareRoot(number)
             }
+            is CalculatorOperation.Modulo -> {
+                doModulo()
+            }
             else -> {}
         }
-
-        Log.i(TAG, "LOG- This is the number of our checks $check")
-
-        Log.i(TAG, "LOG- This is our passed result $_text")
-
     }
 
     // Our factorial function
@@ -272,13 +296,11 @@ class CalculatorViewModel : ViewModel() {
     private fun doSquareRoot(number : Int) {
         val result = sqrt(number.toDouble())
 
-        // TODO- BUT WHEN I COME BACK, I WILL FIRST RUN THIS IMPLEMENTATION.
-
-        // TODO - LATER, I WILL TRY TO MAKE THIS WORK WHICH IS BY TRYING TO MAKE IT WORK WITH OTHER STANDARD CALCULATIONS(Maybe use the Index method).
+        state = state.copy(
+            secondaryTextState = result.toString()
+        )
 
         _text = result.toString()
-
-        otherCheck =+ 1
 
 
 //        val value = state.primaryTextState.first().code
@@ -286,6 +308,11 @@ class CalculatorViewModel : ViewModel() {
 //            0, 1, 2, 3, 4, 5, 6, 7, 8, 9 -> { "Later I will try and accomplish this..." }
 //        }
     }
+
+    private fun doModulo() {
+        // Do later...
+    }
+
 
     // this is the function to perform our Calculation
     private fun eval(value : String): Double {
@@ -389,11 +416,6 @@ class CalculatorViewModel : ViewModel() {
                 state.copy(
                     secondaryTextState = ""
                 )
-                // TODO - WHEN I COME BACK, I WILL PROCEED WITH THIS IMPLEMENTATION. I MAY TRY THE INDEX METHOD TO TRY AND MAKE IT WORK.
-            } else if (otherCheck == 1) {
-                state.copy(
-                    secondaryTextState = otherResult
-                )
             } else {
                 state.copy(
                     secondaryTextState = mainResult
@@ -405,4 +427,35 @@ class CalculatorViewModel : ViewModel() {
             Log.e(TAG, "ERROR!")
         }
     }
+
+    /** THIS SHIT DID NOT WORK BRO. I WILL CHECK IT LATER. **/
+//    private fun result2(text : String) {
+//        val engine : ScriptEngine = ScriptEngineManager().getEngineByName("rhino")
+//
+//        try {
+//            val result : Any = engine.eval(text)
+//            val mainResult = result.toString()
+//
+//            state = if (check == 0) {
+//                state.copy(
+//                    secondaryTextState = ""
+//                )
+//            } else {
+//                state.copy(
+//                    secondaryTextState = mainResult
+//                )
+//            }
+//        }
+//        catch (e : Exception) {
+//            Log.e(TAG, "ERROR!")
+//        }
+//    }
+
 }
+
+//if (secondaryState.isNotEmpty()) {
+//    state = state.copy(
+//        primaryTextState = secondaryState
+//    )
+//    state = state.copy(secondaryTextState = "")
+//}

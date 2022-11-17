@@ -1,4 +1,4 @@
-package com.android.calculator
+package com.android.calculator.ui
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -17,6 +17,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight.Companion.Normal
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.android.calculator.R
 import com.android.calculator.ui.theme.Shapes
 
 @Composable

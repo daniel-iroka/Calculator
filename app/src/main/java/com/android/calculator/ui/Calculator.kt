@@ -25,10 +25,6 @@ import com.android.calculator.ui.theme.Orange
  *   so on.**/
 
 
-// TODO! VERY IMPORTANT NOTE!! - I AM DOING A MAJOR 'EXPERIMENTAL REFACTOR' IN THIS PROJECT TO HANDLE SOME CALCULATOR OPERATIONS IN THE FOLLOWING FILES NAMELY :
-// TODO                          CalculatorViewModel, CalculatorAction ScientificCalculator, CalculatorState and CalculatorOperations. WHEN I'M DONE WITH THE EXPERIMENTATION, I MAY REFACTOR IT ALL-
-// TODO                          INSIDE JUST THE 'Calculator Operation' if I see how the Scientific Operations can operate with two operands.
-
 @Composable
 fun Calculator(
     state : CalculatorState,

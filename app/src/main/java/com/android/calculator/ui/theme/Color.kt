@@ -14,3 +14,7 @@ val Orange = Color(0xFFFF9800)
 
 // Custom Colors for Light Mode
 val coloredWhite = Color(0xFFFFFFFF)
+
+val scarletRed = Color(0xFFFF2400)
+val ferrari = Color(0xFFFF2800)
+val orangeRed = Color(0xFFFF4500)

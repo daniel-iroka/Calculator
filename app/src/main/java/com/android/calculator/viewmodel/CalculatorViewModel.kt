@@ -9,6 +9,8 @@ import androidx.lifecycle.ViewModel
 import com.android.calculator.CalculatorAction
 import com.android.calculator.CalculatorOperation
 import com.android.calculator.model.CalculatorState
+import com.android.calculator.ui.theme.ferrari
+import com.android.calculator.ui.theme.orangeRed
 import kotlin.math.*
 
 /** This is our ViewModel and in Jetpack compose, it is responsible for handling the User actions and click events as well as state in compose.
@@ -25,6 +27,7 @@ class CalculatorViewModel : ViewModel() {
     private var leftBracket by mutableStateOf(true)
     private var check = 0
     private var _text = ""
+    private var bolCheck = ""
 
     // So this function is where and how we will register our click events based on how we set in the Calculator Composable.
     fun onAction(action : CalculatorAction) {
@@ -44,19 +47,13 @@ class CalculatorViewModel : ViewModel() {
 
     // We are Basically making the click events possible by modifying the 'state'
 
-    private fun changeColor() {
-
-    }
-
     private fun performCalculation() {
         val primaryState = state.primaryTextState.last()
         val secondaryState = state.secondaryTextState
 
-        // TODO - WHEN I COME BACK, I WILL WORK TO IMPROVE THIS.
-        // TODO - WHEN I COME BACK, WHAT I WILL SPECIFICALLY DO IS CRETE A DUMMY BOOLEAN CHECK(A variable to be changed in both of the conditionals)
+        if (!(primaryState == '(' || primaryState == '√' || primaryState == '!' || primaryState == '%')) {
 
-        if ((primaryState.equals("(") || primaryState.equals("√") || primaryState.equals("sin(") || primaryState.equals("cos(")
-            || primaryState.equals("tan(") || primaryState.equals("log(") || primaryState.equals("ln(")) && secondaryState.isNotEmpty()) {
+            // TODO - WHEN I COME BACK, I WILL TRY TO UNDERSTAND THIS BETTER TO SEE IF I CAN ALSO IMPROVE IT.
 
             state = state.copy(
                 primaryTextState = secondaryState
@@ -64,15 +61,13 @@ class CalculatorViewModel : ViewModel() {
             state = state.copy(secondaryTextState = "")
         } else {
             state = state.copy(
-                secondaryTextState = "Format Error"
+                secondaryTextState = "Format error"
             )
 
             state = state.copy(
-                color = Color.Red
+                color = ferrari
             )
         }
-
-        Log.i(TAG, "Our Boolean Check is $bolCheck")
     }
 
     private fun performDeletion() {
@@ -97,12 +92,11 @@ class CalculatorViewModel : ViewModel() {
                 }
             }
             // will do the same as the above but for the scientific operations
-            when {
-                findFirstOpr.equals("sin(") || findFirstOpr.equals("cos(") || findFirstOpr.equals("tan(") || findFirstOpr.equals("log(")
-                        || findFirstOpr.equals("ln(") || findFirstOpr.equals("√") -> {
-                    check -= 1
-                }
-            }
+//            when {
+//                findLastOpr == '(' || findFirstOpr == '√' -> {
+//                    check -= 1
+//                }
+//            }
             // will make sure it only deletes the secondary state when all the operations are gone
             if (!(value.contains('+') || value.contains('-') || value.contains('×') || value.contains('÷') || value.contains('%'))) {
                 state = state.copy(
@@ -114,9 +108,9 @@ class CalculatorViewModel : ViewModel() {
                 )
             }
 
-            state = state.copy(
-                color = Color.White
-            )
+//            state = state.copy(
+//                color = Color.White
+//            )
         } else if (state.operation != null) {
             state = state.copy(
                 operation = null

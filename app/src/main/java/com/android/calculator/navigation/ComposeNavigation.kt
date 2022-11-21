@@ -22,5 +22,9 @@ fun ComposeNavigation(
         composable("second_screen") {
             SecondScreen(navController = navController)
         }
+
+        composable("third_screen") {
+            ThirdScreen(navController = navController)
+        }
     }
 }

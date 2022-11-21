@@ -19,6 +19,7 @@ fun SecondScreen(
     navController : NavHostController,
 ) {
 
+    // This is how you access a viewModel in jetpack compose
     val viewModel = viewModel<CalculatorViewModel>()
     val state = viewModel.state
     val buttonSpacing = 8.dp

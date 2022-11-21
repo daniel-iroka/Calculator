@@ -73,3 +73,13 @@ fun OverFlowMenu(
         }
     }
 }
+
+@Composable
+fun HistoryOverFlowMenu(
+    color : Color
+) {
+    // TODO - WHEN I COME BACK, I WILL CONTINUE WORKING ON THIS WHICH IS TO CREATE A DROPDOWNMENU
+
+    val showMenu by remember{ mutableStateOf(false)}
+    val listItem = listOf("Clear")
+}

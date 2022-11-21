@@ -53,7 +53,8 @@ class CalculatorViewModel : ViewModel() {
 
         if (!(primaryState == '(' || primaryState == '√' || primaryState == '!' || primaryState == '%')) {
 
-            // TODO - WHEN I COME BACK, I WILL TRY TO UNDERSTAND THIS BETTER TO SEE IF I CAN ALSO IMPROVE IT.
+            // TODO - WHEN I COME BACK, I WILL TRY TO UNDERSTAND THIS BETTER TO SEE IF I CAN ALSO IMPROVE
+            //  IT NOTE! I am not done with this, I will try to keep Improving it.
 
             state = state.copy(
                 primaryTextState = secondaryState

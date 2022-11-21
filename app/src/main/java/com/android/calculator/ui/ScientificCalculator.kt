@@ -32,13 +32,6 @@ fun ScientificCalculator(
 )  {
 
     val scrollState = rememberScrollState()
-//    var color : Color? = null
-//
-//    color = if (state.color == Color.Red) {
-//        state.color
-//    } else {
-//        Color.White
-//    }
 
     Box(
         modifier = modifier

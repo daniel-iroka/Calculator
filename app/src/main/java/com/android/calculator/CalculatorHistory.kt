@@ -16,11 +16,14 @@ import com.android.calculator.model.CalculatorState
 
 @Composable
 fun CalculatorHistory(
+    /** NOTE! I will use this later. **/
     state : CalculatorState,
     modifier : Modifier
 ) {
 
     val verticalScroll = rememberScrollState()
+
+    // TODO - WHEN I COME BACK, I WILL CONTINUE IN THE BUILDING OF THIS THING.
 
     Box(
         modifier = modifier
@@ -30,29 +33,30 @@ fun CalculatorHistory(
 
         Column(
             modifier = Modifier
-                .fillMaxWidth()
+                .fillMaxWidth(),
+            horizontalAlignment = Alignment.Start
         ) {
             Text(
-                text = state.time.toString(),
+                text = "Test time.",
                 style = TextStyle(
-                    fontSize = 16.sp,
+                    fontSize = 26.sp,
                     fontWeight = Normal
                 )
-
-            // TODO - WHEN I COME BACK, I WILL CONTINUE FROM WHERE I STOPPED
-            // TODO - WHICH IS BUILDING OUR 'HISTORY' COMPOSABLE OR FRAGMENT AND ADDING AN OVERFLOW MENU TO IT, WHICH WILL ALSO HAVE AN APP BAR.
             )
         }
+
+        // TODO - RUN THIS LATER WHEN I COME BACK WHICH IS TRY TO INCREASE THIS DISTANCE BETWEEN THIS TWO
+        Spacer(modifier = modifier.width(28.dp))
 
         Column(
             modifier = Modifier
                 .fillMaxWidth(),
-            verticalArrangement = Arrangement.Center
+            horizontalAlignment = Alignment.End
         ) {
 
             CalculatorHistoryBox(
-                valueInput = state.primaryTextState,
-                valueResult = state.secondaryTextState,
+                valueInput = "First Text test.",
+                valueResult = "Second Text test.",
                 modifier = Modifier
                     .aspectRatio(1f)
             )
@@ -76,15 +80,14 @@ fun CalculatorHistoryBox(
         Column(
             modifier = modifier
                 .fillMaxWidth(),
-            horizontalAlignment = Alignment.End,
-            verticalArrangement = Arrangement.spacedBy(4.dp)
+            verticalArrangement = Arrangement.spacedBy(6.dp)
         ) {
 
             Text(
                 text = valueInput,
                 style = TextStyle(
                     fontWeight = Normal,
-                    fontSize = 19.sp
+                    fontSize = 22.sp
                 ),
                 color = Color.White
             )
@@ -93,29 +96,10 @@ fun CalculatorHistoryBox(
                 text = valueResult,
                 style = TextStyle(
                     fontWeight = Normal,
-                    fontSize = 19.sp
+                    fontSize = 22.sp
                 ),
                 color = Color.LightGray
             )
         }
     }
 }
-
-
-
-
-//
-//Column(
-//modifier = modifier
-//.fillMaxWidth(),
-//horizontalAlignment = Alignment.Start
-//) {
-//    Text(
-//        text = time.toString(),
-//        style = TextStyle(
-//            fontSize = 16.sp,
-//            fontWeight = Normal
-//        )
-//    )
-//}
-//

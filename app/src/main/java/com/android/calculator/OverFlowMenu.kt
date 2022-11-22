@@ -43,7 +43,8 @@ fun OverFlowMenu(
 
         // Our DropDown
         SettingsDialog(
-            dialogState = dialogState
+            dialogState = dialogState,
+            navController = navController
         )
 
         DropdownMenu(
@@ -57,7 +58,7 @@ fun OverFlowMenu(
                 DropdownMenuItem(
                     onClick = {
                         when(itemIndex) {
-                            0 -> { navController.navigate("first_screen") }
+                            0 -> { navController.navigate("main_screen") }
                             1 -> { navController.navigate("second_screen") }
                             2 -> { dialogState.value = true }
                         }
@@ -78,7 +79,7 @@ fun OverFlowMenu(
 fun HistoryOverFlowMenu(
     color : Color
 ) {
-    // TODO - WHEN I COME BACK, I WILL CONTINUE WORKING ON THIS WHICH IS TO CREATE A DROPDOWNMENU
+    /** NOTE! I will complete this later... **/
 
     val showMenu by remember{ mutableStateOf(false)}
     val listItem = listOf("Clear")

@@ -6,10 +6,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
+import androidx.navigation.NavHostController
 
 @Composable
 fun SettingsDialog(
-    dialogState : MutableState<Boolean>
+    dialogState : MutableState<Boolean>,
+    navController : NavHostController
 ) {
 
     // we remember that state in compose is any value that changes overtime.
@@ -27,7 +29,8 @@ fun SettingsDialog(
                     dialogState = dialogState,
                     dismissButtonText = "Close",
                     modifier = Modifier
-                        .padding(18.dp)
+                        .padding(18.dp),
+                    navController = navController
                 )
             },
             // set the properties to true to close the dialog when the back button or anywhere in the screen is clicked or pressed

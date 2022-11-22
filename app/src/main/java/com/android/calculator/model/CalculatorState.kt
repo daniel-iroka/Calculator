@@ -13,5 +13,4 @@ data class CalculatorState(
     val primaryTextState : String = "",
     val secondaryTextState : String = "",
     val operation : CalculatorOperation? = null,
-    val time : Date
 )

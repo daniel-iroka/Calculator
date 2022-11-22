@@ -12,9 +12,11 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight.Companion.Bold
+import androidx.compose.ui.text.font.FontWeight.Companion.Normal
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import com.android.calculator.ui.theme.Shapes
 
 @OptIn(ExperimentalMaterialApi::class)
@@ -24,6 +26,7 @@ fun DialogContent(
     dialogState : MutableState<Boolean>,
     dismissButtonText : String,
     modifier: Modifier = Modifier,
+    navController : NavHostController
 ) {
 
     val context = LocalContext.current.applicationContext
@@ -51,7 +54,7 @@ fun DialogContent(
                         text = title,
                         style = TextStyle(
                             color = Color.White,
-                            fontSize = 20.sp,
+                            fontSize = 23.sp,
                             textAlign = TextAlign.Center,
                             fontWeight = Bold
                         )
@@ -67,14 +70,23 @@ fun DialogContent(
                     Text(
                         text = "Dark Mode",
                         color = Color.White,
-                        fontStyle = FontStyle.Normal
+                        style = TextStyle(
+                            fontWeight = Normal,
+                            fontSize = 17.sp
+                        )
                     )
 
                     Spacer(modifier = Modifier.width(15.dp))
 
                     CompositionLocalProvider(LocalMinimumTouchTargetEnforcement provides false) {
 
-                        Switch(checked = checkedState.value, onCheckedChange = { checkedState.value = it })
+                        Switch(
+                            checked = checkedState.value,
+                            onCheckedChange = {
+                                checkedState.value = it
+                                Toast.makeText(context, "App theme has been changed.", Toast.LENGTH_LONG).show()
+                            }
+                        )
                     }
                 }
 
@@ -85,7 +97,11 @@ fun DialogContent(
                     Text(
                         text = "History",
                         color = Color.White,
-                        fontStyle = FontStyle.Normal
+                        modifier = Modifier.clickable { navController.navigate("third_screen") },
+                        style = TextStyle(
+                            fontWeight = Normal,
+                            fontSize = 17.sp
+                        )
                     )
                 }
 

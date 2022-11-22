@@ -9,14 +9,17 @@ import androidx.navigation.compose.composable
 fun ComposeNavigation(
     navController: NavHostController,
 ) {
+
+    // TODO - WHEN I COME BACK, I WILL FIRSTLY PROCEED WITH THE ADDING OF ANIMATION TO OUR NAVIGATION(rememberNavHostAnimationController)
+
     // We will try to Implement our NavHost here.
     NavHost(
         navController = navController ,
-        startDestination = "first_screen",
+        startDestination = "main_screen",
     ) {
 
-        composable("first_screen") {
-            FirstScreen(navController = navController)
+        composable("main_screen") {
+            MainScreen(navController = navController)
         }
 
         composable("second_screen") {

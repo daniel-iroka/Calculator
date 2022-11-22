@@ -15,7 +15,7 @@ import com.android.calculator.viewmodel.CalculatorViewModel
 /** This is our FirstScreen that holds our Scientific Calculator and it will be the default or firstScreen. **/
 
 @Composable
-fun FirstScreen(
+fun MainScreen(
     navController : NavHostController
 ) {
 

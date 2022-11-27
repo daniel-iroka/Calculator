@@ -18,10 +18,11 @@ fun ThirdScreen(
     navController : NavHostController
 ) {
     val viewModel = viewModel<CalculatorViewModel>()
-    val state = viewModel.state
+    val state = viewModel.historyState
 
     CalculatorHistory(
         state = state,
+        onAction = viewModel::onActionForHistory,
         modifier = Modifier
             .fillMaxSize()
             .background(MediumGray)

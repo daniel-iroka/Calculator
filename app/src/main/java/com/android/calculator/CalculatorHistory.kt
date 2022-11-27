@@ -12,18 +12,20 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight.Companion.Normal
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.android.calculator.model.CalculatorHistoryState
 import com.android.calculator.model.CalculatorState
 
 @Composable
 fun CalculatorHistory(
     /** NOTE! I will use this later. **/
-    state : CalculatorState,
-    modifier : Modifier
+    modifier : Modifier,
+    state : CalculatorHistoryState,
+    onAction : (CalculatorAction) -> Unit
 ) {
 
     val verticalScroll = rememberScrollState()
 
-    // TODO - WHEN I COME BACK, I WILL CONTINUE IN THE BUILDING OF THIS THING.
+    // TODO - FIX("Fix the Positioning of the items in the history screen - (Revisit jetpack compose basics for assistance)")
 
     Box(
         modifier = modifier
@@ -32,12 +34,26 @@ fun CalculatorHistory(
     ) {
 
         Column(
-            modifier = Modifier
+            modifier = modifier
                 .fillMaxWidth(),
+            horizontalAlignment = Alignment.End
+        ) {
+            HistoryOverFlowMenu(
+                color = Color.LightGray,
+                onAction = onAction
+            )
+        }
+
+        Spacer(modifier = modifier.width(20.dp))
+
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .align(Alignment.Center),
             horizontalAlignment = Alignment.Start
         ) {
             Text(
-                text = "Test time.",
+                text = state.time,
                 style = TextStyle(
                     fontSize = 26.sp,
                     fontWeight = Normal
@@ -45,7 +61,7 @@ fun CalculatorHistory(
             )
         }
 
-        // TODO - RUN THIS LATER WHEN I COME BACK WHICH IS TRY TO INCREASE THIS DISTANCE BETWEEN THIS TWO
+        // TODO - FIX("Check to see how the spacer is between this two items I just put here.")
         Spacer(modifier = modifier.width(28.dp))
 
         Column(
@@ -55,8 +71,8 @@ fun CalculatorHistory(
         ) {
 
             CalculatorHistoryBox(
-                valueInput = "First Text test.",
-                valueResult = "Second Text test.",
+                valueInput = state.primaryState,
+                valueResult = state.secondaryState,
                 modifier = Modifier
                     .aspectRatio(1f)
             )

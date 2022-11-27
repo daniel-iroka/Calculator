@@ -8,6 +8,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
 import com.android.calculator.CalculatorAction
 import com.android.calculator.CalculatorOperation
+import com.android.calculator.model.CalculatorHistoryState
 import com.android.calculator.model.CalculatorState
 import com.android.calculator.ui.theme.ferrari
 import com.android.calculator.ui.theme.orangeRed
@@ -21,13 +22,16 @@ private const val TAG = "CalculatorViewModel"
 class CalculatorViewModel : ViewModel() {
 
     var state by mutableStateOf(CalculatorState())
-        // This means that we can change the state from the outside but we can still read it
+        // This makes our state accessible by outside classes but still readable
         private set
+
+    var historyState by mutableStateOf(CalculatorHistoryState())
+    private set
 
     private var leftBracket by mutableStateOf(true)
     private var check = 0
+    // This is variable is only for debugging purposes and will soon be removed.
     private var _text = ""
-    private var bolCheck = ""
 
     // So this function is where and how we will register our click events based on how we set in the Calculator Composable.
     fun onAction(action : CalculatorAction) {
@@ -42,10 +46,22 @@ class CalculatorViewModel : ViewModel() {
             is CalculatorAction.Calculate -> performCalculation()
             is CalculatorAction.Delete -> performDeletion()
             is CalculatorAction.Brackets -> enterBrackets()
+            else -> {}
         }
     }
 
-    // We are Basically making the click events possible by modifying the 'state'
+    // This is the click event for the history part of our Calculator
+    // TODO - FIX("Test run this when I come to see how it works.")
+    fun onActionForHistory(action : CalculatorAction) {
+        when(action) {
+            is CalculatorAction.ClearHistory -> historyState = CalculatorHistoryState()
+            else -> {}
+        }
+    }
+
+    /**
+     * We are Basically making the click events possible by modifying the 'state'
+     */
 
     private fun performCalculation() {
         val primaryState = state.primaryTextState.last()
@@ -53,7 +69,7 @@ class CalculatorViewModel : ViewModel() {
 
         if (!(primaryState == '(' || primaryState == '√' || primaryState == '!' || primaryState == '%')) {
 
-            // Todo : NOTE! I am not done with this, I will try to keep Improving it.
+            // TODO - NOTE("I will come back to this later on.")
 
             state = state.copy(
                 primaryTextState = secondaryState
@@ -74,7 +90,6 @@ class CalculatorViewModel : ViewModel() {
         val res: String
 
         if (state.primaryTextState.isNotBlank()) {
-            // This variables will look to see if the listed operands are in our user input
             val value = state.primaryTextState
             val findFirstOpr = value.first()
             val findLastOpr = value.last()

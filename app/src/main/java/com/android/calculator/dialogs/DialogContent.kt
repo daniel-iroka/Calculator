@@ -29,10 +29,10 @@ fun DialogContent(
     navController : NavHostController
 ) {
 
+    // TODO - WHEN I COME BACK, I WILL TRY TO SEE FIX THIS ERROR AFTER THE IMPLEMENTATION I ADDED IN THE GRADLE FILE
+
     val context = LocalContext.current.applicationContext
-    val checkedState = remember {
-        mutableStateOf(false)
-    }
+    val checkedState = remember { mutableStateOf(false) }
 
     Surface(
         shape = Shapes.medium,
@@ -97,7 +97,10 @@ fun DialogContent(
                     Text(
                         text = "History",
                         color = Color.White,
-                        modifier = Modifier.clickable { navController.navigate("third_screen") },
+                        modifier = Modifier.clickable {
+                            navController.navigate("third_screen")
+                            dialogState.value = false
+                        },
                         style = TextStyle(
                             fontWeight = Normal,
                             fontSize = 17.sp

@@ -11,5 +11,6 @@ sealed class CalculatorAction {
     object Decimal : CalculatorAction()
     object Calculate : CalculatorAction()
     object Brackets : CalculatorAction()
+    object ClearHistory : CalculatorAction()
     data class Operation(val operation: CalculatorOperation) : CalculatorAction()
 }

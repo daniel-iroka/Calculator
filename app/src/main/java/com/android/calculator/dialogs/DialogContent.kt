@@ -29,8 +29,6 @@ fun DialogContent(
     navController : NavHostController
 ) {
 
-    // TODO - WHEN I COME BACK, I WILL TRY TO SEE FIX THIS ERROR AFTER THE IMPLEMENTATION I ADDED IN THE GRADLE FILE
-
     val context = LocalContext.current.applicationContext
     val checkedState = remember { mutableStateOf(false) }
 

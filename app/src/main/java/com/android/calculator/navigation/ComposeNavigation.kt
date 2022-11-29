@@ -13,14 +13,15 @@ import androidx.navigation.NavHostController
 import com.google.accompanist.navigation.animation.composable
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 
-
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun ComposeNavigation(
     navController: NavHostController,
 ) {
 
-    val springSec = spring<IntOffset>(dampingRatio = Spring.DampingRatioMediumBouncy)
+    // TODO - WHEN I COME BACK TOMORROW, I WILL CONTINUE EXPERIMENTING ON ANIMATIONS TO SEE WHICH ONE FITS THE APP BETTER
+
+    val springSec = spring<IntOffset>(dampingRatio = Spring.StiffnessVeryLow)
     val tweenSpec = tween<IntOffset>(durationMillis = 2000, easing = CubicBezierEasing(0.08f, 0.39f, 0.68f, 1.27f))
 
     // This is where we Implement out NavHost.
@@ -31,25 +32,37 @@ fun ComposeNavigation(
     ) {
 
         composable(
-            "main_screen"
-        // Todo - When I come back, I may add an animation here to see if it'll replace the popEnterTransition when re-entering the screen.
-        // Todo - Later I may also experiment with other animation transitions until I am satisfied.
+            "main_screen",
+            enterTransition = {
+                slideInHorizontally(initialOffsetX = { 1000 }, animationSpec = springSec)
+            },
+            exitTransition = {
+                slideOutHorizontally(targetOffsetX = { -1000 }, animationSpec = springSec)
+            },
+            popEnterTransition = {
+                slideInHorizontally(initialOffsetX = { -2000 }, animationSpec = springSec)
+            },
+            popExitTransition = {
+                slideOutHorizontally(targetOffsetX = { 2000 }, animationSpec = springSec)
+            }
+
         ) {
             MainScreen(navController = navController)
         }
         composable(
+            // Todo - When I come back, I will continue testing the speed of this animations and continue experimenting on the animations themselves.
             "second_screen",
             enterTransition = {
-                slideInHorizontally(initialOffsetX = { 500 }, animationSpec = springSec)
+                slideInHorizontally(initialOffsetX = { 5000 }, animationSpec = springSec)
             },
             exitTransition = {
-                slideOutHorizontally(targetOffsetX = { -500 }, animationSpec = springSec)
+                slideOutHorizontally(targetOffsetX = { -5000 }, animationSpec = springSec)
             },
             popEnterTransition = {
-                slideInHorizontally(initialOffsetX = { -500 }, animationSpec = springSec)
+                slideInHorizontally(initialOffsetX = { -3000 }, animationSpec = springSec)
             },
             popExitTransition = {
-                slideOutHorizontally(targetOffsetX = { 500 }, animationSpec = springSec)
+                slideOutHorizontally(targetOffsetX = { 3000 }, animationSpec = springSec)
             }
         ) {
             SecondScreen(navController = navController)
@@ -60,25 +73,3 @@ fun ComposeNavigation(
         }
     }
 }
-
-
-//enterTransition = {_, _ ->
-//    slideInHorizontally(initialOffsetX = { 1000 }, animationSpec = springSec)
-//},
-
-//composable(
-//"second_screen",
-//enterTransition = {_, _ ->
-//    slideInHorizontally(initialOffsetX = { 1000 }, animationSpec = springSec)
-//},
-//exitTransition = { _, _ ->
-//    slideOutHorizontally(targetOffsetX = { -1000 }, animationSpec = springSec)
-//},
-//popEnterTransition = { _, _ ->
-//    slideInHorizontally(initialOffsetX = { -1000 }, animationSpec = springSec)
-//},
-//popExitTransition = { _, _ ->
-//    slideOutHorizontally(targetOffsetX = { 1000 }, animationSpec = springSec)
-//}
-//)
-

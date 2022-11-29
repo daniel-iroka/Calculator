@@ -61,7 +61,6 @@ fun CalculatorHistory(
             )
         }
 
-        // TODO - FIX("Check to see how the spacer is between this two items I just put here.")
         Spacer(modifier = modifier.width(28.dp))
 
         Column(
@@ -87,9 +86,7 @@ fun CalculatorHistoryBox(
     modifier: Modifier
 ) {
     Box(
-        contentAlignment = Alignment.Center,
-        modifier = Modifier
-            .then(modifier)
+        modifier = modifier
     ) {
 
         // Our calculator Results

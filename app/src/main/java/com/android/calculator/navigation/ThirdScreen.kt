@@ -26,6 +26,6 @@ fun ThirdScreen(
         modifier = Modifier
             .fillMaxSize()
             .background(MediumGray)
-            .padding(10.dp)
+            .padding(12.dp)
     )
 }

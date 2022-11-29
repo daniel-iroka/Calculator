@@ -18,6 +18,8 @@ class MainActivity : ComponentActivity() {
             CalculatorTheme {
 
                // TODO - NOTE( "THIS IS A MAJOR TASK THAT I WILL ACCOMPLISH LATER IN THIS PROJECT WHICH IS THE DESIGNING OF THE LANDSCAPE ADAPTIVE LAYOUT OF THIS APP ONLY IF IT'S POSSIBLE AND NOT TO DIFFICULT")
+                // NOTE! I will run this later instead of the preview
+                AppPreview()
 
             }
         }

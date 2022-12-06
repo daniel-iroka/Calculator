@@ -8,23 +8,29 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
-import com.android.calculator.CalculatorHistory
+import com.android.calculator.ui.ScientificCalculator
 import com.android.calculator.ui.theme.MediumGray
 import com.android.calculator.viewmodel.CalculatorViewModel
 
-@Composable
-fun ThirdScreen(
-    // I will need this later like when using the back button for example
-    navController : NavHostController
-) {
-    val viewModel = viewModel<CalculatorViewModel>()
-    val state = viewModel.historyState
+/** This is our SecondScreen that holds our Scientific Calculator and it will be the Second. **/
 
-    CalculatorHistory(
+@Composable
+fun SecondScreen(
+    navController : NavHostController,
+) {
+
+    // This is how you access a viewModel in jetpack compose
+    val viewModel = viewModel<CalculatorViewModel>()
+    val state = viewModel.state
+    val buttonSpacing = 8.dp
+
+    ScientificCalculator(
         state = state,
-        onAction = viewModel::onActionForHistory,
+        onAction = viewModel::onAction,
+        buttonSpacing = buttonSpacing,
+        navController = navController,
         modifier = Modifier
-            .fillMaxSize()
+            .fillMaxSize()  // this will take up the entire space of the screen
             .background(MediumGray)
             .padding(12.dp)
     )

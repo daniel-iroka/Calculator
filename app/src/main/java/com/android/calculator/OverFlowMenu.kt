@@ -59,7 +59,7 @@ fun OverFlowMenu(
                     onClick = {
                         when(itemIndex) {
                             0 -> { navController.navigate("main_screen") }
-                            1 -> { navController.navigate("second_screen") }
+                            1 -> { navController.navigate("first_screen") }
                             2 -> { dialogState.value = true }
                         }
                         showOvfMenu = false

@@ -96,7 +96,7 @@ fun DialogContent(
                         text = "History",
                         color = Color.White,
                         modifier = Modifier.clickable {
-                            navController.navigate("third_screen")
+                            navController.navigate("second_screen")
                             dialogState.value = false
                         },
                         style = TextStyle(

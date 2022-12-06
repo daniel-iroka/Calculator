@@ -15,7 +15,7 @@ import com.android.calculator.viewmodel.CalculatorViewModel
 /** This is our SecondScreen that holds our Scientific Calculator and it will be the Second. **/
 
 @Composable
-fun SecondScreen(
+fun FirstScreen(
     navController : NavHostController,
 ) {
 

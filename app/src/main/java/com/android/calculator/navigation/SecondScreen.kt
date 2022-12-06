@@ -13,7 +13,7 @@ import com.android.calculator.ui.theme.MediumGray
 import com.android.calculator.viewmodel.CalculatorViewModel
 
 @Composable
-fun ThirdScreen(
+fun SecondScreen(
     // I will need this later like when using the back button for example
     navController : NavHostController
 ) {

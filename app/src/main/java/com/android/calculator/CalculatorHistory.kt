@@ -13,7 +13,6 @@ import androidx.compose.ui.text.font.FontWeight.Companion.Normal
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.android.calculator.model.CalculatorHistoryState
-import com.android.calculator.model.CalculatorState
 
 @Composable
 fun CalculatorHistory(
@@ -23,13 +22,15 @@ fun CalculatorHistory(
     onAction : (CalculatorAction) -> Unit
 ) {
 
-    val verticalScroll = rememberScrollState()
+    val scrollState = rememberScrollState()
 
     // TODO - FIX("Fix the Positioning of the items in the history screen - (Revisit jetpack compose basics for assistance)")
 
+    // TODO - WHEN I COME BACK, I WILL CONTINUE IN THE FIXING OF THIS THING, WHICH IS THE POSITIONING
+
     Box(
         modifier = modifier
-            .verticalScroll(verticalScroll)
+            .verticalScroll(state = scrollState)
 
     ) {
 
@@ -44,12 +45,11 @@ fun CalculatorHistory(
             )
         }
 
-        Spacer(modifier = modifier.width(20.dp))
+        Spacer(modifier = modifier.width(15.dp))
 
         Column(
             modifier = Modifier
-                .fillMaxWidth()
-                .align(Alignment.Center),
+                .fillMaxWidth(),
             horizontalAlignment = Alignment.Start
         ) {
             Text(
@@ -91,8 +91,7 @@ fun CalculatorHistoryBox(
 
         // Our calculator Results
         Column(
-            modifier = modifier
-                .fillMaxWidth(),
+            modifier = modifier,
             verticalArrangement = Arrangement.spacedBy(6.dp)
         ) {
 

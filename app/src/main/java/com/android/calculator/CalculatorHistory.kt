@@ -16,7 +16,6 @@ import com.android.calculator.model.CalculatorHistoryState
 
 @Composable
 fun CalculatorHistory(
-    /** NOTE! I will use this later. **/
     modifier : Modifier,
     state : CalculatorHistoryState,
     onAction : (CalculatorAction) -> Unit
@@ -24,9 +23,7 @@ fun CalculatorHistory(
 
     val scrollState = rememberScrollState()
 
-    // TODO - FIX("Fix the Positioning of the items in the history screen - (Revisit jetpack compose basics for assistance)")
-
-    // TODO - WHEN I COME BACK, I WILL CONTINUE IN THE FIXING OF THIS THING, WHICH IS THE POSITIONING
+    /** IMPORTANT NOTE! THINGS TO ADD LATER - ADD A SUPPORT APP BAR, A BACK BUTTON AND TRY TO SEE IF I CAN MAKE THE SECOND ROW REPEAT ITSELF FOR EACH OPERATION HISTORY.**/
 
     Box(
         modifier = modifier
@@ -45,36 +42,42 @@ fun CalculatorHistory(
             )
         }
 
-        Spacer(modifier = modifier.width(15.dp))
+        // TODO - TEST("When I come back, seeing other calculator examples, I will try to add this to the top possibly using 'TopStart' or something else when I come back. ")
 
         Column(
             modifier = Modifier
-                .fillMaxWidth(),
-            horizontalAlignment = Alignment.Start
-        ) {
-            Text(
-                text = state.time,
-                style = TextStyle(
-                    fontSize = 26.sp,
-                    fontWeight = Normal
-                )
-            )
-        }
-
-        Spacer(modifier = modifier.width(28.dp))
-
-        Column(
-            modifier = Modifier
-                .fillMaxWidth(),
-            horizontalAlignment = Alignment.End
+                .fillMaxWidth()
+                .align(Alignment.Center)
         ) {
 
-            CalculatorHistoryBox(
-                valueInput = state.primaryState,
-                valueResult = state.secondaryState,
+            Row(
                 modifier = Modifier
-                    .aspectRatio(1f)
-            )
+                    .fillMaxWidth(),
+                horizontalArrangement = Arrangement.Start
+            ) {
+                Text(
+                    text = state.time,
+                    style = TextStyle(
+                        fontSize = 26.sp,
+                        fontWeight = Normal
+                    )
+                )
+            }
+
+            Spacer(modifier = Modifier.height(25.dp))
+
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth(),
+                horizontalArrangement = Arrangement.End
+            ) {
+                CalculatorHistoryBox(
+                    valueInput = state.primaryState,
+                    valueResult = state.secondaryState,
+                    modifier = Modifier
+                        .aspectRatio(1f),
+                )
+            }
         }
     }
 }
@@ -85,14 +88,17 @@ fun CalculatorHistoryBox(
     valueResult : String,
     modifier: Modifier
 ) {
+
     Box(
         modifier = modifier
     ) {
 
         // Our calculator Results
         Column(
-            modifier = modifier,
-            verticalArrangement = Arrangement.spacedBy(6.dp)
+            modifier = Modifier
+                .fillMaxWidth(),
+            verticalArrangement = Arrangement.spacedBy(16.dp),
+            horizontalAlignment = Alignment.End
         ) {
 
             Text(

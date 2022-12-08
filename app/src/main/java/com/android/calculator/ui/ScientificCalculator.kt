@@ -98,8 +98,9 @@ fun ScientificCalculator(
 
             // First Scientific Symbols row.
             Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween
+                modifier = Modifier
+                    .fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceEvenly
             ) {
                 ScientificCalculatorButton(
                     symbol = "sin",

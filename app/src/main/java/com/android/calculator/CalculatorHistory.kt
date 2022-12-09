@@ -13,6 +13,7 @@ import androidx.compose.ui.text.font.FontWeight.Companion.Normal
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.android.calculator.model.CalculatorHistoryState
+import com.android.calculator.ui.theme.LightGray
 
 @Composable
 fun CalculatorHistory(
@@ -24,6 +25,8 @@ fun CalculatorHistory(
     val scrollState = rememberScrollState()
 
     /** IMPORTANT NOTE! THINGS TO ADD LATER - ADD A SUPPORT APP BAR, A BACK BUTTON AND TRY TO SEE IF I CAN MAKE THE SECOND ROW REPEAT ITSELF FOR EACH OPERATION HISTORY.**/
+
+    // TODO - IMPLEMENTATION("When I come back later, the next feature I will proceed with adding is the App bar using 'supportAppBar' in jetpack compose.")
 
     Box(
         modifier = modifier
@@ -45,26 +48,25 @@ fun CalculatorHistory(
         Column(
             modifier = Modifier
                 .fillMaxWidth()
+                .padding(8.dp)
         ) {
-
-            // TODO - TEST("When I come back, I will continue in the testing of this Row below to try and bring down a little bit.")
 
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(vertical = 28.dp)
+                    .padding(vertical = 60.dp)
             ) {
                 Text(
                     text = state.time,
                     style = TextStyle(
-                        fontSize = 22.sp,
+                        fontSize = 24.sp,
                         fontWeight = Normal
                     ),
-                    color = Color.White
+                    color = LightGray
                 )
             }
 
-            Spacer(modifier = Modifier.width(28.dp))
+            Spacer(modifier = Modifier.width(25.dp))
 
             Row(
                 modifier = Modifier
@@ -106,7 +108,7 @@ fun CalculatorHistoryBox(
                 text = valueInput,
                 style = TextStyle(
                     fontWeight = Normal,
-                    fontSize = 26.sp
+                    fontSize = 34.sp
                 ),
                 color = Color.White
             )
@@ -115,7 +117,7 @@ fun CalculatorHistoryBox(
                 text = valueResult,
                 style = TextStyle(
                     fontWeight = Normal,
-                    fontSize = 26.sp
+                    fontSize = 34.sp
                 ),
                 color = Color.LightGray
             )

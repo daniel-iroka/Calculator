@@ -50,7 +50,19 @@ class CalculatorViewModel : ViewModel() {
     // This is the click event for the history part of our Calculator
     fun onActionForHistory(action : CalculatorAction) {
         when(action) {
-            is CalculatorAction.ClearHistory -> historyState = CalculatorHistoryState()
+            is CalculatorAction.ClearHistory -> {
+                /** NOTICE! Clearing the calculation history in this manner will be temporary. I will try and better it later. **/
+                historyState = historyState.copy(
+                    primaryState = ""
+                )
+                historyState = historyState.copy(
+                    secondaryState = ""
+                )
+                historyState = historyState.copy(
+                    time = ""
+                )
+            }
+            //    is CalculatorAction.ClearHistory -> historyState = CalculatorHistoryState()
             else -> {}
         }
     }
@@ -168,7 +180,6 @@ class CalculatorViewModel : ViewModel() {
 
     private fun squareRoot(operation: CalculatorOperation) {
         state = state.copy(operation = operation)
-//        check += 1 pretty useless so no need to even put this here...
     }
 
     private fun squared(operation: CalculatorOperation) {
@@ -272,7 +283,6 @@ class CalculatorViewModel : ViewModel() {
     }
 
     private fun enterNumber(number: Int) {
-
 
         state = state.copy(
             primaryTextState = state.primaryTextState + number
@@ -454,10 +464,3 @@ class CalculatorViewModel : ViewModel() {
 //    }
 
 }
-
-//if (secondaryState.isNotEmpty()) {
-//    state = state.copy(
-//        primaryTextState = secondaryState
-//    )
-//    state = state.copy(secondaryTextState = "")
-//}

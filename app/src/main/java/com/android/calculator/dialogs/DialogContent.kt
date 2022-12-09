@@ -32,14 +32,11 @@ fun DialogContent(
     val context = LocalContext.current.applicationContext
     val checkedState = remember { mutableStateOf(false) }
 
-    // TODO - TEST("when I also come back, I will continue in the testing, checking and optimizing of the items here.")
-
     Surface(
         shape = Shapes.medium,
         color = Color.DarkGray
     ) {
         Box(
-            // TODO - ADD A PADDING OF 18 DP HERE TO SEE HOW IT LOOKS.
             modifier = Modifier
         ) {
 

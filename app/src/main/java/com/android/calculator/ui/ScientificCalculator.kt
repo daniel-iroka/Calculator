@@ -100,7 +100,7 @@ fun ScientificCalculator(
             Row(
                 modifier = Modifier
                     .fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceEvenly
+                horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 ScientificCalculatorButton(
                     symbol = "sin",

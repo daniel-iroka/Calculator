@@ -82,14 +82,8 @@ fun HistoryOverFlowMenu(
     onAction : (CalculatorAction) -> Unit
 ) {
 
-    // TODO - TEST("Test run to see how this newly Implemented feature looks like for correction or further Improvements.")
-
     var showHistMenu by remember{ mutableStateOf(false)}
     val listItem = listOf("Clear")
-
-
-//    /** NOTE! I am not sure of this Implementation, which is accessing(clearing) the state from here so I will keep an eye on this variable. **/
-//    var histState by remember{mutableStateOf(CalculatorHistoryState())}
 
     Box(
         contentAlignment = Alignment.Center

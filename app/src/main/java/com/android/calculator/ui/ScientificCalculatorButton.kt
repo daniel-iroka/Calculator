@@ -22,12 +22,11 @@ fun ScientificCalculatorButton(
     modifier : Modifier,
     onCLick: () -> Unit
 ) {
-    // This is a rounded Box here because of the clip CircleShape
     Box(
         contentAlignment = Alignment.Center,
         modifier = Modifier
             .clip(Shapes.small)
-            .clickable { onCLick() } // This will only make our 'Box' which is a text clickable
+            .clickable { onCLick() }
             .then(modifier)
     ) {
         Text(

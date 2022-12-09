@@ -12,14 +12,12 @@ import com.android.calculator.ui.ScientificCalculator
 import com.android.calculator.ui.theme.MediumGray
 import com.android.calculator.viewmodel.CalculatorViewModel
 
-/** This is our SecondScreen that holds our Scientific Calculator and it will be the Second. **/
 
 @Composable
 fun FirstScreen(
     navController : NavHostController,
 ) {
 
-    // This is how you access a viewModel in jetpack compose
     val viewModel = viewModel<CalculatorViewModel>()
     val state = viewModel.state
     val buttonSpacing = 8.dp
@@ -30,7 +28,7 @@ fun FirstScreen(
         buttonSpacing = buttonSpacing,
         navController = navController,
         modifier = Modifier
-            .fillMaxSize()  // this will take up the entire space of the screen
+            .fillMaxSize()
             .background(MediumGray)
             .padding(12.dp)
     )

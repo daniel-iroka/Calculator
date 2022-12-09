@@ -1,7 +1,7 @@
 package com.android.calculator.model
 
 data class CalculatorHistoryState(
-    val primaryState : String = "First Text test",
-    val secondaryState : String = "Second Text test",
-    val time : String = "Test time"
+    val primaryState : String = "10 × 9",
+    val secondaryState : String = "90",
+    val time : String = "Today"
 )

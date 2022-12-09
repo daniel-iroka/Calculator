@@ -30,7 +30,7 @@ fun MainScreen(
         buttonSpacing = buttonSpacing,
         navController = navController,
         modifier = Modifier
-            .fillMaxSize() // this will take up the entire space of the screen
+            .fillMaxSize() // will fill up the entire screen
             .background(MediumGray)
             .padding(12.dp)
     )

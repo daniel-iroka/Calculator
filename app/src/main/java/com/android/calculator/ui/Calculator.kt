@@ -25,7 +25,6 @@ import com.android.calculator.ui.theme.Orange
 /**  This is our Calculator file. This is the Compose file that Implements the look of our Calculator App, taking in other classes and functionalities like the state and-
  *   so on.**/
 
-
 @Composable
 fun Calculator(
     state : CalculatorState,
@@ -35,7 +34,7 @@ fun Calculator(
     navController: NavHostController
 ) {
 
-    // this will make whatever layout component we modify it scrollable based on the scrollState
+    // will make our layout scrollable based on a scrollState
     val scrollState = rememberScrollState()
 
     Box(
@@ -58,13 +57,12 @@ fun Calculator(
         // Column for the rest of our Calculator.
         Column(
             modifier = Modifier
-                .fillMaxWidth()  // this obviously will take up the entire width of the screen
+                .fillMaxWidth()  // will take up the entire width of the screen
                 .align(Alignment.BottomCenter),
             verticalArrangement = Arrangement.spacedBy(buttonSpacing)
         ) {
 
             // text for the result of our Calculation.
-
             Text(
                 text = state.primaryTextState,
                 textAlign = TextAlign.End,

@@ -11,7 +11,6 @@ import com.android.calculator.CalculatorOperation
 import com.android.calculator.model.CalculatorHistoryState
 import com.android.calculator.model.CalculatorState
 import com.android.calculator.ui.theme.ferrari
-import com.android.calculator.ui.theme.orangeRed
 import kotlin.math.*
 
 /** This is our ViewModel and in Jetpack compose, it is responsible for handling the User actions and click events as well as state in compose.
@@ -30,8 +29,6 @@ class CalculatorViewModel : ViewModel() {
 
     private var leftBracket by mutableStateOf(true)
     private var check = 0
-    // This is variable is only for debugging purposes and will soon be removed.
-    private var _text = ""
 
     // So this function is where and how we will register our click events based on how we set in the Calculator Composable.
     fun onAction(action : CalculatorAction) {
@@ -51,7 +48,6 @@ class CalculatorViewModel : ViewModel() {
     }
 
     // This is the click event for the history part of our Calculator
-    // TODO - FIX("Test run this when I come to see how it works.")
     fun onActionForHistory(action : CalculatorAction) {
         when(action) {
             is CalculatorAction.ClearHistory -> historyState = CalculatorHistoryState()
@@ -309,8 +305,6 @@ class CalculatorViewModel : ViewModel() {
             secondaryTextState = result.toString()
         )
 
-        _text = result.toString()
-
 
 //        val value = state.primaryTextState.first().code
 //        when(value) {
@@ -420,7 +414,6 @@ class CalculatorViewModel : ViewModel() {
         try {
             val result = eval(text)
             val mainResult = result.toString()
-            val otherResult = _text
             state = if (check == 0) {
                 state.copy(
                     secondaryTextState = ""
@@ -430,7 +423,7 @@ class CalculatorViewModel : ViewModel() {
                     secondaryTextState = mainResult
                 )
             }
-            Log.i(TAG, "LOG- Result $otherResult")
+//            Log.i(TAG, "LOG- Result $otherResult")
         }
         catch (e : Exception) {
             Log.e(TAG, "ERROR!")

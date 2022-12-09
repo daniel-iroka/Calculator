@@ -32,18 +32,22 @@ fun DialogContent(
     val context = LocalContext.current.applicationContext
     val checkedState = remember { mutableStateOf(false) }
 
+    // TODO - TEST("when I also come back, I will continue in the testing, checking and optimizing of the items here.")
+
     Surface(
         shape = Shapes.medium,
         color = Color.DarkGray
     ) {
         Box(
-            contentAlignment = Alignment.CenterStart
+            // TODO - ADD A PADDING OF 18 DP HERE TO SEE HOW IT LOOKS.
+            modifier = Modifier
         ) {
+
             Column(
                 modifier = Modifier
-                    .padding(vertical = 8.dp),
-                horizontalAlignment = Alignment.Start
+                    .padding(vertical = 6.dp)
             ) {
+
                 Row(
                     modifier = modifier
                         .fillMaxWidth()
@@ -53,13 +57,13 @@ fun DialogContent(
                         style = TextStyle(
                             color = Color.White,
                             fontSize = 23.sp,
-                            textAlign = TextAlign.Center,
+                            textAlign = TextAlign.Start,
                             fontWeight = Bold
                         )
                     )
                 }
 
-                Spacer(modifier = Modifier.height(10.dp))
+                Spacer(modifier = Modifier.height(5.dp))
 
                 Row(
                     modifier = modifier
@@ -106,7 +110,7 @@ fun DialogContent(
                     )
                 }
 
-                Spacer(modifier = Modifier.height(20.dp))
+                Spacer(modifier = Modifier.height(18.dp))
 
                 Row(
                     modifier = modifier
@@ -132,3 +136,6 @@ fun DialogContent(
         }
     }
 }
+
+/** NOTICE! This is was put in between the last two rows in this composable just in case I want to put it back. **/
+//Spacer(modifier = Modifier.height(20.dp))

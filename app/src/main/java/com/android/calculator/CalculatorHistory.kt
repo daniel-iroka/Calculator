@@ -42,29 +42,29 @@ fun CalculatorHistory(
             )
         }
 
-        // TODO - TEST("When I come back, seeing other calculator examples, I will try to add this to the top possibly using 'TopStart' or something else when I come back. ")
-
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .align(Alignment.Center)
         ) {
+
+            // TODO - TEST("When I come back, I will continue in the testing of this Row below to try and bring down a little bit.")
 
             Row(
                 modifier = Modifier
-                    .fillMaxWidth(),
-                horizontalArrangement = Arrangement.Start
+                    .fillMaxWidth()
+                    .padding(vertical = 28.dp)
             ) {
                 Text(
                     text = state.time,
                     style = TextStyle(
-                        fontSize = 26.sp,
+                        fontSize = 22.sp,
                         fontWeight = Normal
-                    )
+                    ),
+                    color = Color.White
                 )
             }
 
-            Spacer(modifier = Modifier.height(25.dp))
+            Spacer(modifier = Modifier.width(28.dp))
 
             Row(
                 modifier = Modifier
@@ -79,6 +79,7 @@ fun CalculatorHistory(
                 )
             }
         }
+        
     }
 }
 
@@ -105,7 +106,7 @@ fun CalculatorHistoryBox(
                 text = valueInput,
                 style = TextStyle(
                     fontWeight = Normal,
-                    fontSize = 22.sp
+                    fontSize = 26.sp
                 ),
                 color = Color.White
             )
@@ -114,7 +115,7 @@ fun CalculatorHistoryBox(
                 text = valueResult,
                 style = TextStyle(
                     fontWeight = Normal,
-                    fontSize = 22.sp
+                    fontSize = 26.sp
                 ),
                 color = Color.LightGray
             )

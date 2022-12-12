@@ -24,8 +24,10 @@ class CalculatorViewModel : ViewModel() {
         // This makes our state accessible by outside classes but still readable
         private set
 
+    // TODO - COME BACK TO SEE WHY THIS DIDN'T WORK. I MAY TEST DOING THIS WITH A SINGLE STATE TO SEE IF IT WORKS
+
     var historyState by mutableStateOf(CalculatorHistoryState())
-    private set
+        private set
 
     private var leftBracket by mutableStateOf(true)
     private var check = 0
@@ -72,10 +74,12 @@ class CalculatorViewModel : ViewModel() {
      */
 
     private fun performCalculation() {
-        val primaryState = state.primaryTextState.last()
+        val primaryState = state.primaryTextState
+        val primaryStateChar = state.primaryTextState.last()
         val secondaryState = state.secondaryTextState
 
-        if (!(primaryState == '(' || primaryState == '√' || primaryState == '!' || primaryState == '%')) {
+
+        if (!(primaryStateChar == '(' || primaryStateChar == '√' || primaryStateChar == '!' || primaryStateChar == '%')) {
 
             // TODO - NOTE("I will come back to this later on.")
 
@@ -84,7 +88,18 @@ class CalculatorViewModel : ViewModel() {
             )
             state = state.copy(secondaryTextState = "")
 
-            // TODO
+
+            // TODO - NOW("Now I will try to Implement passing our calculation values to our History screen.")
+            /** WELL. THIS DID NOT WORK FOR SOME REASON. **/
+            historyState = historyState.copy(
+                primaryState = primaryState
+            )
+
+            historyState = historyState.copy(
+                secondaryState = secondaryState
+            )
+
+
         } else {
             state = state.copy(
                 secondaryTextState = "Format error"

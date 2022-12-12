@@ -2,7 +2,6 @@ package com.android.calculator.navigation
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -14,7 +13,6 @@ import com.android.calculator.viewmodel.CalculatorViewModel
 
 @Composable
 fun SecondScreen(
-    // I will need this later like when using the back button for example
     navController : NavHostController
 ) {
     val viewModel = viewModel<CalculatorViewModel>()
@@ -23,9 +21,9 @@ fun SecondScreen(
     CalculatorHistory(
         state = state,
         onAction = viewModel::onActionForHistory,
+        navController = navController,
         modifier = Modifier
             .fillMaxSize()
             .background(MediumGray)
-            .padding(12.dp)
     )
 }

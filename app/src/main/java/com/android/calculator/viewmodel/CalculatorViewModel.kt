@@ -83,6 +83,8 @@ class CalculatorViewModel : ViewModel() {
                 primaryTextState = secondaryState
             )
             state = state.copy(secondaryTextState = "")
+
+            // TODO
         } else {
             state = state.copy(
                 secondaryTextState = "Format error"

@@ -23,18 +23,24 @@ class CalculatorViewModel : ViewModel() {
         // This makes our state accessible by outside classes but still readable
         private set
 
-    // TODO - COME BACK TO SEE WHY THIS DIDN'T WORK. I MAY TEST DOING THIS WITH A SINGLE STATE TO SEE IF IT WORKS
-
     var historyState by mutableStateOf(CalculatorHistoryState())
         private set
 
     private var leftBracket by mutableStateOf(true)
     private var check = 0
 
+    // TODO - WHEN I COME BACK, I WILL CONTINUE WITH THE FIXING OF PASSING OUR CALCULATED RESULT FROM THIS VIEW MODEL TO OUR HISTORY SCREEN
+    // TODO -FIX("No need for using the first state, I will proceed with using the second state I created and Improve this Implementation")
+
+    private var historyPrimaryState = ""
+    private var historySecondaryState = ""
+
     // So this function is where and how we will register our click events based on how we set in the Calculator Composable.
     fun onAction(action : CalculatorAction) {
         when(action) {
-            is CalculatorAction.Number -> enterNumber(action.number)
+            is CalculatorAction.Number -> {
+                enterNumber(action.number)
+            }
             is CalculatorAction.Decimal -> enterDecimal()
             is CalculatorAction.Clear -> {
                 state = CalculatorState()
@@ -54,10 +60,10 @@ class CalculatorViewModel : ViewModel() {
             is CalculatorAction.ClearHistory -> {
                 /** NOTICE! Clearing the calculation history in this manner will be temporary. I will try and better it later. **/
                 historyState = historyState.copy(
-                    primaryState = ""
+                    primaryState = historyPrimaryState
                 )
                 historyState = historyState.copy(
-                    secondaryState = ""
+                    secondaryState = "Test state."
                 )
                 historyState = historyState.copy(
                     time = ""
@@ -66,6 +72,7 @@ class CalculatorViewModel : ViewModel() {
             //    is CalculatorAction.ClearHistory -> historyState = CalculatorHistoryState()
             else -> {}
         }
+        Log.d(TAG, "This is the available value we are looking for : $historyPrimaryState and $historySecondaryState")
     }
 
     /**
@@ -73,10 +80,10 @@ class CalculatorViewModel : ViewModel() {
      */
 
     private fun performCalculation() {
-        val primaryState = state.primaryTextState
         val primaryStateChar = state.primaryTextState.last()
         val secondaryState = state.secondaryTextState
-
+        val primaryState = state.primaryTextState
+        var calculatedResult = secondaryState
 
         if (!(primaryStateChar == '(' || primaryStateChar == '√' || primaryStateChar == '!' || primaryStateChar == '%')) {
 
@@ -87,17 +94,10 @@ class CalculatorViewModel : ViewModel() {
             )
             state = state.copy(secondaryTextState = "")
 
+            // TODO - FIRSTLY("When I come back, I will find better ways to pass the state as due to the Implementation here, I am only passing an empty value.")
+            historySecondaryState = calculatedResult
 
-            // TODO - NOW("Now I will try to Implement passing our calculation values to our History screen.")
-            /** WELL. THIS DID NOT WORK FOR SOME REASON. **/
-            historyState = historyState.copy(
-                primaryState = primaryState
-            )
-
-            historyState = historyState.copy(
-                secondaryState = secondaryState
-            )
-
+            historyPrimaryState = primaryState
 
         } else {
             state = state.copy(
@@ -108,6 +108,7 @@ class CalculatorViewModel : ViewModel() {
                 color = ferrari
             )
         }
+        Log.d(TAG, "This is the first check of this value : $historySecondaryState.")
     }
 
     private fun performDeletion() {
@@ -156,6 +157,7 @@ class CalculatorViewModel : ViewModel() {
             )
             leftBracket = true
         }
+        Log.d(TAG, "This is the first check of this value : $historySecondaryState.")
     }
 
     private fun enterOperation(operation: CalculatorOperation) {

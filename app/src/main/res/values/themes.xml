@@ -2,6 +2,6 @@
 <resources>
 
     <style name="Theme.Calculator" parent="android:Theme.Material.Light.NoActionBar">
-        <item name="android:statusBarColor">@color/DarkGray</item>
+        <item name="android:statusBarColor">@color/MediumGray</item>
     </style>
 </resources>

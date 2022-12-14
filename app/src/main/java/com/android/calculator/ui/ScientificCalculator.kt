@@ -1,6 +1,5 @@
 package com.android.calculator.ui
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -21,6 +20,8 @@ import com.android.calculator.*
 import com.android.calculator.model.CalculatorState
 import com.android.calculator.ui.theme.LightGray
 import com.android.calculator.ui.theme.Orange
+import com.android.calculator.utils.scientificCalculatorModifiers
+import com.android.calculator.utils.scientificOperationModifiers
 
 @Composable
 fun ScientificCalculator(
@@ -106,8 +107,7 @@ fun ScientificCalculator(
                     symbol = "sin",
                     color = Orange,
                     modifier = Modifier
-                        .width(50.dp)
-                        .height(30.dp),
+                        .scientificOperationModifiers(),
 
                     onCLick = {
                         onAction(CalculatorAction.Operation(CalculatorOperation.Sin))
@@ -117,8 +117,7 @@ fun ScientificCalculator(
                     symbol = "cos",
                     color = Orange,
                     modifier = Modifier
-                        .width(50.dp)
-                        .height(30.dp),
+                        .scientificOperationModifiers(),
 
                     onCLick = {
                         onAction(CalculatorAction.Operation(CalculatorOperation.Cos))
@@ -128,8 +127,7 @@ fun ScientificCalculator(
                     symbol = "tan",
                     color = Orange,
                     modifier = Modifier
-                        .width(50.dp)
-                        .height(30.dp),
+                        .scientificOperationModifiers(),
 
                     onCLick = {
                         onAction(CalculatorAction.Operation(CalculatorOperation.Tan))
@@ -139,8 +137,7 @@ fun ScientificCalculator(
                     symbol = "log",
                     color = Orange,
                     modifier = Modifier
-                        .width(50.dp)
-                        .height(30.dp),
+                        .scientificOperationModifiers(),
 
                     onCLick = {
                         onAction(CalculatorAction.Operation(CalculatorOperation.Log))
@@ -150,8 +147,7 @@ fun ScientificCalculator(
                     symbol = "ln",
                     color = Orange,
                     modifier = Modifier
-                        .width(50.dp)
-                        .height(30.dp),
+                        .scientificOperationModifiers(),
 
                     onCLick = {
                         onAction(CalculatorAction.Operation(CalculatorOperation.In))
@@ -165,12 +161,11 @@ fun ScientificCalculator(
                 horizontalArrangement = Arrangement.SpaceBetween,
             ) {
                 ScientificCalculatorButton(
-                    symbol = "x!",
+                    symbol = "sin",
                     color = Orange,
                     fontSize = 18.sp,
                     modifier = Modifier
-                        .width(50.dp)
-                        .height(30.dp),
+                        .scientificOperationModifiers(),
 
                     onCLick = {
                         onAction(CalculatorAction.Operation(CalculatorOperation.Factorial))
@@ -181,8 +176,7 @@ fun ScientificCalculator(
                     color = Orange,
                     fontSize = 18.sp,
                     modifier = Modifier
-                        .width(50.dp)
-                        .height(30.dp),
+                        .scientificOperationModifiers(),
 
                     onCLick = {
                         onAction(CalculatorAction.Operation(CalculatorOperation.Squared))
@@ -193,8 +187,7 @@ fun ScientificCalculator(
                     color = Orange,
                     fontSize = 18.sp,
                     modifier = Modifier
-                        .width(50.dp)
-                        .height(30.dp),
+                        .scientificOperationModifiers(),
 
                     onCLick = {
                         onAction(CalculatorAction.Operation(CalculatorOperation.SquareRoot))
@@ -205,8 +198,7 @@ fun ScientificCalculator(
                     color = Orange,
                     fontSize = 18.sp,
                     modifier = Modifier
-                        .width(50.dp)
-                        .height(30.dp),
+                        .scientificOperationModifiers(),
 
                     onCLick = {
                         onAction(CalculatorAction.Operation(CalculatorOperation.Inv))
@@ -217,8 +209,7 @@ fun ScientificCalculator(
                     color = Orange,
                     fontSize = 18.sp,
                     modifier = Modifier
-                        .width(50.dp)
-                        .height(30.dp),
+                        .scientificOperationModifiers(),
 
                     onCLick = {
                         onAction(CalculatorAction.Brackets)
@@ -226,6 +217,7 @@ fun ScientificCalculator(
                 )
             }
 
+            // First Row
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(buttonSpacing)
@@ -234,10 +226,7 @@ fun ScientificCalculator(
                     symbol = "%",
                     color = Color.White,
                     modifier = Modifier
-                        .width(70.dp)
-                        .height(60.dp)
-                        .background(Orange)
-                        .aspectRatio(1f) // this makes whatever composable will call it on look Squared.
+                        .scientificCalculatorModifiers(Orange)
                         .weight(1f),
 
                     onCLick = {
@@ -247,10 +236,7 @@ fun ScientificCalculator(
                 CalculatorIcons(
                     color = Color.White,
                     modifier = Modifier
-                        .width(70.dp)
-                        .height(60.dp)
-                        .background(Orange)
-                        .aspectRatio(1f)
+                        .scientificCalculatorModifiers(Orange)
                         .weight(1f),
 
                     onCLick = {
@@ -261,10 +247,7 @@ fun ScientificCalculator(
                     symbol = "AC",
                     color = Color.White,
                     modifier = Modifier
-                        .width(70.dp)
-                        .height(60.dp)
-                        .background(Orange)
-                        .aspectRatio(1f)
+                        .scientificCalculatorModifiers(Orange)
                         .weight(1f),
 
                     onCLick = {
@@ -275,10 +258,7 @@ fun ScientificCalculator(
                     symbol = "÷",
                     color = Color.White,
                     modifier = Modifier
-                        .width(70.dp)
-                        .height(60.dp)
-                        .background(Orange)
-                        .aspectRatio(1f)
+                        .scientificCalculatorModifiers(Orange)
                         .weight(1f),
 
                     onCLick = {
@@ -296,10 +276,7 @@ fun ScientificCalculator(
                     symbol = "7",
                     color = Color.White,
                     modifier = Modifier
-                        .width(70.dp)
-                        .height(60.dp)
-                        .background(Color.DarkGray)
-                        .aspectRatio(1f)
+                        .scientificCalculatorModifiers(Color.DarkGray)
                         .weight(1f),
 
                     onCLick = {
@@ -310,10 +287,7 @@ fun ScientificCalculator(
                     symbol = "8",
                     color = Color.White,
                     modifier = Modifier
-                        .width(70.dp)
-                        .height(60.dp)
-                        .background(Color.DarkGray)
-                        .aspectRatio(1f)
+                        .scientificCalculatorModifiers(Color.DarkGray)
                         .weight(1f),
 
                     onCLick = {
@@ -324,10 +298,7 @@ fun ScientificCalculator(
                     symbol = "9",
                     color = Color.White,
                     modifier = Modifier
-                        .width(70.dp)
-                        .height(60.dp)
-                        .background(Color.DarkGray)
-                        .aspectRatio(1f)
+                        .scientificCalculatorModifiers(Color.DarkGray)
                         .weight(1f),
 
                     onCLick = {
@@ -338,10 +309,7 @@ fun ScientificCalculator(
                     symbol = "×",
                     color = Color.White,
                     modifier = Modifier
-                        .width(70.dp)
-                        .height(60.dp)
-                        .background(Orange)
-                        .aspectRatio(1f)
+                        .scientificCalculatorModifiers(Orange)
                         .weight(1f),
 
                     onCLick = {
@@ -359,10 +327,7 @@ fun ScientificCalculator(
                     symbol = "4",
                     color = Color.White,
                     modifier = Modifier
-                        .width(70.dp)
-                        .height(60.dp)
-                        .background(Color.DarkGray)
-                        .aspectRatio(1f)
+                        .scientificCalculatorModifiers(Color.DarkGray)
                         .weight(1f),
 
                     onCLick = {
@@ -373,10 +338,7 @@ fun ScientificCalculator(
                     symbol = "5",
                     color = Color.White,
                     modifier = Modifier
-                        .width(70.dp)
-                        .height(60.dp)
-                        .background(Color.DarkGray)
-                        .aspectRatio(1f)
+                        .scientificCalculatorModifiers(Color.DarkGray)
                         .weight(1f),
 
                     onCLick = {
@@ -387,10 +349,7 @@ fun ScientificCalculator(
                     symbol = "6",
                     color = Color.White,
                     modifier = Modifier
-                        .width(70.dp)
-                        .height(60.dp)
-                        .background(Color.DarkGray)
-                        .aspectRatio(1f)
+                        .scientificCalculatorModifiers(Color.DarkGray)
                         .weight(1f),
 
                     onCLick = {
@@ -401,10 +360,7 @@ fun ScientificCalculator(
                     symbol = "-",
                     color = Color.White,
                     modifier = Modifier
-                        .width(70.dp)
-                        .height(60.dp)
-                        .background(Orange)
-                        .aspectRatio(1f)
+                        .scientificCalculatorModifiers(Orange)
                         .weight(1f),
 
                     onCLick = {
@@ -422,10 +378,7 @@ fun ScientificCalculator(
                     symbol = "1",
                     color = Color.White,
                     modifier = Modifier
-                        .width(70.dp)
-                        .height(60.dp)
-                        .background(Color.DarkGray)
-                        .aspectRatio(1f)
+                        .scientificCalculatorModifiers(Color.DarkGray)
                         .weight(1f),
 
                     onCLick = {
@@ -436,10 +389,7 @@ fun ScientificCalculator(
                     symbol = "2",
                     color = Color.White,
                     modifier = Modifier
-                        .width(70.dp)
-                        .height(60.dp)
-                        .background(Color.DarkGray)
-                        .aspectRatio(1f)
+                        .scientificCalculatorModifiers(Color.DarkGray)
                         .weight(1f),
 
                     onCLick = {
@@ -450,10 +400,7 @@ fun ScientificCalculator(
                     symbol = "3",
                     color = Color.White,
                     modifier = Modifier
-                        .width(70.dp)
-                        .height(60.dp)
-                        .background(Color.DarkGray)
-                        .aspectRatio(1f)
+                        .scientificCalculatorModifiers(Color.DarkGray)
                         .weight(1f),
 
                     onCLick = {
@@ -464,10 +411,7 @@ fun ScientificCalculator(
                     symbol = "+",
                     color = Color.White,
                     modifier = Modifier
-                        .width(70.dp)
-                        .height(60.dp)
-                        .background(Orange)
-                        .aspectRatio(1f)
+                        .scientificCalculatorModifiers(Orange)
                         .weight(1f),
 
                     onCLick = {
@@ -485,10 +429,7 @@ fun ScientificCalculator(
                     symbol = "0",
                     color = Color.White,
                     modifier = Modifier
-                        .width(70.dp)
-                        .height(60.dp)
-                        .background(LightGray)
-                        .aspectRatio(2f)
+                        .scientificCalculatorModifiers(LightGray)
                         .weight(2f),
 
                     onCLick = {
@@ -499,10 +440,7 @@ fun ScientificCalculator(
                     symbol = ".",
                     color = Color.White,
                     modifier = Modifier
-                        .width(70.dp)
-                        .height(60.dp)
-                        .background(Color.DarkGray)
-                        .aspectRatio(1f)
+                        .scientificCalculatorModifiers(Color.DarkGray)
                         .weight(1f),
 
                     onCLick = {
@@ -513,10 +451,7 @@ fun ScientificCalculator(
                     symbol = "=",
                     color = Color.White,
                     modifier = Modifier
-                        .width(70.dp)
-                        .height(60.dp)
-                        .background(Orange)
-                        .aspectRatio(1f)
+                        .scientificCalculatorModifiers(Orange)
                         .weight(1f),
 
                     onCLick = {

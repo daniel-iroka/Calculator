@@ -311,7 +311,8 @@ fun Calculator(
                     symbol = "0",
                     color = Color.White,
                     modifier = Modifier
-                        .standardCalculatorModifiers(LightGray) // I put a 'aspectRatio(2f)' here but I guess it didn't matter as it still works the same.
+                        // I put a 'aspectRatio(2f)' here but I guess it didn't matter as it still works the same.
+                        .standardCalculatorModifiers(LightGray)
                         .weight(2f),
 
                     onCLick = {

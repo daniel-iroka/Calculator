@@ -8,19 +8,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 
-/** This is file is where we will be writing our Reusable or Custom Modifiers to be used across our Project in form of kotlin Extension functions. **/
+/**
+ *  This is our Custom OR Reusable Modifiers file which is to be accessed  across our Project in form of kotlin Extension functions.
+ */
 
-// Todo - IMPLEMENTATION("When I come back, I will continue with the Implementation of the reusable Modifiers. Specifically the Scientific Calculator Part.")
-
-// Custom Modifiers for our Standard Calculator.
+// For Standard Calculator buttons
 fun Modifier.standardCalculatorModifiers(color : Color) =
     this.width(80.dp)
         .height(65.dp)
         .background(color)
-        .aspectRatio(1f) // basically determines the size of a composable on the screen
+        .aspectRatio(1f) // basically determines the size of an item on the screen
 
 
-// Custom Modifiers for our Scientific Calculator.
+// For Scientific Calculator buttons
 fun Modifier.scientificCalculatorModifiers(color :Color) =
     this.width(70.dp)
         .height(60.dp)
@@ -28,21 +28,7 @@ fun Modifier.scientificCalculatorModifiers(color :Color) =
         .aspectRatio(1f)
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// For Scientific Operation buttons.
+fun Modifier.scientificOperationModifiers() =
+    this.width(50.dp)
+        .height(30.dp)

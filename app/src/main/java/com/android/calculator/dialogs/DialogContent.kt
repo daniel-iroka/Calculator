@@ -29,8 +29,6 @@ fun DialogContent(
     navController : NavHostController
 ) {
 
-    // TODO - FIRSTLY("When I come back, I will work on making the 'second' state work.")
-
     val context = LocalContext.current.applicationContext
     val checkedState = remember { mutableStateOf(false) }
 

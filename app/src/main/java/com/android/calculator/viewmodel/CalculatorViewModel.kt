@@ -13,8 +13,7 @@ import com.android.calculator.model.CalculatorState
 import com.android.calculator.ui.theme.ferrari
 import kotlin.math.*
 
-/** This is our ViewModel and in Jetpack compose, it is responsible for handling the User actions and click events as well as state in compose.
- *  It will also be responsible for handling UI rotation. **/
+/** This is our ViewModel and in Jetpack compose, which is responsible for handling the User actions and click events as well as 'state' in compose.**/
 
 private const val TAG = "CalculatorViewModel"
 

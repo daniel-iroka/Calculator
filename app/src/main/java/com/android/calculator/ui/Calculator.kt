@@ -1,6 +1,5 @@
 package com.android.calculator.ui
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -21,6 +20,7 @@ import com.android.calculator.*
 import com.android.calculator.model.CalculatorState
 import com.android.calculator.ui.theme.LightGray
 import com.android.calculator.ui.theme.Orange
+import com.android.calculator.utils.standardCalculatorModifiers
 
 /**  This is our Calculator file. This is the Compose file that Implements the look of our Calculator App, taking in other classes and functionalities like the state and-
  *   so on.**/
@@ -108,10 +108,7 @@ fun Calculator(
                     symbol = "%",
                     color = Color.White,
                     modifier = Modifier
-                        .width(80.dp)
-                        .height(65.dp)
-                        .background(Orange)
-                        .aspectRatio(1f) // this makes whatever composable will call it on look Squared.
+                        .standardCalculatorModifiers(Orange)
                         .weight(1f),
 
                     onCLick = {
@@ -121,10 +118,7 @@ fun Calculator(
                 CalculatorIcons(
                     color = Color.White,
                     modifier = Modifier
-                        .width(80.dp)
-                        .height(65.dp)
-                        .background(Orange)
-                        .aspectRatio(1f)
+                        .standardCalculatorModifiers(Orange)
                         .weight(1f),
 
                     onCLick = {
@@ -135,10 +129,7 @@ fun Calculator(
                     symbol = "AC",
                     color = Color.White,
                     modifier = Modifier
-                        .width(80.dp)
-                        .height(65.dp)
-                        .background(Orange)
-                        .aspectRatio(1f)
+                        .standardCalculatorModifiers(Orange)
                         .weight(1f),
 
                     onCLick = {
@@ -149,10 +140,7 @@ fun Calculator(
                     symbol = "÷",
                     color = Color.White,
                     modifier = Modifier
-                        .width(80.dp)
-                        .height(65.dp)
-                        .background(Orange)
-                        .aspectRatio(1f)
+                        .standardCalculatorModifiers(Orange)
                         .weight(1f),
 
                     onCLick = {
@@ -170,10 +158,7 @@ fun Calculator(
                     symbol = "7",
                     color = Color.White,
                     modifier = Modifier
-                        .width(80.dp)
-                        .height(65.dp)
-                        .background(Color.DarkGray)
-                        .aspectRatio(1f)
+                        .standardCalculatorModifiers(Color.DarkGray)
                         .weight(1f),
 
                     onCLick = {
@@ -184,10 +169,7 @@ fun Calculator(
                     symbol = "8",
                     color = Color.White,
                     modifier = Modifier
-                        .width(80.dp)
-                        .height(65.dp)
-                        .background(Color.DarkGray)
-                        .aspectRatio(1f)
+                        .standardCalculatorModifiers(Color.DarkGray)
                         .weight(1f),
 
                     onCLick = {
@@ -198,10 +180,7 @@ fun Calculator(
                     symbol = "9",
                     color = Color.White,
                     modifier = Modifier
-                        .width(80.dp)
-                        .height(65.dp)
-                        .background(Color.DarkGray)
-                        .aspectRatio(1f)
+                        .standardCalculatorModifiers(Color.DarkGray)
                         .weight(1f),
 
                     onCLick = {
@@ -212,10 +191,7 @@ fun Calculator(
                     symbol = "×",
                     color = Color.White,
                     modifier = Modifier
-                        .width(80.dp)
-                        .height(65.dp)
-                        .background(Orange)
-                        .aspectRatio(1f)
+                        .standardCalculatorModifiers(Orange)
                         .weight(1f),
 
                     onCLick = {
@@ -233,10 +209,7 @@ fun Calculator(
                     symbol = "4",
                     color = Color.White,
                     modifier = Modifier
-                        .width(80.dp)
-                        .height(65.dp)
-                        .background(Color.DarkGray)
-                        .aspectRatio(1f)
+                        .standardCalculatorModifiers(Color.DarkGray)
                         .weight(1f),
 
                     onCLick = {
@@ -247,10 +220,7 @@ fun Calculator(
                     symbol = "5",
                     color = Color.White,
                     modifier = Modifier
-                        .width(80.dp)
-                        .height(65.dp)
-                        .background(Color.DarkGray)
-                        .aspectRatio(1f)
+                        .standardCalculatorModifiers(Color.DarkGray)
                         .weight(1f),
 
                     onCLick = {
@@ -261,10 +231,7 @@ fun Calculator(
                     symbol = "6",
                     color = Color.White,
                     modifier = Modifier
-                        .width(80.dp)
-                        .height(65.dp)
-                        .background(Color.DarkGray)
-                        .aspectRatio(1f)
+                        .standardCalculatorModifiers(Color.DarkGray)
                         .weight(1f),
 
                     onCLick = {
@@ -275,10 +242,7 @@ fun Calculator(
                     symbol = "-",
                     color = Color.White,
                     modifier = Modifier
-                        .width(80.dp)
-                        .height(65.dp)
-                        .background(Orange)
-                        .aspectRatio(1f)
+                        .standardCalculatorModifiers(Orange)
                         .weight(1f),
 
                     onCLick = {
@@ -296,10 +260,7 @@ fun Calculator(
                     symbol = "1",
                     color = Color.White,
                     modifier = Modifier
-                        .width(80.dp)
-                        .height(65.dp)
-                        .background(Color.DarkGray)
-                        .aspectRatio(1f)
+                        .standardCalculatorModifiers(Color.DarkGray)
                         .weight(1f),
 
                     onCLick = {
@@ -310,10 +271,7 @@ fun Calculator(
                     symbol = "2",
                     color = Color.White,
                     modifier = Modifier
-                        .width(80.dp)
-                        .height(65.dp)
-                        .background(Color.DarkGray)
-                        .aspectRatio(1f)
+                        .standardCalculatorModifiers(Color.DarkGray)
                         .weight(1f),
 
                     onCLick = {
@@ -324,10 +282,7 @@ fun Calculator(
                     symbol = "3",
                     color = Color.White,
                     modifier = Modifier
-                        .width(80.dp)
-                        .height(65.dp)
-                        .background(Color.DarkGray)
-                        .aspectRatio(1f)
+                        .standardCalculatorModifiers(Color.DarkGray)
                         .weight(1f),
 
                     onCLick = {
@@ -338,10 +293,7 @@ fun Calculator(
                     symbol = "+",
                     color = Color.White,
                     modifier = Modifier
-                        .width(80.dp)
-                        .height(65.dp)
-                        .background(Orange)
-                        .aspectRatio(1f)
+                        .standardCalculatorModifiers(Orange)
                         .weight(1f),
 
                     onCLick = {
@@ -359,10 +311,7 @@ fun Calculator(
                     symbol = "0",
                     color = Color.White,
                     modifier = Modifier
-                        .width(80.dp)
-                        .height(65.dp)
-                        .background(LightGray)
-                        .aspectRatio(2f)
+                        .standardCalculatorModifiers(LightGray) // I put a 'aspectRatio(2f)' here but I guess it didn't matter as it still works the same.
                         .weight(2f),
 
                     onCLick = {
@@ -373,10 +322,7 @@ fun Calculator(
                     symbol = ".",
                     color = Color.White,
                     modifier = Modifier
-                        .width(80.dp)
-                        .height(65.dp)
-                        .background(Color.DarkGray)
-                        .aspectRatio(1f)
+                        .standardCalculatorModifiers(Color.DarkGray)
                         .weight(1f),
 
                     onCLick = {
@@ -387,10 +333,7 @@ fun Calculator(
                     symbol = "=",
                     color = Color.White,
                     modifier = Modifier
-                        .width(80.dp)
-                        .height(65.dp)
-                        .background(Orange)
-                        .aspectRatio(1f)
+                        .standardCalculatorModifiers(Orange)
                         .weight(1f),
 
                     onCLick = {

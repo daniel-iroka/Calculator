@@ -11,5 +11,8 @@ data class CalculatorState(
     val color : Color = Color.White,
     val primaryTextState : String = "",
     val secondaryTextState : String = "",
+    val historyPrimaryState : String = "",
+    val historySecondaryState : String = "",
+    val time : String = "",
     val operation : CalculatorOperation? = null,
 )

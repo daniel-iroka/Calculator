@@ -15,11 +15,11 @@ fun SecondScreen(
     navController : NavHostController
 ) {
     val viewModel = viewModel<CalculatorViewModel>()
-    val state = viewModel.historyState
+    val state = viewModel.state
 
     CalculatorHistory(
         state = state,
-        onAction = viewModel::onActionForHistory,
+        onAction = viewModel::onAction,
         navController = navController,
         modifier = Modifier
             .fillMaxSize()

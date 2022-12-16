@@ -61,7 +61,7 @@ fun ScientificCalculator(
 
             // text for the result of our Calculations
             Text(
-                text = state.primaryTextState,
+                text = state.historyPrimaryState,
                 textAlign = TextAlign.End,
                 modifier = Modifier
                     .fillMaxWidth()
@@ -75,7 +75,7 @@ fun ScientificCalculator(
             )
 
             Text(
-                text = state.secondaryTextState,
+                text = state.historySecondaryState,
                 textAlign = TextAlign.End,
                 modifier = Modifier
                     .fillMaxWidth()

@@ -18,12 +18,12 @@ import androidx.compose.ui.text.font.FontWeight.Companion.SemiBold
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.android.calculator.model.CalculatorHistoryState
+import com.android.calculator.model.CalculatorState
 
 @Composable
 fun CalculatorHistory(
     modifier : Modifier,
-    state : CalculatorHistoryState,
+    state : CalculatorState,
     onAction : (CalculatorAction) -> Unit,
     navController: NavController
 ) {
@@ -35,7 +35,6 @@ fun CalculatorHistory(
 
     Box(
         modifier = modifier
-            .verticalScroll(state = scrollState)
 
     ) {
 
@@ -101,8 +100,8 @@ fun CalculatorHistory(
                 horizontalArrangement = Arrangement.End
             ) {
                 CalculatorHistoryBox(
-                    valueInput = state.primaryState,
-                    valueResult = state.secondaryState,
+                    valueInput = state.historyPrimaryState,
+                    valueResult = state.historySecondaryState,
                     modifier = Modifier
                         .aspectRatio(1f),
                 )

@@ -1,25 +1,27 @@
 package com.android.calculator.navigation
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
+import com.android.calculator.model.CalculatorState
 import com.android.calculator.ui.ScientificCalculator
 import com.android.calculator.ui.theme.MediumGray
 import com.android.calculator.viewmodel.CalculatorViewModel
 
+private const val TAG = "FirstScreen"
 
 @Composable
 fun FirstScreen(
     navController : NavHostController,
+    state : CalculatorState,
+    viewModel : CalculatorViewModel
 ) {
 
-    val viewModel = viewModel<CalculatorViewModel>()
-    val state = viewModel.state
     val buttonSpacing = 8.dp
 
     ScientificCalculator(
@@ -32,4 +34,5 @@ fun FirstScreen(
             .background(MediumGray)
             .padding(12.dp)
     )
+    Log.i(TAG, "Our ViewModel instance Identifier for First Screen is ${viewModel.hashCode()}")
 }

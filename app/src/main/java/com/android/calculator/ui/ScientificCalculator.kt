@@ -59,9 +59,8 @@ fun ScientificCalculator(
             verticalArrangement = Arrangement.spacedBy(buttonSpacing)
         ) {
 
-            // text for the result of our Calculations
             Text(
-                text = state.historyPrimaryState,
+                text = state.primaryTextState,
                 textAlign = TextAlign.End,
                 modifier = Modifier
                     .fillMaxWidth()
@@ -75,7 +74,7 @@ fun ScientificCalculator(
             )
 
             Text(
-                text = state.historySecondaryState,
+                text = state.secondaryTextState,
                 textAlign = TextAlign.End,
                 modifier = Modifier
                     .fillMaxWidth()

@@ -18,12 +18,14 @@ import androidx.compose.ui.text.font.FontWeight.Companion.SemiBold
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.android.calculator.model.CalculatorState
+import com.android.calculator.model.CalculatorHistoryState
+
+private const val DATE_FORMAT = "Todo - Add a Proper date format here later on!"
 
 @Composable
 fun CalculatorHistory(
     modifier : Modifier,
-    state : CalculatorState,
+    state : CalculatorHistoryState,
     onAction : (CalculatorAction) -> Unit,
     navController: NavController
 ) {
@@ -31,10 +33,11 @@ fun CalculatorHistory(
     val scrollState = rememberScrollState()
     val context = LocalContext.current.applicationContext
 
-    /** IMPORTANT NOTE! THINGS TO ADD LATER - I WILL TRY TO SEE IF I CAN MAKE THE SECOND ROW REPEAT ITSELF FOR EACH OPERATION HISTORY.**/
+    /** IMPORTANT NOTE! THINGS TO ADD LATER - I WILL TRY TO SEE IF I CAN MAKE THE SECOND ROW REPEAT ITSELF FOR EACH OPERATION HISTORY(Using LazyColumn) .**/
 
     Box(
         modifier = modifier
+            .verticalScroll(state = scrollState)
 
     ) {
 
@@ -73,7 +76,10 @@ fun CalculatorHistory(
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(top = 65.dp, end = 4.dp) // Or we can substitute .padding(vertical = ...) if we are just handling the Top of screen
+                .padding(
+                    top = 65.dp,
+                    end = 4.dp
+                ) // Or we can substitute .padding(vertical = ...) if we are just handling the Top of screen
                 .padding(18.dp)
         ) {
 
@@ -132,7 +138,7 @@ fun CalculatorHistoryBox(
             Text(
                 text = valueInput,
                 style = TextStyle(
-                    fontSize = 33.sp,
+                    fontSize = 35.sp,
                     fontFamily = FontFamily.SansSerif,
                     fontWeight = SemiBold
                 ),
@@ -146,7 +152,8 @@ fun CalculatorHistoryBox(
                     fontFamily = FontFamily.SansSerif,
                     fontWeight = SemiBold
                 ),
-                color = Color.LightGray
+                color = Color.LightGray,
+                maxLines = 1
             )
         }
     }

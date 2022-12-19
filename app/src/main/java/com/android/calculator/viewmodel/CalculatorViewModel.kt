@@ -8,11 +8,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
 import com.android.calculator.CalculatorAction
 import com.android.calculator.CalculatorOperation
+import com.android.calculator.model.CalculatorHistoryState
 import com.android.calculator.model.CalculatorState
 import com.android.calculator.ui.theme.ferrari
 import kotlin.math.*
 
-/** This is our ViewModel and in Jetpack compose, which is responsible for handling the User actions and click events as well as 'state' in compose.**/
+/**
+ * This is our ViewModel and in Jetpack compose, which is responsible for handling the User actions and click events(eventHandler) as well as 'state' in compose.
+ */
 
 private const val TAG = "CalculatorViewModel"
 
@@ -22,19 +25,15 @@ class CalculatorViewModel : ViewModel() {
         // This makes our state accessible by outside classes but still readable
         private set
 
+    var historyState by mutableStateOf(CalculatorHistoryState())
+    private set
+
+    // TODO - WHEN I COME BACK LATER, AS I CONTINUE TO THINK ON THIS. THE ONLY IDEA I HAVE NOW IS TO USE TWO DIFFERENT ViewModels OR States
+
     private var leftBracket by mutableStateOf(true)
     private var check = 0
 
-    // TODO : IMPORTANT NOTE! - THE PROBLEM I JUST NOTICED IS THAT WHEN I NAVIGATE TO A COMPOSABLE, THE VALUE THTA DOES NOT SHOW UNLIKE WHEN I PASS THE VALUE WHILE PRESENT IN
-    // TODO                     'THAT' COMPOSABLE.
-
-
-    init {
-        // TODO - FIRSTLY("When I come back, what I will do is add a Log to this init block to see if the value changes as it transitions from one screen to another.")
-        // TODO - OR add by mutableStateOf("") to one of the parameters in my data class.
-    }
-
-    // So this function is where and how we will register our click events based on how we set in the Calculator Composable.
+    // Function to Register our Click events
     fun onAction(action : CalculatorAction) {
         when(action) {
             is CalculatorAction.Number -> enterNumber(action.number)
@@ -52,21 +51,23 @@ class CalculatorViewModel : ViewModel() {
     }
 
     private fun clearHistory() {
-        state = state.copy(
-            historySecondaryState = "Test text"
+        historyState = historyState.copy(
+            historyPrimaryState = ""
         )
 
-        state = state.copy(
-            historyPrimaryState = ""
+        historyState = historyState.copy(
+            historySecondaryState = ""
+        )
+
+        historyState = historyState.copy(
+            time = ""
         )
     }
 
-    /**
-     * We are Basically making the click events possible by modifying the 'state'
-     */
-
+    // We are Basically making the click events possible by modifying the 'state'
     private fun performCalculation() {
         val primaryStateChar = state.primaryTextState.last()
+        val primaryState = state.primaryTextState
         val secondaryState = state.secondaryTextState
 
         // TODO - NOTE("I will come back to this later on.")
@@ -77,9 +78,15 @@ class CalculatorViewModel : ViewModel() {
             )
             state = state.copy(secondaryTextState = "")
 
-            /** NOTE! : If this doesn't work, I will Proceed with getting the data directly from the other Implementation. Result function **/
-            state = state.copy(
-                historySecondaryState = "This text will appear now after some Calculations."
+            /**
+             *  Here we are storing our Calculated Values in the History Screen after it has been Calculated by the USER.
+             */
+            historyState = historyState.copy(
+                historySecondaryState = secondaryState
+            )
+
+            historyState = historyState.copy(
+                historyPrimaryState = primaryState
             )
 
         } else {
@@ -91,7 +98,6 @@ class CalculatorViewModel : ViewModel() {
                 color = ferrari
             )
         }
-        Log.d(TAG, "This is the first check of this value : ${state.historySecondaryState}.")
     }
 
     private fun performDeletion() {
@@ -140,7 +146,6 @@ class CalculatorViewModel : ViewModel() {
             )
             leftBracket = true
         }
-        Log.d(TAG, "This is the first check of this value : ${state.primaryTextState} and ${state.historySecondaryState}.")
     }
 
     private fun enterOperation(operation: CalculatorOperation) {
@@ -425,12 +430,12 @@ class CalculatorViewModel : ViewModel() {
         try {
             val result = eval(text)
             val mainResult = result.toString()
-            if (check == 0) {
-                state = state.copy(
+            state = if (check == 0) {
+                state.copy(
                     secondaryTextState = ""
                 )
             } else {
-                state = state.copy(
+                state.copy(
                     secondaryTextState = mainResult
                 )
             }

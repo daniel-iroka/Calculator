@@ -1,17 +1,25 @@
 package com.android.calculator.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.android.calculator.viewmodel.CalculatorViewModel
 
+/** This is our Compose NavGraph and where we Implement our NavHost.**/
 
 @Composable
 fun ComposeNavigation(
     navController: NavHostController,
 ) {
 
-    // This is where we Implement out NavHost
+    /**
+     * We want to get the same Single Instance of our ViewModel, that is why it was written here to pass the same Instance to All the Screens.
+     */
+    val viewModel = viewModel<CalculatorViewModel>()
+    val state = viewModel.state
+    val historyState = viewModel.historyState
 
     NavHost(
         navController = navController,
@@ -19,19 +27,24 @@ fun ComposeNavigation(
     ) {
         
         composable("main_screen") {
-            MainScreen(navController = navController)
+            MainScreen(
+                navController = navController, state = state, viewModel = viewModel
+            )
         }
 
         composable("first_screen") {
-            FirstScreen(navController = navController)
+            FirstScreen(
+                navController = navController, state = state, viewModel = viewModel
+            )
         }
 
         composable("second_screen") {
-            SecondScreen(navController = navController)
+            SecondScreen(
+                navController = navController, historyState = historyState, viewModel = viewModel
+            )
         }
     }
 }
-
 
 
 

@@ -5,7 +5,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
-import com.android.calculator.CalculatorHistory
+import com.android.calculator.ui.composables.CalculatorHistory
 import com.android.calculator.model.CalculatorHistoryState
 import com.android.calculator.ui.theme.MediumGray
 import com.android.calculator.viewmodel.CalculatorViewModel

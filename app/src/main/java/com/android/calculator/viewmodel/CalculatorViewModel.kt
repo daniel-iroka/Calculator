@@ -29,6 +29,7 @@ class CalculatorViewModel : ViewModel() {
     private set
 
     // TODO - WHEN I COME BACK LATER, AS I CONTINUE TO THINK ON THIS. THE ONLY IDEA I HAVE NOW IS TO USE TWO DIFFERENT ViewModels OR States
+    // TODO - So per the up todo, what I will try first is create two states, which is another one for our Scientific Calculator.
 
     private var leftBracket by mutableStateOf(true)
     private var check = 0

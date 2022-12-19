@@ -9,7 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.android.calculator.model.CalculatorState
-import com.android.calculator.ui.Calculator
+import com.android.calculator.ui.composables.Calculator
 import com.android.calculator.ui.theme.MediumGray
 import com.android.calculator.viewmodel.CalculatorViewModel
 

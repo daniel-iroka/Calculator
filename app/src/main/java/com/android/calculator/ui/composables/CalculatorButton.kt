@@ -1,4 +1,4 @@
-package com.android.calculator.ui
+package com.android.calculator.ui.composables
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable

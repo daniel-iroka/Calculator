@@ -1,4 +1,4 @@
-package com.android.calculator
+package com.android.calculator.ui.composables
 
 import android.widget.Toast
 import androidx.compose.foundation.layout.*
@@ -18,9 +18,11 @@ import androidx.compose.ui.text.font.FontWeight.Companion.SemiBold
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.android.calculator.CalculatorAction
+import com.android.calculator.ui.HistoryOverFlowMenu
 import com.android.calculator.model.CalculatorHistoryState
 
-private const val DATE_FORMAT = "Todo - Add a Proper date format here later on!"
+private const val DATE_FORMAT = "Todo - Add a Proper date format here later on with SimpleDateFormat!"
 
 @Composable
 fun CalculatorHistory(

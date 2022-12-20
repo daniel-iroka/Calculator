@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.android.calculator.*
 import com.android.calculator.model.CalculatorState
+import com.android.calculator.model.ScientificCalculatorState
 import com.android.calculator.ui.OverFlowMenu
 import com.android.calculator.ui.theme.LightGray
 import com.android.calculator.ui.theme.Orange
@@ -26,7 +27,7 @@ import com.android.calculator.utils.scientificOperationModifiers
 
 @Composable
 fun ScientificCalculator(
-    state : CalculatorState,
+    state : ScientificCalculatorState,
     modifier: Modifier,
     buttonSpacing : Dp = 8.dp,
     onAction: (CalculatorAction) -> Unit,

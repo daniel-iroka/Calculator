@@ -8,18 +8,18 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import com.android.calculator.model.CalculatorState
+import com.android.calculator.model.ScientificCalculatorState
 import com.android.calculator.ui.composables.ScientificCalculator
 import com.android.calculator.ui.theme.MediumGray
-import com.android.calculator.viewmodel.CalculatorViewModel
+import com.android.calculator.viewmodel.ScientificCalculatorViewModel
 
 private const val TAG = "FirstScreen"
 
 @Composable
 fun FirstScreen(
     navController : NavHostController,
-    state : CalculatorState,
-    viewModel : CalculatorViewModel
+    state : ScientificCalculatorState,
+    viewModel : ScientificCalculatorViewModel
 ) {
 
     val buttonSpacing = 8.dp

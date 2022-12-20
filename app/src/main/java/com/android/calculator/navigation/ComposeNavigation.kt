@@ -5,7 +5,9 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.android.calculator.model.CalculatorHistoryState
 import com.android.calculator.viewmodel.CalculatorViewModel
+import com.android.calculator.viewmodel.ScientificCalculatorViewModel
 
 /** This is our Compose NavGraph and where we Implement our NavHost.**/
 
@@ -14,12 +16,27 @@ fun ComposeNavigation(
     navController: NavHostController,
 ) {
 
+    // TODO - HOPEFULLY THIS WORKS WELL AND IF YES, THEN STARTING FROM THIS FILE, I WILL PROPERLY RENAME AND CHANGE ALL THE VARIABLES AND CODE I JUST REFACTORED NOW.
+
+    // TODO - When I come back as per the Todo above, I will continue in the Implementation of this
+
     /**
      * We want to get the same Single Instance of our ViewModel, that is why it was written here to pass the same Instance to All the Screens.
      */
-    val viewModel = viewModel<CalculatorViewModel>()
-    val state = viewModel.state
-    val historyState = viewModel.historyState
+    val strCalcViewModel = viewModel<CalculatorViewModel>()
+    val sciCalcViewModel = viewModel<ScientificCalculatorViewModel>()
+    val state = strCalcViewModel.state
+
+    val state2 = sciCalcViewModel.state
+    val historyState = strCalcViewModel.historyState
+    val historyState2 = sciCalcViewModel.historyState
+
+    val selectedHistoryState: CalculatorHistoryState = if(historyState.historyPrimaryState.isNotEmpty()) {
+        historyState
+    }
+    else {
+        historyState2
+    }
 
     NavHost(
         navController = navController,
@@ -28,19 +45,19 @@ fun ComposeNavigation(
         
         composable("main_screen") {
             MainScreen(
-                navController = navController, state = state, viewModel = viewModel
+                navController = navController, state = state, viewModel = strCalcViewModel
             )
         }
 
         composable("first_screen") {
             FirstScreen(
-                navController = navController, state = state, viewModel = viewModel
+                navController = navController, state = state2, viewModel = sciCalcViewModel
             )
         }
 
         composable("second_screen") {
             SecondScreen(
-                navController = navController, historyState = historyState, viewModel = viewModel
+                navController = navController, historyState = selectedHistoryState, viewModel = strCalcViewModel
             )
         }
     }

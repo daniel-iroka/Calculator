@@ -32,7 +32,7 @@ fun ScientificCalculator(
     buttonSpacing : Dp = 8.dp,
     onAction: (CalculatorAction) -> Unit,
     navController : NavHostController
-)  {
+) {
 
     val scrollState = rememberScrollState()
 

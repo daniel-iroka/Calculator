@@ -3,7 +3,7 @@ package com.android.calculator.model
 import androidx.compose.ui.graphics.Color
 import com.android.calculator.CalculatorOperation
 
-/** This is a test State for our Scientific Calculator. **/
+/** This is the State for our Scientific Calculator. **/
 
 data class ScientificCalculatorState(
     val color : Color = Color.White,

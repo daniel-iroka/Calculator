@@ -133,6 +133,3 @@ fun DialogContent(
         }
     }
 }
-
-/** NOTICE! This is was put in between the last two rows in this composable just in case I want to put it back. **/
-//Spacer(modifier = Modifier.height(20.dp))

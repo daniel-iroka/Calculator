@@ -1,4 +1,4 @@
-package com.android.calculator.viewmodel
+package com.android.calculator.viewmodels
 
 import android.util.Log
 import androidx.compose.runtime.getValue

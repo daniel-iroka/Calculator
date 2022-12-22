@@ -11,7 +11,7 @@ import androidx.navigation.NavHostController
 import com.android.calculator.model.ScientificCalculatorState
 import com.android.calculator.ui.composables.ScientificCalculator
 import com.android.calculator.ui.theme.MediumGray
-import com.android.calculator.viewmodel.ScientificCalculatorViewModel
+import com.android.calculator.viewmodels.ScientificCalculatorViewModel
 
 private const val TAG = "FirstScreen"
 

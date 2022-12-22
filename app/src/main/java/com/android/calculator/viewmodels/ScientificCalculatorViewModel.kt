@@ -1,4 +1,4 @@
-package com.android.calculator.viewmodel
+package com.android.calculator.viewmodels
 
 import android.annotation.SuppressLint
 import android.util.Log

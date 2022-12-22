@@ -1,5 +1,6 @@
 package com.android.calculator.ui.composables
 
+import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -23,6 +24,7 @@ import com.android.calculator.ui.HistoryOverFlowMenu
 import com.android.calculator.model.CalculatorHistoryState
 
 private const val DATE_FORMAT = "Todo - Add a Proper date format here later on with SimpleDateFormat!"
+private const val TAG = "CalculatorHistory"
 
 @Composable
 fun CalculatorHistory(
@@ -35,12 +37,13 @@ fun CalculatorHistory(
     val scrollState = rememberScrollState()
     val context = LocalContext.current.applicationContext
 
-    /** IMPORTANT NOTE! THINGS TO ADD LATER - I WILL TRY TO SEE IF I CAN MAKE THE SECOND ROW REPEAT ITSELF FOR EACH OPERATION HISTORY(Using LazyColumn) .**/
+    /** IMPORTANT NOTE! THINGS TO ADD LATER - I WILL TRY TO SEE IF I CAN MAKE THE SECOND ROW REPEAT ITSELF FOR EACH OPERATION HISTORY(Using LazyColumn) .
+     *  ADDITIONAL NOTE! Also, as per Above I will I will add something(an icon or image and a text to indicate that there is no calculated History.)
+     * **/
 
     Box(
         modifier = modifier
             .verticalScroll(state = scrollState)
-
     ) {
 
         TopAppBar(
@@ -58,6 +61,7 @@ fun CalculatorHistory(
                     navController.popBackStack()
                     Toast.makeText(context, "Back button has been clicked!", Toast.LENGTH_LONG)
                         .show()
+                    Log.i(TAG, "This is our currentHistory State in our History Screen : ${state.historyPrimaryState} and ${state.historySecondaryState}")
                 }) {
                     Icon(
                         imageVector = Icons.Filled.ArrowBack,
@@ -151,8 +155,7 @@ fun CalculatorHistoryBox(
                 text = valueResult,
                 style = TextStyle(
                     fontSize = 37.sp,
-                    fontFamily = FontFamily.SansSerif,
-                    fontWeight = SemiBold
+                    fontFamily = FontFamily.SansSerif
                 ),
                 color = Color.LightGray,
                 maxLines = 1

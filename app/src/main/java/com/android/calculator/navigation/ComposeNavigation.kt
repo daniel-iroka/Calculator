@@ -1,41 +1,71 @@
 package com.android.calculator.navigation
 
-import androidx.compose.runtime.Composable
+import android.util.Log
+import androidx.compose.runtime.*
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.android.calculator.model.CalculatorHistoryState
-import com.android.calculator.viewmodel.CalculatorViewModel
-import com.android.calculator.viewmodel.ScientificCalculatorViewModel
+import com.android.calculator.viewmodels.CalculatorViewModel
+import com.android.calculator.viewmodels.CurrentHistoryViewModel
+import com.android.calculator.viewmodels.ScientificCalculatorViewModel
 
-/** This is our Compose NavGraph and where we Implement our NavHost.**/
+/**
+ *  This is our Compose NavGraph and where we Implement our NavHost.
+ */
+
+
+private const val TAG = "ComposeNavigation"
 
 @Composable
 fun ComposeNavigation(
     navController: NavHostController,
 ) {
-
-    // TODO - HOPEFULLY THIS WORKS WELL AND IF YES, THEN STARTING FROM THIS FILE, I WILL PROPERLY RENAME AND CHANGE ALL THE VARIABLES AND CODE I JUST REFACTORED NOW.
-
-    // TODO - When I come back as per the Todo above, I will continue in the Implementation of this
-
     /**
-     * We want to get the same Single Instance of our ViewModel, that is why it was written here to pass the same Instance to All the Screens.
+     *  Here We declare an Instance of our Two ViewModels, their states and History States. This is because we don't want to have the same States for the two Screens.
      */
     val strCalcViewModel = viewModel<CalculatorViewModel>()
     val sciCalcViewModel = viewModel<ScientificCalculatorViewModel>()
-    val state = strCalcViewModel.state
 
-    val state2 = sciCalcViewModel.state
-    val historyState = strCalcViewModel.historyState
-    val historyState2 = sciCalcViewModel.historyState
+    val strCalcState = strCalcViewModel.strState
+    val sciCalcState = sciCalcViewModel.sciState
 
-    val selectedHistoryState: CalculatorHistoryState = if(historyState.historyPrimaryState.isNotEmpty()) {
-        historyState
+    var strHistoryState = strCalcViewModel.historyState
+    val sciHistoryState = sciCalcViewModel.historyState
+
+    // This holds our current available 'HistoryState' based on where the Calculation was performed(Screens) by the USER.
+    val currHistoryViewModel = viewModel<CurrentHistoryViewModel>()
+    var currHistory = currHistoryViewModel.currentHistoryState
+
+    if(strHistoryState.historyPrimaryState.isNotEmpty()) {
+        currHistory = currHistory.copy(
+            historySecondaryState = strHistoryState.historySecondaryState
+        )
+
+        currHistory =  currHistory.copy(
+            historyPrimaryState = strHistoryState.historyPrimaryState
+        )
+
+        strHistoryState = strHistoryState.copy(
+            historySecondaryState = ""
+        )
+
+        strHistoryState = strHistoryState.copy(
+            historyPrimaryState = ""
+        )
+
+        Log.i(TAG, "This is our currentHistory State in our Compose Navigation : ${currHistoryViewModel.currentHistoryState}")
+        Log.i(TAG,"Removed state : $strHistoryState")
     }
     else {
-        historyState2
+        currHistory =  currHistory.copy(
+            historySecondaryState = sciHistoryState.historySecondaryState
+        )
+
+        currHistory =  currHistory.copy(
+            historyPrimaryState = sciHistoryState.historyPrimaryState
+        )
     }
 
     NavHost(
@@ -45,25 +75,26 @@ fun ComposeNavigation(
         
         composable("main_screen") {
             MainScreen(
-                navController = navController, state = state, viewModel = strCalcViewModel
+                navController = navController, state = strCalcState, viewModel = strCalcViewModel
             )
         }
 
         composable("first_screen") {
             FirstScreen(
-                navController = navController, state = state2, viewModel = sciCalcViewModel
+                navController = navController, state = sciCalcState, viewModel = sciCalcViewModel
             )
         }
 
         composable("second_screen") {
             SecondScreen(
-                navController = navController, historyState = selectedHistoryState, viewModel = strCalcViewModel
+                navController = navController, historyState =  currHistory, viewModel = currHistoryViewModel
             )
         }
     }
 }
 
 
+//Log.i(TAG,"Current history in ComposeNavigation class is : ${clearHistory.currentHistoryState}")
 
 
 
@@ -87,3 +118,6 @@ fun ComposeNavigation(
 //    slideOutHorizontally(targetOffsetX = { 1000 }, animationSpec = springSec)
 //}
 
+//I  This is our currentHistory State in our Compose Navigation : CalculatorHistoryState(historyPrimaryState=9×7, historySecondaryState=63.0, time=3 days ago)
+//I  This is our currentHistory State in our ViewModel : CalculatorHistoryState(historyPrimaryState=, historySecondaryState=, time=3 days ago)
+//I  This is our currentHistory State in our History Screen : 9×7 and 63.0

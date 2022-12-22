@@ -8,7 +8,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.android.calculator.model.CalculatorHistoryState
 import com.android.calculator.viewmodels.CalculatorViewModel
-import com.android.calculator.viewmodels.CurrentHistoryViewModel
 import com.android.calculator.viewmodels.ScientificCalculatorViewModel
 
 /**
@@ -31,34 +30,32 @@ fun ComposeNavigation(
     val strCalcState = strCalcViewModel.strState
     val sciCalcState = sciCalcViewModel.sciState
 
-    val strHistoryState = strCalcViewModel.historyState
+    var strHistoryState = strCalcViewModel.historyState
     val sciHistoryState = sciCalcViewModel.historyState
 
+    val bolCheck = strCalcViewModel.checkState
+
+    // TODO - WHEN I COME BACK, I WILL CONTINUE FIXING THIS THING, SADLY I HAVEN'T BEEN ABLE TO FOR SOME DAYS.
+
     // This holds our current available 'HistoryState' based on where the Calculation was performed(Screens) by the USER.
-    val currHistoryViewModel = viewModel<CurrentHistoryViewModel>()
-    var currHistory = currHistoryViewModel.currentHistoryState
+    var currHistory by remember { mutableStateOf(CalculatorHistoryState()) }
+    if(strCalcViewModel.historyState.historyPrimaryState.isNotEmpty()) {
+        currHistory = strHistoryState
 
-    // TODO - WHEN I COME BACK, I WILL CONTINUE TO TRY AND FIX THIS PROBLEM
+        // Todo - When I come back, continue fixing this thing.
 
-    if(strHistoryState.historyPrimaryState.isNotEmpty()) {
-        currHistory = currHistory.copy(
-            historySecondaryState = strHistoryState.historySecondaryState
-        )
-
-        currHistory =  currHistory.copy(
-            historyPrimaryState = strHistoryState.historyPrimaryState
-        )
-        Log.i(TAG, "This is our History State in our Compose Navigation : ${currHistoryViewModel.currentHistoryState}")
+        strHistoryState = CalculatorHistoryState()
+        Log.i(TAG, "strState is ${strHistoryState.historyPrimaryState}")
     }
     else {
-        currHistory =  currHistory.copy(
-            historySecondaryState = sciHistoryState.historySecondaryState
-        )
-
-        currHistory =  currHistory.copy(
-            historyPrimaryState = sciHistoryState.historyPrimaryState
-        )
+        currHistory = sciHistoryState
     }
+
+    // Hope this works lol
+//    if (bolCheck) {
+//        currHistory = CalculatorHistoryState()
+//        Log.i(TAG, "Current Boolean Check : $bolCheck")
+//    }
 
     NavHost(
         navController = navController,
@@ -79,7 +76,7 @@ fun ComposeNavigation(
 
         composable("second_screen") {
             SecondScreen(
-                navController = navController, historyState =  currHistory, viewModel = currHistoryViewModel
+                navController = navController, historyState =  currHistory, viewModel = strCalcViewModel
             )
         }
     }
@@ -87,6 +84,8 @@ fun ComposeNavigation(
 
 
 //Log.i(TAG,"Current history in ComposeNavigation class is : ${clearHistory.currentHistoryState}")
+
+//    Log.i(TAG, "This is our History State in our Compose Navigation : ${currHistoryViewModel.currentHistoryState}")
 
 
 

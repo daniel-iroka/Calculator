@@ -31,7 +31,7 @@ fun CalculatorHistory(
     modifier : Modifier,
     state : CalculatorHistoryState,
     onAction : (CalculatorAction) -> Unit,
-    navController: NavController
+    navController: NavController,
 ) {
 
     val scrollState = rememberScrollState()

@@ -27,10 +27,12 @@ class CalculatorViewModel : ViewModel() {
         private set
 
     var historyState by mutableStateOf(CalculatorHistoryState())
-    private set
+        private set
 
     private var leftBracket by mutableStateOf(true)
     private var check = 0
+
+    var checkState by mutableStateOf(false)
 
     // Function to Register our Click events
     fun onAction(action : CalculatorAction) {
@@ -41,11 +43,11 @@ class CalculatorViewModel : ViewModel() {
                 strState = CalculatorState()
                 check = 0
             }
+            is CalculatorAction.ClearHistory -> checkState = true
             is CalculatorAction.Operation -> enterStandardOperations(action.operation)
             is CalculatorAction.Calculate -> performStandardCalculations()
             is CalculatorAction.Delete -> performDeletion()
             is CalculatorAction.Brackets -> enterBrackets()
-            else -> {}
         }
     }
 

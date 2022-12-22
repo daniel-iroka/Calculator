@@ -8,13 +8,13 @@ import androidx.navigation.NavHostController
 import com.android.calculator.ui.composables.CalculatorHistory
 import com.android.calculator.model.CalculatorHistoryState
 import com.android.calculator.ui.theme.MediumGray
-import com.android.calculator.viewmodels.CurrentHistoryViewModel
+import com.android.calculator.viewmodels.CalculatorViewModel
 
 @Composable
 fun SecondScreen(
     navController: NavHostController,
     historyState: CalculatorHistoryState,
-    viewModel: CurrentHistoryViewModel,
+    viewModel : CalculatorViewModel
 ) {
 
     CalculatorHistory(

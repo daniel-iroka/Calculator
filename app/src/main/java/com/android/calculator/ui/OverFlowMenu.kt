@@ -81,7 +81,7 @@ fun OverFlowMenu(
 @Composable
 fun HistoryOverFlowMenu(
     color : Color,
-    onAction : (CalculatorAction) -> Unit
+    onAction : (CalculatorAction) -> Unit,
 ) {
 
     var showHistMenu by remember{ mutableStateOf(false)}

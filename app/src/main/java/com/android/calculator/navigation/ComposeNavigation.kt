@@ -31,12 +31,14 @@ fun ComposeNavigation(
     val strCalcState = strCalcViewModel.strState
     val sciCalcState = sciCalcViewModel.sciState
 
-    var strHistoryState = strCalcViewModel.historyState
+    val strHistoryState = strCalcViewModel.historyState
     val sciHistoryState = sciCalcViewModel.historyState
 
     // This holds our current available 'HistoryState' based on where the Calculation was performed(Screens) by the USER.
     val currHistoryViewModel = viewModel<CurrentHistoryViewModel>()
     var currHistory = currHistoryViewModel.currentHistoryState
+
+    // TODO - WHEN I COME BACK, I WILL CONTINUE TO TRY AND FIX THIS PROBLEM
 
     if(strHistoryState.historyPrimaryState.isNotEmpty()) {
         currHistory = currHistory.copy(
@@ -46,17 +48,7 @@ fun ComposeNavigation(
         currHistory =  currHistory.copy(
             historyPrimaryState = strHistoryState.historyPrimaryState
         )
-
-        strHistoryState = strHistoryState.copy(
-            historySecondaryState = ""
-        )
-
-        strHistoryState = strHistoryState.copy(
-            historyPrimaryState = ""
-        )
-
-        Log.i(TAG, "This is our currentHistory State in our Compose Navigation : ${currHistoryViewModel.currentHistoryState}")
-        Log.i(TAG,"Removed state : $strHistoryState")
+        Log.i(TAG, "This is our History State in our Compose Navigation : ${currHistoryViewModel.currentHistoryState}")
     }
     else {
         currHistory =  currHistory.copy(

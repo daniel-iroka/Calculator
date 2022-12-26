@@ -6,6 +6,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.android.calculator.CalculatorOperation
 import com.android.calculator.model.CalculatorHistoryState
 import com.android.calculator.viewmodels.CalculatorViewModel
 import com.android.calculator.viewmodels.ScientificCalculatorViewModel
@@ -30,32 +31,26 @@ fun ComposeNavigation(
     val strCalcState = strCalcViewModel.strState
     val sciCalcState = sciCalcViewModel.sciState
 
-    var strHistoryState = strCalcViewModel.historyState
+    val strHistoryState = strCalcViewModel.historyState
     val sciHistoryState = sciCalcViewModel.historyState
-
-    val bolCheck = strCalcViewModel.checkState
-
-    // TODO - WHEN I COME BACK, I WILL CONTINUE FIXING THIS THING, SADLY I HAVEN'T BEEN ABLE TO FOR SOME DAYS.
 
     // This holds our current available 'HistoryState' based on where the Calculation was performed(Screens) by the USER.
     var currHistory by remember { mutableStateOf(CalculatorHistoryState()) }
-    if(strCalcViewModel.historyState.historyPrimaryState.isNotEmpty()) {
-        currHistory = strHistoryState
+    LaunchedEffect(strCalcViewModel.historyCheck) {
+        if(strCalcViewModel.historyCheck) {
 
-        // Todo - When I come back, continue fixing this thing.
+            // TODO - WHEN I COME BACK, I WILL REMOVE THE LAUNCHED EFFECT OUTSIDE THE IF STATEMENT AND TRY IT AGAIN.
 
-        strHistoryState = CalculatorHistoryState()
-        Log.i(TAG, "strState is ${strHistoryState.historyPrimaryState}")
+            currHistory = strHistoryState
+            strCalcViewModel.historyCheck = false
+
+            Log.i(TAG, "Our Current historyCheck in NavGraph is ${strCalcViewModel.historyCheck}")
+        } else {
+            currHistory = sciHistoryState
+        }
     }
-    else {
-        currHistory = sciHistoryState
-    }
 
-    // Hope this works lol
-//    if (bolCheck) {
-//        currHistory = CalculatorHistoryState()
-//        Log.i(TAG, "Current Boolean Check : $bolCheck")
-//    }
+
 
     NavHost(
         navController = navController,

@@ -31,6 +31,8 @@ class ScientificCalculatorViewModel : ViewModel() {
     private var leftBracket by mutableStateOf(true)
     private var check = 0
 
+    var historyCheck by mutableStateOf(false)
+
     // Function to Register our Click events
     fun onAction(action : CalculatorAction) {
         when(action) {
@@ -83,6 +85,8 @@ class ScientificCalculatorViewModel : ViewModel() {
             historyState = historyState.copy(
                 historyPrimaryState = primaryState
             )
+
+            historyCheck = true
 
         } else {
             sciState = sciState.copy(

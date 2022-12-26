@@ -7,6 +7,6 @@ package com.android.calculator.model
 data class CalculatorHistoryState(
     val historyPrimaryState : String = "",
     val historySecondaryState : String = "",
-    // TODO - When I come back Later I will check how to assign actual time with the format of 'Today', 'Yesterday', '2 Days ago' etc.
-    val time : String = "3 days ago"
+    // TODO - Later I will properly format this to DateFormat.
+    val time : String = ""
 )

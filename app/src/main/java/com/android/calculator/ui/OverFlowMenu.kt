@@ -84,6 +84,7 @@ fun HistoryOverFlowMenu(
     onAction : (CalculatorAction) -> Unit,
 ) {
 
+    // the remember{} function here just helps tell compose to retain or 'remember' the state during recomposition.
     var showHistMenu by remember{ mutableStateOf(false)}
     val listItem = listOf("Clear")
 

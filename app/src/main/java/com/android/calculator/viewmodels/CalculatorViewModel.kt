@@ -34,6 +34,8 @@ class CalculatorViewModel : ViewModel() {
 
     var checkState by mutableStateOf(false)
 
+    var historyCheck by mutableStateOf(false)
+
     // Function to Register our Click events
     fun onAction(action : CalculatorAction) {
         when(action) {
@@ -73,6 +75,7 @@ class CalculatorViewModel : ViewModel() {
                 historyPrimaryState = primaryState
             )
 
+            historyCheck = true
         } else {
             strState = strState.copy(
                 secondaryTextState = "Format error"
@@ -82,6 +85,7 @@ class CalculatorViewModel : ViewModel() {
                 color = ferrari
             )
         }
+
     }
 
     private fun performDeletion() {
@@ -115,6 +119,7 @@ class CalculatorViewModel : ViewModel() {
                     color = Color.White
                 )
             }
+            Log.i(TAG, "Our current History check in the ViewModel is $historyCheck")
 
         } else if (strState.operation != null) {
             strState = strState.copy(
@@ -145,21 +150,21 @@ class CalculatorViewModel : ViewModel() {
     }
 
     private fun multiply(operation: CalculatorOperation) {
-        if (strState.primaryTextState.isNotEmpty()) {
+        if (strState.primaryTextState.isNotBlank()) {
             strState = strState.copy(operation = operation)
         }
         check += 1
     }
 
     private fun add(operation: CalculatorOperation) {
-        if (strState.primaryTextState.isNotEmpty()) {
+        if (strState.primaryTextState.isNotBlank()) {
             strState = strState.copy(operation = operation)
         }
         check += 1
     }
 
     private fun divide(operation: CalculatorOperation) {
-        if (strState.primaryTextState.isNotEmpty()) {
+        if (strState.primaryTextState.isNotBlank()) {
             strState = strState.copy(operation = operation)
         }
         check += 1

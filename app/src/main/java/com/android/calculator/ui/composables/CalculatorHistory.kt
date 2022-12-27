@@ -1,8 +1,9 @@
 package com.android.calculator.ui.composables
 
-import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
@@ -29,13 +30,14 @@ private const val TAG = "CalculatorHistory"
 @Composable
 fun CalculatorHistory(
     modifier : Modifier,
-    state : CalculatorHistoryState,
+    state : List<CalculatorHistoryState>,
     onAction : (CalculatorAction) -> Unit,
     navController: NavController,
 ) {
 
     val scrollState = rememberScrollState()
     val context = LocalContext.current.applicationContext
+
 
     /** IMPORTANT NOTE! THINGS TO ADD LATER - I WILL TRY TO SEE IF I CAN MAKE THE SECOND ROW REPEAT ITSELF FOR EACH OPERATION HISTORY(Using LazyColumn) .
      *  ADDITIONAL NOTE! Also, as per Above I will I will add something(an icon or image and a text to indicate that there is no calculated History.)
@@ -61,7 +63,6 @@ fun CalculatorHistory(
                     navController.popBackStack()
                     Toast.makeText(context, "Back button has been clicked!", Toast.LENGTH_LONG)
                         .show()
-                    Log.i(TAG, "This is our currentHistory State in our History Screen : ${state.historyPrimaryState} and ${state.historySecondaryState}")
                 }) {
                     Icon(
                         imageVector = Icons.Filled.ArrowBack,
@@ -81,7 +82,7 @@ fun CalculatorHistory(
 
         Column(
             modifier = Modifier
-                .fillMaxWidth()
+                .fillMaxSize()
                 .padding(
                     top = 65.dp,
                     end = 4.dp
@@ -95,7 +96,7 @@ fun CalculatorHistory(
                     .padding(end = 4.dp)
             ) {
                 Text(
-                    text = state.time,
+                    text = "3 Days ago",
                     style = TextStyle(
                         fontSize = 26.sp,
                         fontFamily = FontFamily.SansSerif
@@ -111,12 +112,8 @@ fun CalculatorHistory(
                     .fillMaxWidth(),
                 horizontalArrangement = Arrangement.End
             ) {
-                CalculatorHistoryBox(
-                    valueInput = state.historyPrimaryState,
-                    valueResult = state.historySecondaryState,
-                    modifier = Modifier
-                        .aspectRatio(1f),
-                )
+                
+                HistoryList(dataList = state)
             }
         }
     }
@@ -124,9 +121,8 @@ fun CalculatorHistory(
 
 @Composable
 fun CalculatorHistoryBox(
-    valueInput : String,
-    valueResult : String,
-    modifier: Modifier
+    modifier: Modifier = Modifier,
+    state : CalculatorHistoryState
 ) {
 
     Box(
@@ -142,7 +138,7 @@ fun CalculatorHistoryBox(
         ) {
 
             Text(
-                text = valueInput,
+                text = state.historyPrimaryState,
                 style = TextStyle(
                     fontSize = 35.sp,
                     fontFamily = FontFamily.SansSerif,
@@ -152,7 +148,7 @@ fun CalculatorHistoryBox(
             )
 
             Text(
-                text = valueResult,
+                text = state.historySecondaryState,
                 style = TextStyle(
                     fontSize = 37.sp,
                     fontFamily = FontFamily.SansSerif
@@ -163,3 +159,31 @@ fun CalculatorHistoryBox(
         }
     }
 }
+
+@Composable
+fun HistoryList(
+    dataList : List<CalculatorHistoryState>
+) {
+
+    // Todo - FIX("When I come back, I will try to fix this thing which is the LazyColumn not making the whole list to fill the screen and fix other errors.")
+
+    LazyColumn(
+        modifier = Modifier,
+        verticalArrangement = Arrangement.spacedBy(8.dp)
+    ) {
+
+        items(dataList) { state ->
+             CalculatorHistoryBox(state = state)
+        }
+    }
+}
+
+//CalculatorHistoryBox(
+//state = state,
+//modifier = Modifier
+//.aspectRatio(1f),
+//)
+
+
+
+

@@ -13,7 +13,7 @@ import com.android.calculator.viewmodels.CalculatorViewModel
 @Composable
 fun SecondScreen(
     navController: NavHostController,
-    historyState: CalculatorHistoryState,
+    historyState: List<CalculatorHistoryState>,
     viewModel : CalculatorViewModel
 ) {
 

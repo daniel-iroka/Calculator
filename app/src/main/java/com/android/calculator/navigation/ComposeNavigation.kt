@@ -34,21 +34,16 @@ fun ComposeNavigation(
     val strHistoryState = strCalcViewModel.historyState
     val sciHistoryState = sciCalcViewModel.historyState
 
+    // TODO - FIX2("I will also try and pass the 'lists' of the actual State retrieved from the ViewModel.")
+
     // This holds our current available 'HistoryState' based on where the Calculation was performed(Screens) by the USER.
-    var currHistory by remember { mutableStateOf(CalculatorHistoryState()) }
-    LaunchedEffect(strCalcViewModel.historyCheck) {
-        if(strCalcViewModel.historyCheck) {
+    val currHistory = listOf(
+        CalculatorHistoryState(historyPrimaryState = "2 + 2", historySecondaryState = "4"),
+        CalculatorHistoryState(historyPrimaryState = "2 + 6", historySecondaryState = "8"),
+        CalculatorHistoryState(historyPrimaryState = "36 / 6", historySecondaryState = "2"),
+        CalculatorHistoryState(historyPrimaryState = "7 - 6", historySecondaryState = "1")
+    )
 
-            // TODO - WHEN I COME BACK, I WILL REMOVE THE LAUNCHED EFFECT OUTSIDE THE IF STATEMENT AND TRY IT AGAIN.
-
-            currHistory = strHistoryState
-            strCalcViewModel.historyCheck = false
-
-            Log.i(TAG, "Our Current historyCheck in NavGraph is ${strCalcViewModel.historyCheck}")
-        } else {
-            currHistory = sciHistoryState
-        }
-    }
 
 
 
@@ -76,6 +71,16 @@ fun ComposeNavigation(
         }
     }
 }
+
+//val currHistory : List<CalculatorHistoryState> = if(strCalcViewModel.historyCheck) {
+//
+//    listOf(strHistoryState)
+////            strCalcViewModel.historyCheck = false
+////
+////            Log.i(TAG, "Our Current historyCheck in NavGraph is ${strCalcViewModel.historyCheck}")
+//} else {
+//    listOf(sciHistoryState)
+//}
 
 
 //Log.i(TAG,"Current history in ComposeNavigation class is : ${clearHistory.currentHistoryState}")

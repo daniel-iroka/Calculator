@@ -4,8 +4,7 @@ import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -31,7 +30,6 @@ private const val TAG = "CalculatorHistory"
 fun CalculatorHistory(
     modifier : Modifier,
     state : List<CalculatorHistoryState>,
-//    state : CalculatorHistoryState,
     onAction : (CalculatorAction) -> Unit,
     navController: NavController,
 ) {
@@ -41,8 +39,8 @@ fun CalculatorHistory(
      *  NOTE! Also, as per Above I will I will add something(an icon or image and a text to indicate that there is no calculated History.)
      */
 
-    // Todo - When I come back, I will Implement this whole 'Box' composable into a Scaffold as it is more ideal considering the fact I have a TopBar and I want to personally use it
-
+    // Todo - FIX("When I come back tomorrow, I will proceed with the actual Implementation which is Adding REAL calculations lists.")
+    
     Box(
         modifier = modifier
     ) {
@@ -59,7 +57,7 @@ fun CalculatorHistory(
             },
             navigationIcon = {
                 IconButton(onClick = {
-                    navController.popBackStack()
+                    navController.navigateUp()
                     Toast.makeText(context, "Back button has been clicked!", Toast.LENGTH_LONG)
                         .show()
                 }) {
@@ -91,34 +89,11 @@ fun CalculatorHistory(
 
             Row(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(end = 4.dp)
-            ) {
-                Text(
-                    text = "3 Days ago",
-                    style = TextStyle(
-                        fontSize = 26.sp,
-                        fontFamily = FontFamily.SansSerif
-                    ),
-                    color = Color.LightGray
-                )
-            }
-
-            Spacer(modifier = Modifier.height(28.dp))
-
-            Row(
-                modifier = Modifier
                     .fillMaxWidth(),
                 horizontalArrangement = Arrangement.End
             ) {
                 
                 HistoryList(dataList = state)
-
-//                CalculatorHistoryBox(
-//                    state = state,
-//                    modifier = Modifier
-//                        .aspectRatio(1f),
-//                )
 
             }
         }
@@ -171,13 +146,31 @@ fun HistoryList(
     dataList : List<CalculatorHistoryState>
 ) {
 
-    val scrollState = rememberScrollState()
+    val lazyColumnState = rememberLazyListState()
 
     LazyColumn(
         modifier = Modifier
-            .verticalScroll(state = scrollState),
+            .fillMaxSize(),
+        state = lazyColumnState,
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
+
+        item {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(end = 4.dp)
+            ) {
+                Text(
+                    text = "3 Days ago",
+                    style = TextStyle(
+                        fontSize = 26.sp,
+                        fontFamily = FontFamily.SansSerif
+                    ),
+                    color = Color.LightGray
+                )
+            }
+        }
 
         items(dataList) { state ->
              CalculatorHistoryBox(state = state)
@@ -185,4 +178,10 @@ fun HistoryList(
     }
 }
 
-// java.lang.IllegalStateException: Vertically scrollable component was measured with an infinity maximum height constraints, which is disallowed. One of the common reasons is nesting layouts like LazyColumn and Column(Modifier.verticalScroll()). If you want to add a header before the list of items please add a header as a separate item() before the main items() inside the LazyColumn scope. There are could be other reasons for this to happen: your ComposeView was added into a LinearLayout with some weight, you applied Modifier.wrapContentSize(unbounded = true) or wrote a custom layout. Please try to remove the source of infinite constraints in the hierarchy above the scrolling container.
+
+
+//                CalculatorHistoryBox(
+//                    state = state,
+//                    modifier = Modifier
+//                        .aspectRatio(1f),
+//                )

@@ -35,6 +35,9 @@ fun ComposeNavigation(
     // This holds our current available 'HistoryState' based on where the Calculation was performed(Screens) by the USER.
 //    var currHistory by remember { mutableStateOf(CalculatorHistoryState()) }
     // launchedEffect is a type of side-effect which in this case will execute the coroutine block whenever there has been a change in it's "key.
+
+    // TODO - WORK("When I come back tomorrow, I will begin working with this.")
+
 //    LaunchedEffect(key1 = strCalcState) {
 //        if(strCalcState.secondaryTextState.isEmpty()) {
 //            currHistory = strHistoryState
@@ -63,7 +66,9 @@ fun ComposeNavigation(
         CalculatorHistoryState(historyPrimaryState = "2 + 2", historySecondaryState = "4"),
         CalculatorHistoryState(historyPrimaryState = "2 + 6", historySecondaryState = "8"),
         CalculatorHistoryState(historyPrimaryState = "36 / 6", historySecondaryState = "2"),
-        CalculatorHistoryState(historyPrimaryState = "7 - 6", historySecondaryState = "1")
+        CalculatorHistoryState(historyPrimaryState = "7 - 6", historySecondaryState = "1"),
+        CalculatorHistoryState(historyPrimaryState = "10 - 6", historySecondaryState = "4"),
+        CalculatorHistoryState(historyPrimaryState = "19 - 10", historySecondaryState = "9")
     )
 
     NavHost(

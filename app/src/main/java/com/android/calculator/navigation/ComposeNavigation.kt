@@ -1,12 +1,10 @@
 package com.android.calculator.navigation
 
-import android.util.Log
 import androidx.compose.runtime.*
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.android.calculator.CalculatorOperation
 import com.android.calculator.model.CalculatorHistoryState
 import com.android.calculator.viewmodels.CalculatorViewModel
 import com.android.calculator.viewmodels.ScientificCalculatorViewModel
@@ -34,18 +32,39 @@ fun ComposeNavigation(
     val strHistoryState = strCalcViewModel.historyState
     val sciHistoryState = sciCalcViewModel.historyState
 
-    // TODO - FIX2("I will also try and pass the 'lists' of the actual State retrieved from the ViewModel.")
-
     // This holds our current available 'HistoryState' based on where the Calculation was performed(Screens) by the USER.
+//    var currHistory by remember { mutableStateOf(CalculatorHistoryState()) }
+    // launchedEffect is a type of side-effect which in this case will execute the coroutine block whenever there has been a change in it's "key.
+//    LaunchedEffect(key1 = strCalcState) {
+//        if(strCalcState.secondaryTextState.isEmpty()) {
+//            currHistory = strHistoryState
+//        }
+//    }
+//
+//    LaunchedEffect(key1 = sciCalcState) {
+//        if(sciCalcState.secondaryTextState.isEmpty()) {
+//            currHistory = sciHistoryState
+//        }
+//    }
+
+
+//
+//    /** NOTE! This is a Simple test by NANA to show me how LaunchedEffect works with Couroutines. **/
+//    val s = rememberScaffoldState()
+//    LaunchedEffect(key1 = Unit, block = {
+//        strCalcViewModel.api().collectLatest {
+//            s.snackbarHostState.showSnackbar(it)
+//        }
+//    } )
+
+
+//
     val currHistory = listOf(
         CalculatorHistoryState(historyPrimaryState = "2 + 2", historySecondaryState = "4"),
         CalculatorHistoryState(historyPrimaryState = "2 + 6", historySecondaryState = "8"),
         CalculatorHistoryState(historyPrimaryState = "36 / 6", historySecondaryState = "2"),
         CalculatorHistoryState(historyPrimaryState = "7 - 6", historySecondaryState = "1")
     )
-
-
-
 
     NavHost(
         navController = navController,
@@ -71,16 +90,6 @@ fun ComposeNavigation(
         }
     }
 }
-
-//val currHistory : List<CalculatorHistoryState> = if(strCalcViewModel.historyCheck) {
-//
-//    listOf(strHistoryState)
-////            strCalcViewModel.historyCheck = false
-////
-////            Log.i(TAG, "Our Current historyCheck in NavGraph is ${strCalcViewModel.historyCheck}")
-//} else {
-//    listOf(sciHistoryState)
-//}
 
 
 //Log.i(TAG,"Current history in ComposeNavigation class is : ${clearHistory.currentHistoryState}")

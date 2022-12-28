@@ -31,21 +31,20 @@ private const val TAG = "CalculatorHistory"
 fun CalculatorHistory(
     modifier : Modifier,
     state : List<CalculatorHistoryState>,
+//    state : CalculatorHistoryState,
     onAction : (CalculatorAction) -> Unit,
     navController: NavController,
 ) {
-
-    val scrollState = rememberScrollState()
     val context = LocalContext.current.applicationContext
 
+    /*
+     *  NOTE! Also, as per Above I will I will add something(an icon or image and a text to indicate that there is no calculated History.)
+     */
 
-    /** IMPORTANT NOTE! THINGS TO ADD LATER - I WILL TRY TO SEE IF I CAN MAKE THE SECOND ROW REPEAT ITSELF FOR EACH OPERATION HISTORY(Using LazyColumn) .
-     *  ADDITIONAL NOTE! Also, as per Above I will I will add something(an icon or image and a text to indicate that there is no calculated History.)
-     * **/
+    // Todo - When I come back, I will Implement this whole 'Box' composable into a Scaffold as it is more ideal considering the fact I have a TopBar and I want to personally use it
 
     Box(
         modifier = modifier
-            .verticalScroll(state = scrollState)
     ) {
 
         TopAppBar(
@@ -114,6 +113,13 @@ fun CalculatorHistory(
             ) {
                 
                 HistoryList(dataList = state)
+
+//                CalculatorHistoryBox(
+//                    state = state,
+//                    modifier = Modifier
+//                        .aspectRatio(1f),
+//                )
+
             }
         }
     }
@@ -165,10 +171,11 @@ fun HistoryList(
     dataList : List<CalculatorHistoryState>
 ) {
 
-    // Todo - FIX("When I come back, I will try to fix this thing which is the LazyColumn not making the whole list to fill the screen and fix other errors.")
+    val scrollState = rememberScrollState()
 
     LazyColumn(
-        modifier = Modifier,
+        modifier = Modifier
+            .verticalScroll(state = scrollState),
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
 
@@ -178,12 +185,4 @@ fun HistoryList(
     }
 }
 
-//CalculatorHistoryBox(
-//state = state,
-//modifier = Modifier
-//.aspectRatio(1f),
-//)
-
-
-
-
+// java.lang.IllegalStateException: Vertically scrollable component was measured with an infinity maximum height constraints, which is disallowed. One of the common reasons is nesting layouts like LazyColumn and Column(Modifier.verticalScroll()). If you want to add a header before the list of items please add a header as a separate item() before the main items() inside the LazyColumn scope. There are could be other reasons for this to happen: your ComposeView was added into a LinearLayout with some weight, you applied Modifier.wrapContentSize(unbounded = true) or wrote a custom layout. Please try to remove the source of infinite constraints in the hierarchy above the scrolling container.

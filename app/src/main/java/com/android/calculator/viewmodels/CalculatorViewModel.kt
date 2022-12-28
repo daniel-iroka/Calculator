@@ -11,6 +11,8 @@ import com.android.calculator.CalculatorOperation
 import com.android.calculator.model.CalculatorHistoryState
 import com.android.calculator.model.CalculatorState
 import com.android.calculator.ui.theme.ferrari
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.flow
 import kotlin.math.*
 
 /**
@@ -34,8 +36,6 @@ class CalculatorViewModel : ViewModel() {
 
     var checkState by mutableStateOf(false)
 
-    var historyCheck by mutableStateOf(false)
-
     // Function to Register our Click events
     fun onAction(action : CalculatorAction) {
         when(action) {
@@ -53,13 +53,18 @@ class CalculatorViewModel : ViewModel() {
         }
     }
 
+    fun api() = flow<String> {
+        delay(2000)
+        emit("Testing")
+    }
+
     // We are Basically making the click events possible by modifying the 'state'
     private fun performStandardCalculations() {
         val primaryStateChar = strState.primaryTextState.last()
         val primaryState = strState.primaryTextState
         val secondaryState = strState.secondaryTextState
 
-        if (!(primaryStateChar == '(' || primaryStateChar == '%')) {
+        if ((primaryStateChar == '(' || primaryStateChar == '%').not()) {
 
             strState = strState.copy(
                 primaryTextState = secondaryState
@@ -74,8 +79,6 @@ class CalculatorViewModel : ViewModel() {
             historyState = historyState.copy(
                 historyPrimaryState = primaryState
             )
-
-            historyCheck = true
         } else {
             strState = strState.copy(
                 secondaryTextState = "Format error"
@@ -110,7 +113,7 @@ class CalculatorViewModel : ViewModel() {
             }
 
             // This makes sure it only deletes the secondary state when all the operations are gone
-            if (!(value.contains('+') || value.contains('-') || value.contains('×') || value.contains('÷') || value.contains('%'))) {
+            if ((value.contains('+') || value.contains('-') || value.contains('×') || value.contains('÷') || value.contains('%')).not()) {
                 strState = strState.copy(
                     secondaryTextState = ""
                 )
@@ -119,7 +122,6 @@ class CalculatorViewModel : ViewModel() {
                     color = Color.White
                 )
             }
-            Log.i(TAG, "Our current History check in the ViewModel is $historyCheck")
 
         } else if (strState.operation != null) {
             strState = strState.copy(

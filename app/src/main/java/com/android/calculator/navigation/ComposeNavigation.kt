@@ -1,17 +1,19 @@
 package com.android.calculator.navigation
 
+import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.*
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.android.calculator.model.CalculatorHistoryState
 import com.android.calculator.viewmodels.CalculatorViewModel
 import com.android.calculator.viewmodels.ScientificCalculatorViewModel
+import kotlinx.coroutines.flow.collectLatest
 
 /**
  *  This is our Compose NavGraph and where we Implement our NavHost.
  */
+
 
 
 private const val TAG = "ComposeNavigation"
@@ -32,44 +34,20 @@ fun ComposeNavigation(
     val strHistoryState = strCalcViewModel.historyState
     val sciHistoryState = sciCalcViewModel.historyState
 
-    // This holds our current available 'HistoryState' based on where the Calculation was performed(Screens) by the USER.
-//    var currHistory by remember { mutableStateOf(CalculatorHistoryState()) }
-    // launchedEffect is a type of side-effect which in this case will execute the coroutine block whenever there has been a change in it's "key.
+    // Todo - When I come back, I will continue with the fix of this thing which is also to try and pass a list of lists or give consideration into the Single ViewModel method.
 
-    // TODO - WORK("When I come back tomorrow, I will begin working with this.")
-
-//    LaunchedEffect(key1 = strCalcState) {
-//        if(strCalcState.secondaryTextState.isEmpty()) {
-//            currHistory = strHistoryState
-//        }
-//    }
-//
-//    LaunchedEffect(key1 = sciCalcState) {
-//        if(sciCalcState.secondaryTextState.isEmpty()) {
-//            currHistory = sciHistoryState
-//        }
-//    }
-
-
-//
-//    /** NOTE! This is a Simple test by NANA to show me how LaunchedEffect works with Couroutines. **/
-//    val s = rememberScaffoldState()
-//    LaunchedEffect(key1 = Unit, block = {
-//        strCalcViewModel.api().collectLatest {
-//            s.snackbarHostState.showSnackbar(it)
-//        }
-//    } )
-
-
-//
     val currHistory = listOf(
-        CalculatorHistoryState(historyPrimaryState = "2 + 2", historySecondaryState = "4"),
-        CalculatorHistoryState(historyPrimaryState = "2 + 6", historySecondaryState = "8"),
-        CalculatorHistoryState(historyPrimaryState = "36 / 6", historySecondaryState = "2"),
-        CalculatorHistoryState(historyPrimaryState = "7 - 6", historySecondaryState = "1"),
-        CalculatorHistoryState(historyPrimaryState = "10 - 6", historySecondaryState = "4"),
-        CalculatorHistoryState(historyPrimaryState = "19 - 10", historySecondaryState = "9")
+        strHistoryState,
+        sciHistoryState
     )
+
+    /** NOTE! This is a Simple test by NANA to show me how LaunchedEffect works with Couroutines. **/
+    val s = rememberScaffoldState()
+    LaunchedEffect(key1 = Unit, block = {
+        strCalcViewModel.api().collectLatest {
+            s.snackbarHostState.showSnackbar(it)
+        }
+    })
 
     NavHost(
         navController = navController,
@@ -90,11 +68,28 @@ fun ComposeNavigation(
 
         composable("second_screen") {
             SecondScreen(
-                navController = navController, historyState =  currHistory, viewModel = strCalcViewModel
+                navController = navController, historyState =  currHistory.flatten(), viewModel = strCalcViewModel
             )
         }
     }
 }
+
+
+// This holds our current available 'HistoryState' based on where the Calculation was performed(Screens) by the USER.
+// launchedEffect is a type of side-effect which in this case will execute the coroutine block whenever there has been a change in it's "key.
+//    val currHistory = listOf(
+//        LaunchedEffect(key1 = strCalcState) {
+//            if(strCalcState.secondaryTextState.isEmpty()) {
+//                strHistoryState
+//            }
+//        },
+//
+//        LaunchedEffect(key1 = sciCalcState) {
+//            if(sciCalcState.secondaryTextState.isEmpty()) {
+//                sciHistoryState
+//            }
+//        }
+//    )
 
 
 //Log.i(TAG,"Current history in ComposeNavigation class is : ${clearHistory.currentHistoryState}")

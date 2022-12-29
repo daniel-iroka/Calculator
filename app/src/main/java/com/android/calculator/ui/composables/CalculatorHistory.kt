@@ -28,9 +28,9 @@ private const val TAG = "CalculatorHistory"
 
 @Composable
 fun CalculatorHistory(
-    modifier : Modifier,
-    state : List<CalculatorHistoryState>,
-    onAction : (CalculatorAction) -> Unit,
+    modifier: Modifier,
+    state: List<CalculatorHistoryState>,
+    onAction: (CalculatorAction) -> Unit,
     navController: NavController,
 ) {
     val context = LocalContext.current.applicationContext
@@ -103,8 +103,18 @@ fun CalculatorHistory(
 @Composable
 fun CalculatorHistoryBox(
     modifier: Modifier = Modifier,
-    state : CalculatorHistoryState
+    state: CalculatorHistoryState
 ) {
+
+//    var state1 = ""
+//    state.forEach { primaryState ->
+//        state1 = primaryState.historyPrimaryState
+//    }
+//
+//    var state2 = ""
+//    state.forEach { secondaryState ->
+//        state2 = secondaryState.historySecondaryState
+//    }
 
     Box(
         modifier = modifier
@@ -143,7 +153,7 @@ fun CalculatorHistoryBox(
 
 @Composable
 fun HistoryList(
-    dataList : List<CalculatorHistoryState>
+    dataList: List<CalculatorHistoryState>
 ) {
 
     val lazyColumnState = rememberLazyListState()

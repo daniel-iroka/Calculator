@@ -14,8 +14,7 @@ import com.android.calculator.viewmodels.CalculatorViewModel
 fun SecondScreen(
     navController: NavHostController,
     historyState: List<CalculatorHistoryState>,
-//    historyState : CalculatorHistoryState,
-    viewModel : CalculatorViewModel
+    viewModel: CalculatorViewModel
 ) {
 
     CalculatorHistory(

@@ -1,15 +1,14 @@
 package com.android.calculator.viewmodels
 
 import android.util.Log
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
 import com.android.calculator.CalculatorAction
 import com.android.calculator.CalculatorOperation
 import com.android.calculator.model.CalculatorHistoryState
 import com.android.calculator.model.CalculatorState
+import com.android.calculator.model.ScientificCalculatorState
 import com.android.calculator.ui.theme.ferrari
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.flow
@@ -22,44 +21,65 @@ import kotlin.math.*
 
 private const val TAG = "CalculatorViewModel"
 
+// Todo - FIX("When I come back, if I am able to solve this list issue, I Will try as much to reduce the repetition of code here and try to reuse whatever function or Implementation I have set up.")
+
 class CalculatorViewModel : ViewModel() {
 
     var strState by mutableStateOf(CalculatorState())
         // This makes our state accessible by outside classes but still readable
         private set
 
-    var historyState by mutableStateOf(CalculatorHistoryState())
+    var sciState by mutableStateOf(ScientificCalculatorState())
         private set
+
+    var historyState = mutableListOf<CalculatorHistoryState>()
 
     private var leftBracket by mutableStateOf(true)
     private var check = 0
+    private var check1 = 0
 
-    var checkState by mutableStateOf(false)
+    // Todo - When I come back tomorrow, the other bug I will check will now be to why there is an extra space after I add an item to a list
 
     // Function to Register our Click events
-    fun onAction(action : CalculatorAction) {
+    fun onActionForStandardOpr(action : CalculatorAction) {
         when(action) {
-            is CalculatorAction.Number -> enterNumber(action.number)
-            is CalculatorAction.Decimal -> enterDecimal()
+            is CalculatorAction.Number -> enterStrNumber(action.number)
+            is CalculatorAction.Decimal -> enterStrDecimal()
             is CalculatorAction.Clear -> {
                 strState = CalculatorState()
                 check = 0
             }
-            is CalculatorAction.ClearHistory -> checkState = true
-            is CalculatorAction.Operation -> enterStandardOperations(action.operation)
-            is CalculatorAction.Calculate -> performStandardCalculations()
-            is CalculatorAction.Delete -> performDeletion()
-            is CalculatorAction.Brackets -> enterBrackets()
+            is CalculatorAction.ClearHistory -> historyState.clear()
+            is CalculatorAction.Operation -> enterStrOperations(action.operation)
+            is CalculatorAction.Calculate -> performStrCalculations()
+            is CalculatorAction.Delete -> performStrDeletion()
+            is CalculatorAction.Brackets -> enterStrBrackets()
         }
     }
 
-    fun api() = flow<String> {
+    fun onActionForScientificOpr(action : CalculatorAction) {
+        when(action) {
+            is CalculatorAction.Number -> enterSciNumber(action.number)
+            is CalculatorAction.Decimal -> enterSciDecimal()
+            is CalculatorAction.Clear -> {
+                sciState = ScientificCalculatorState()
+                check1 = 0
+            }
+            is CalculatorAction.Operation -> enterSciOperations(action.operation)
+            is CalculatorAction.Calculate -> performSciCalculations()
+            is CalculatorAction.Delete -> performSciDeletion()
+            is CalculatorAction.Brackets -> enterSciBrackets()
+            else -> {}
+        }
+    }
+
+    fun api() = flow {
         delay(2000)
         emit("Testing")
     }
 
     // We are Basically making the click events possible by modifying the 'state'
-    private fun performStandardCalculations() {
+    private fun performStrCalculations() {
         val primaryStateChar = strState.primaryTextState.last()
         val primaryState = strState.primaryTextState
         val secondaryState = strState.secondaryTextState
@@ -71,14 +91,13 @@ class CalculatorViewModel : ViewModel() {
             )
             strState = strState.copy(secondaryTextState = "")
 
-            // Below, we store our Calculated Values in the History Screen after it has been Calculated by the USER.
-            historyState = historyState.copy(
+            historyState.add(CalculatorHistoryState(
                 historySecondaryState = secondaryState
-            )
+            ))
 
-            historyState = historyState.copy(
+            historyState.add(CalculatorHistoryState(
                 historyPrimaryState = primaryState
-            )
+            ))
         } else {
             strState = strState.copy(
                 secondaryTextState = "Format error"
@@ -91,19 +110,48 @@ class CalculatorViewModel : ViewModel() {
 
     }
 
-    private fun performDeletion() {
+    private fun performSciCalculations() {
+        val primaryStateChar = sciState.primaryTextState.last()
+        val primaryState = sciState.primaryTextState
+        val secondaryState = sciState.secondaryTextState
+
+        if ((primaryStateChar == '(' || primaryStateChar == '%').not()) {
+
+            sciState = sciState.copy(
+                primaryTextState = secondaryState
+            )
+            sciState = sciState.copy(secondaryTextState = "")
+
+            historyState.add(CalculatorHistoryState(
+                historySecondaryState = secondaryState
+            ))
+
+            historyState.add(CalculatorHistoryState(
+                historyPrimaryState = primaryState
+            ))
+        } else {
+            sciState = sciState.copy(
+                secondaryTextState = "Format error"
+            )
+
+            sciState = sciState.copy(
+                color = ferrari
+            )
+        }
+    }
+
+    private fun performStrDeletion() {
         val res: String
 
         if (strState.primaryTextState.isNotBlank()) {
             val value = strState.primaryTextState
-//            val findFirstOpr = value.first()
             val findLastOpr = value.last()
 
             res = strState.primaryTextState.dropLast(1)
             strState = strState.copy(
                 primaryTextState = res
             )
-            result(res)
+            strResult(res)
 
             // Checks if the uer input contains any of these operands as the last and then decrements the check variable
             when (findLastOpr) {
@@ -131,7 +179,48 @@ class CalculatorViewModel : ViewModel() {
         }
     }
 
-    private fun enterStandardOperations(operation: CalculatorOperation) {
+    private fun performSciDeletion() {
+        val res: String
+
+        if (sciState.primaryTextState.isNotBlank()) {
+            val value = sciState.primaryTextState
+            val findLastOpr = value.last()
+
+            res = sciState.primaryTextState.dropLast(1)
+            sciState = sciState.copy(
+                primaryTextState = res
+            )
+            strResult(res)
+
+            // Checks if the uer input contains any of these operands as the last and then decrements the check variable
+            when (findLastOpr) {
+                '+', '-', '×', '÷', '%' -> {
+                    check -= 1
+                }
+            }
+
+            // This makes sure it only deletes the secondary state when all the operations are gone
+            if ((value.contains('+') || value.contains('-') || value.contains('×') || value.contains('÷') || value.contains('%')).not()) {
+                sciState = sciState.copy(
+                    secondaryTextState = ""
+                )
+
+                sciState = sciState.copy(
+                    color = Color.White
+                )
+            }
+
+        } else if (sciState.operation != null) {
+            sciState = sciState.copy(
+                operation = null
+            )
+            leftBracket = true
+        }
+    }
+
+    //
+
+    private fun enterStrOperations(operation: CalculatorOperation) {
         when(operation) {
             is CalculatorOperation.Add -> add(operation)
             is CalculatorOperation.Subtract -> subtract(operation)
@@ -143,6 +232,34 @@ class CalculatorViewModel : ViewModel() {
 
         strState = strState.copy(
             primaryTextState = strState.primaryTextState + (strState.operation?.symbol ?: "")
+        )
+    }
+
+    private fun enterSciOperations(operation: CalculatorOperation) {
+        when(operation) {
+            is CalculatorOperation.Add -> sciAdd(operation)
+            is CalculatorOperation.Subtract -> sciSubtract(operation)
+            is CalculatorOperation.Multiply -> sciMultiply(operation)
+            is CalculatorOperation.Divide -> sciDivide(operation)
+            is CalculatorOperation.Modulo -> sciModulo(operation)
+            is CalculatorOperation.SquareRoot -> squareRoot(operation)
+            is CalculatorOperation.Squared -> squared(operation)
+            is CalculatorOperation.Factorial -> factorial(operation)
+            is CalculatorOperation.Sin -> sinOpr(operation)
+            is CalculatorOperation.Cos -> cosOpr(operation)
+            is CalculatorOperation.Tan -> tanOpr(operation)
+            is CalculatorOperation.Log -> logOpr(operation)
+            is CalculatorOperation.In -> ln(operation)
+            is CalculatorOperation.Inv -> invOpr(operation)
+            else -> {}
+        }
+
+        strState = strState.copy(
+            primaryTextState = strState.primaryTextState + (strState.operation?.symbol ?: "")
+        )
+
+        sciState = sciState.copy(
+            primaryTextState = sciState.primaryTextState + (sciState.operation?.symbol ?: "")
         )
     }
 
@@ -177,7 +294,100 @@ class CalculatorViewModel : ViewModel() {
         check += 1
     }
 
-    private fun enterDecimal() {
+
+    private fun sciSubtract(operation: CalculatorOperation) {
+        sciState = sciState.copy(operation = operation)
+        check += 1
+    }
+
+    private fun sciMultiply(operation: CalculatorOperation) {
+        if (sciState.primaryTextState.isNotBlank()) {
+            sciState = sciState.copy(operation = operation)
+        }
+        check += 1
+    }
+
+    private fun sciAdd(operation: CalculatorOperation) {
+        if (sciState.primaryTextState.isNotBlank()) {
+            sciState = sciState.copy(operation = operation)
+        }
+        check += 1
+    }
+
+    private fun sciDivide(operation: CalculatorOperation) {
+        if (sciState.primaryTextState.isNotBlank()) {
+            sciState = sciState.copy(operation = operation)
+        }
+        check += 1
+    }
+
+    private fun sciModulo(operation: CalculatorOperation) {
+        sciState = sciState.copy(operation = operation)
+        check += 1
+    }
+
+    private fun squareRoot(operation: CalculatorOperation) {
+        sciState = sciState.copy(operation = operation)
+        check += 1
+    }
+
+    private fun squared(operation: CalculatorOperation) {
+        if (sciState.primaryTextState.isEmpty()) {
+            return
+        } else {
+            val value = sciState.primaryTextState.toInt()
+            val result = value * value
+            sciState = sciState.copy(
+                secondaryTextState = result.toString()
+            )
+            sciState = sciState.copy(operation = operation)
+        }
+    }
+
+    private fun factorial(operation: CalculatorOperation) {
+        if (sciState.primaryTextState.isEmpty()) {
+            return
+        } else {
+            val value = factorial(sciState.primaryTextState.toInt())
+            sciState = sciState.copy(
+                secondaryTextState = value.toString()
+            )
+            sciState = sciState.copy(operation = operation)
+        }
+    }
+
+
+    private fun sinOpr(operation: CalculatorOperation) {
+        sciState = sciState.copy(operation = operation)
+        check += 1
+    }
+
+    private fun cosOpr(operation: CalculatorOperation) {
+        sciState = sciState.copy(operation = operation)
+        check += 1
+    }
+
+    private fun tanOpr(operation: CalculatorOperation) {
+        sciState = sciState.copy(operation = operation)
+        check += 1
+    }
+
+    private fun logOpr(operation: CalculatorOperation) {
+        sciState = sciState.copy(operation = operation)
+        check += 1
+    }
+
+    private fun ln(operation: CalculatorOperation) {
+        sciState = sciState.copy(operation = operation)
+        check += 1
+    }
+
+    private fun invOpr(operation: CalculatorOperation) {
+        sciState = sciState.copy(operation = operation)
+        check += 1
+    }
+
+    private fun enterStrDecimal() {
         // This will only execute when == true
         if (strState.operation == null && !strState.primaryTextState.contains(".")
             && strState.primaryTextState.isNotBlank()
@@ -189,7 +399,19 @@ class CalculatorViewModel : ViewModel() {
         }
     }
 
-    private fun enterBrackets() {
+    private fun enterSciDecimal() {
+        // This will only execute when == true
+        if (sciState.operation == null && !sciState.primaryTextState.contains(".")
+            && sciState.primaryTextState.isNotBlank()
+        ) {
+            sciState = sciState.copy(
+                primaryTextState = sciState.primaryTextState + "."
+            )
+            return
+        }
+    }
+
+    private fun enterStrBrackets() {
         if (leftBracket) {
             strState = strState.copy(
                 primaryTextState = strState.primaryTextState + "("
@@ -203,12 +425,26 @@ class CalculatorViewModel : ViewModel() {
         }
     }
 
-    private fun enterNumber(number: Int) {
+    private fun enterSciBrackets() {
+        if (leftBracket) {
+            sciState = sciState.copy(
+                primaryTextState = sciState.primaryTextState + "("
+            )
+            leftBracket = false
+        } else {
+            sciState = sciState.copy(
+                primaryTextState = sciState.primaryTextState + ")"
+            )
+            leftBracket = true
+        }
+    }
+
+    private fun enterStrNumber(number: Int) {
 
         strState = strState.copy(
             primaryTextState = strState.primaryTextState + number
         )
-        result(strState.primaryTextState)
+        strResult(strState.primaryTextState)
 
         when(strState.operation) {
             is CalculatorOperation.Modulo -> {
@@ -216,6 +452,43 @@ class CalculatorViewModel : ViewModel() {
             }
             else -> {}
         }
+    }
+
+    private fun enterSciNumber(number: Int) {
+
+        sciState = sciState.copy(
+            primaryTextState = sciState.primaryTextState + number
+        )
+        sciResult(sciState.primaryTextState)
+
+        when(sciState.operation) {
+            is CalculatorOperation.Modulo -> {
+                doModulo()
+            }
+            else -> {}
+        }
+    }
+
+    // Our factorial function
+    private fun factorial(num : Int) : Long {
+        return if (num >= 1)
+            num * factorial(num - 1)
+        else
+            1
+    }
+
+    private fun doSquareRoot(number : Int) {
+        val result = sqrt(number.toDouble())
+
+        sciState = sciState.copy(
+            secondaryTextState = result.toString()
+        )
+
+
+//        val value = state.primaryTextState.first().code
+//        when(value) {
+//            0, 1, 2, 3, 4, 5, 6, 7, 8, 9 -> { "Later I will try and accomplish this..." }
+//        }
     }
 
     private fun doModulo() {
@@ -315,7 +588,7 @@ class CalculatorViewModel : ViewModel() {
         }.parse()
     }
 
-    private fun result(text : String) {
+    private fun strResult(text : String) {
         try {
             val result = eval(text)
             val mainResult = result.toString()
@@ -325,6 +598,25 @@ class CalculatorViewModel : ViewModel() {
                 )
             } else {
                 strState.copy(
+                    secondaryTextState = mainResult
+                )
+            }
+        }
+        catch (e : Exception) {
+            Log.e(TAG, "ERROR!")
+        }
+    }
+
+    private fun sciResult(text : String) {
+        try {
+            val result = eval(text)
+            val mainResult = result.toString()
+            sciState = if (check == 0) {
+                sciState.copy(
+                    secondaryTextState = ""
+                )
+            } else {
+                sciState.copy(
                     secondaryTextState = mainResult
                 )
             }

@@ -19,7 +19,7 @@ fun SecondScreen(
 
     CalculatorHistory(
         state = historyState,
-        onAction = viewModel::onAction,
+        onAction = viewModel::onActionForStandardOpr,
         navController = navController,
         modifier = Modifier
             .fillMaxSize()

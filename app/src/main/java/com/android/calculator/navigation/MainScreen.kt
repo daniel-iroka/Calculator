@@ -31,7 +31,7 @@ fun MainScreen(
     // Calling our Compose file in the theme. This will automatically inflate the Compose UI elements
     Calculator(
         state = state,
-        onAction = viewModel::onAction,
+        onAction = viewModel::onActionForStandardOpr,
         buttonSpacing = buttonSpacing,
         navController = navController,
         modifier = Modifier

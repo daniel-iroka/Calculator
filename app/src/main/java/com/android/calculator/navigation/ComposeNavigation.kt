@@ -1,20 +1,20 @@
 package com.android.calculator.navigation
 
+import android.util.Log
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.*
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.android.calculator.CalculatorOperation
+import com.android.calculator.model.CalculatorHistoryState
 import com.android.calculator.viewmodels.CalculatorViewModel
-import com.android.calculator.viewmodels.ScientificCalculatorViewModel
 import kotlinx.coroutines.flow.collectLatest
 
 /**
  *  This is our Compose NavGraph and where we Implement our NavHost.
  */
-
-
 
 private const val TAG = "ComposeNavigation"
 
@@ -25,26 +25,30 @@ fun ComposeNavigation(
     /**
      *  Here We declare an Instance of our Two ViewModels, their states and History States. This is because we don't want to have the same States for the two Screens.
      */
-    val strCalcViewModel = viewModel<CalculatorViewModel>()
-    val sciCalcViewModel = viewModel<ScientificCalculatorViewModel>()
+    val viewModel = viewModel<CalculatorViewModel>()
 
-    val strCalcState = strCalcViewModel.strState
-    val sciCalcState = sciCalcViewModel.sciState
+    val strCalcState = viewModel.strState
+    val sciCalcState = viewModel.sciState
 
-    val strHistoryState = strCalcViewModel.historyState
-    val sciHistoryState = sciCalcViewModel.historyState
+    val currentHistory = viewModel.historyState
 
-    // Todo - When I come back, I will continue with the fix of this thing which is also to try and pass a list of lists or give consideration into the Single ViewModel method.
+//    val currentHistory = listOf(
+//        CalculatorHistoryState(historySecondaryState = "40", historyPrimaryState = "8 * 5"),
+//        CalculatorHistoryState(historySecondaryState = "225", historyPrimaryState = "15 * 15"),
+//        CalculatorHistoryState(historySecondaryState = "20", historyPrimaryState = "10 + 10"),
+//        CalculatorHistoryState(historySecondaryState = "40", historyPrimaryState = "90 - 50")
+//    )
 
-    val currHistory = listOf(
-        strHistoryState,
-        sciHistoryState
-    )
+    LaunchedEffect(key1 = viewModel.historyState, block = {
+        Log.i(TAG, "Our current history size list is ${viewModel.historyState.size}")
+
+        Log.i(TAG, "And our HistoryState is ${viewModel.historyState}")
+    })
 
     /** NOTE! This is a Simple test by NANA to show me how LaunchedEffect works with Couroutines. **/
     val s = rememberScaffoldState()
     LaunchedEffect(key1 = Unit, block = {
-        strCalcViewModel.api().collectLatest {
+        viewModel.api().collectLatest {
             s.snackbarHostState.showSnackbar(it)
         }
     })
@@ -56,19 +60,19 @@ fun ComposeNavigation(
         
         composable("main_screen") {
             MainScreen(
-                navController = navController, state = strCalcState, viewModel = strCalcViewModel
+                navController = navController, state = strCalcState, viewModel = viewModel
             )
         }
 
         composable("first_screen") {
             FirstScreen(
-                navController = navController, state = sciCalcState, viewModel = sciCalcViewModel
+                navController = navController, state = sciCalcState, viewModel = viewModel
             )
         }
 
         composable("second_screen") {
             SecondScreen(
-                navController = navController, historyState =  currHistory.flatten(), viewModel = strCalcViewModel
+                navController = navController, historyState =  currentHistory, viewModel = viewModel
             )
         }
     }

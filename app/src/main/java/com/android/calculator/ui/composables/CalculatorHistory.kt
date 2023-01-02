@@ -39,8 +39,6 @@ fun CalculatorHistory(
      *  NOTE! Also, as per Above I will I will add something(an icon or image and a text to indicate that there is no calculated History.)
      */
 
-    // Todo - FIX("When I come back tomorrow, I will proceed with the actual Implementation which is Adding REAL calculations lists.")
-    
     Box(
         modifier = modifier
     ) {
@@ -105,16 +103,6 @@ fun CalculatorHistoryBox(
     modifier: Modifier = Modifier,
     state: CalculatorHistoryState
 ) {
-
-//    var state1 = ""
-//    state.forEach { primaryState ->
-//        state1 = primaryState.historyPrimaryState
-//    }
-//
-//    var state2 = ""
-//    state.forEach { secondaryState ->
-//        state2 = secondaryState.historySecondaryState
-//    }
 
     Box(
         modifier = modifier
@@ -187,11 +175,3 @@ fun HistoryList(
         }
     }
 }
-
-
-
-//                CalculatorHistoryBox(
-//                    state = state,
-//                    modifier = Modifier
-//                        .aspectRatio(1f),
-//                )

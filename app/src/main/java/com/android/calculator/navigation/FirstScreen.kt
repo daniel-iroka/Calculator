@@ -11,7 +11,7 @@ import androidx.navigation.NavHostController
 import com.android.calculator.model.ScientificCalculatorState
 import com.android.calculator.ui.composables.ScientificCalculator
 import com.android.calculator.ui.theme.MediumGray
-import com.android.calculator.viewmodels.ScientificCalculatorViewModel
+import com.android.calculator.viewmodels.CalculatorViewModel
 
 private const val TAG = "FirstScreen"
 
@@ -19,14 +19,14 @@ private const val TAG = "FirstScreen"
 fun FirstScreen(
     navController : NavHostController,
     state : ScientificCalculatorState,
-    viewModel : ScientificCalculatorViewModel
+    viewModel : CalculatorViewModel
 ) {
 
     val buttonSpacing = 8.dp
 
     ScientificCalculator(
         state = state,
-        onAction = viewModel::onAction,
+        onAction = viewModel::onActionForScientificOpr,
         buttonSpacing = buttonSpacing,
         navController = navController,
         modifier = Modifier

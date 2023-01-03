@@ -74,7 +74,7 @@ fun Calculator(
                 style = TextStyle(
                     fontWeight = FontWeight.Normal,
                     fontSize = 56.sp,
-                    color = Color.White,
+                    color = state.primaryTextColor,
                 ),
                 maxLines = 1
             )
@@ -89,7 +89,7 @@ fun Calculator(
                 style = TextStyle(
                     fontWeight = FontWeight.Normal,
                     fontSize = 42.sp,
-                    color = Color.LightGray,
+                    color = state.secondaryTextColor,
                 ),
                 maxLines = 1
             )

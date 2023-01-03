@@ -32,13 +32,6 @@ fun ComposeNavigation(
 
     val currentHistory = viewModel.historyState
 
-//    val currentHistory = listOf(
-//        CalculatorHistoryState(historySecondaryState = "40", historyPrimaryState = "8 * 5"),
-//        CalculatorHistoryState(historySecondaryState = "225", historyPrimaryState = "15 * 15"),
-//        CalculatorHistoryState(historySecondaryState = "20", historyPrimaryState = "10 + 10"),
-//        CalculatorHistoryState(historySecondaryState = "40", historyPrimaryState = "90 - 50")
-//    )
-
     LaunchedEffect(key1 = viewModel.historyState, block = {
         Log.i(TAG, "Our current history size list is ${viewModel.historyState.size}")
 
@@ -96,12 +89,6 @@ fun ComposeNavigation(
 //    )
 
 
-//Log.i(TAG,"Current history in ComposeNavigation class is : ${clearHistory.currentHistoryState}")
-
-//    Log.i(TAG, "This is our History State in our Compose Navigation : ${currHistoryViewModel.currentHistoryState}")
-
-
-
 
 /** IMPORTANT NOTE! When I am really done wih this project and I want to still add animations to the screen transitions, I will come back to all this code. **/
 
@@ -121,7 +108,3 @@ fun ComposeNavigation(
 //popExitTransition = {
 //    slideOutHorizontally(targetOffsetX = { 1000 }, animationSpec = springSec)
 //}
-
-//I  This is our currentHistory State in our Compose Navigation : CalculatorHistoryState(historyPrimaryState=9×7, historySecondaryState=63.0, time=3 days ago)
-//I  This is our currentHistory State in our ViewModel : CalculatorHistoryState(historyPrimaryState=, historySecondaryState=, time=3 days ago)
-//I  This is our currentHistory State in our History Screen : 9×7 and 63.0

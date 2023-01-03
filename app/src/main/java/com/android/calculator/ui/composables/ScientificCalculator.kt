@@ -66,10 +66,11 @@ fun ScientificCalculator(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(vertical = 8.dp),
+
                 style = TextStyle(
                     fontWeight = FontWeight.Normal,
                     fontSize = 56.sp,
-                    color = state.color,
+                    color = state.primaryTextColor,
                 ),
                 maxLines = 1
             )
@@ -84,7 +85,7 @@ fun ScientificCalculator(
                 style = TextStyle(
                     fontWeight = FontWeight.Normal,
                     fontSize = 45.sp,
-                    color = state.color,
+                    color = state.secondaryTextColor,
                 ),
                 maxLines = 1
             )
@@ -161,7 +162,7 @@ fun ScientificCalculator(
                 horizontalArrangement = Arrangement.SpaceBetween,
             ) {
                 ScientificCalculatorButton(
-                    symbol = "sin",
+                    symbol = "!",
                     color = Orange,
                     fontSize = 18.sp,
                     modifier = Modifier

@@ -8,8 +8,9 @@ import com.android.calculator.CalculatorOperation
  */
 
 data class CalculatorState(
-    val color : Color = Color.White,
     val primaryTextState : String = "",
     val secondaryTextState : String = "",
+    val primaryTextColor : Color = Color.White,
+    val secondaryTextColor : Color = Color.LightGray,
     val operation : CalculatorOperation? = null,
 )

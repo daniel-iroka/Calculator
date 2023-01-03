@@ -39,6 +39,8 @@ fun CalculatorHistory(
      *  NOTE! Also, as per Above I will I will add something(an icon or image and a text to indicate that there is no calculated History.)
      */
 
+    // Todo - IMPROVE("When I come back, what I will work on probably before the todo in the ViewModel is trying to Improve the look of our LazyColumn's list in our Composable")
+
     Box(
         modifier = modifier
     ) {
@@ -106,6 +108,7 @@ fun CalculatorHistoryBox(
 
     Box(
         modifier = modifier
+            .padding(end = 8.dp),
     ) {
 
         // Our calculator Results

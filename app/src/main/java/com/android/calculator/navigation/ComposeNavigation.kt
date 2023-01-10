@@ -7,8 +7,6 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.android.calculator.CalculatorOperation
-import com.android.calculator.model.CalculatorHistoryState
 import com.android.calculator.viewmodels.CalculatorViewModel
 import kotlinx.coroutines.flow.collectLatest
 
@@ -32,13 +30,23 @@ fun ComposeNavigation(
 
     val currentHistory = viewModel.historyState
 
+    // This is our dummyList. We will use this for a series of specific testings.
+//    val currentHistory = listOf(
+//        CalculatorHistoryState(historySecondaryState = "60", historyPrimaryState = "30 + 30"),
+//        CalculatorHistoryState(historySecondaryState = "0", historyPrimaryState = "20 x 0"),
+//        CalculatorHistoryState(historySecondaryState = "30", historyPrimaryState = "6 x 6"),
+//        CalculatorHistoryState(historySecondaryState = "10", historyPrimaryState = "5 + 5"),
+//        CalculatorHistoryState(historySecondaryState = "30", historyPrimaryState = "6 x 5"),
+//        CalculatorHistoryState(historySecondaryState = "9", historyPrimaryState = "15 + 6")
+//    )
+
     LaunchedEffect(key1 = viewModel.historyState, block = {
         Log.i(TAG, "Our current history size list is ${viewModel.historyState.size}")
 
-        Log.i(TAG, "And our HistoryState is ${viewModel.historyState}")
+        Log.i(TAG, "Our current HistoryState is ${viewModel.historyState}")
     })
 
-    /** NOTE! This is a Simple test by NANA to show me how LaunchedEffect works with Couroutines. **/
+    /** NOTE! This is a Simple test by NANA to show me how LaunchedEffect works with Coroutines. **/
     val s = rememberScaffoldState()
     LaunchedEffect(key1 = Unit, block = {
         viewModel.api().collectLatest {
@@ -65,7 +73,7 @@ fun ComposeNavigation(
 
         composable("second_screen") {
             SecondScreen(
-                navController = navController, historyState =  currentHistory, viewModel = viewModel
+                navController = navController, historyState = currentHistory, viewModel = viewModel
             )
         }
     }

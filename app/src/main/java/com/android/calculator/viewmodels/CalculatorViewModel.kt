@@ -14,14 +14,14 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.flow
 import kotlin.math.*
 
-/**
+/*
  *    This is the ViewModel for our 'StandardCalculator' which in in Jetpack compose, is responsible for handling the User actions and click events(eventHandler)
  *    as well as the 'state' in compose.
  */
 
 private const val TAG = "CalculatorViewModel"
 
-// Todo - FIX("When I come back, if I am able to solve this list issue, I Will try as much to reduce the repetition of code here and try to reuse whatever function or Implementation I have set up.")
+// Todo - FIX("When I come back, if I still have some ideas left, I will see if I can reduce the code thereby reducing repetition.")
 
 class CalculatorViewModel : ViewModel() {
 
@@ -32,7 +32,7 @@ class CalculatorViewModel : ViewModel() {
     var sciState by mutableStateOf(ScientificCalculatorState())
         private set
 
-    var historyState = mutableListOf<CalculatorHistoryState>()
+    var historyState = mutableStateListOf<CalculatorHistoryState>()
 
     private var leftBracket by mutableStateOf(true)
     private var check = 0
@@ -47,7 +47,6 @@ class CalculatorViewModel : ViewModel() {
                 strState = CalculatorState()
                 check = 0
             }
-            // Todo - Also when I come back,for some reason this clear isn't working so I will work on it and check what I did wrong.
             is CalculatorAction.ClearHistory -> historyState.clear()
             is CalculatorAction.Operation -> enterStrOperations(action.operation)
             is CalculatorAction.Calculate -> performStrCalculations()

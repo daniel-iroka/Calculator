@@ -1,5 +1,6 @@
 package com.android.calculator.ui.composables
 
+import android.text.format.DateUtils
 import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -8,8 +9,10 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.outlined.History
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
@@ -22,8 +25,9 @@ import androidx.navigation.NavController
 import com.android.calculator.CalculatorAction
 import com.android.calculator.ui.HistoryOverFlowMenu
 import com.android.calculator.model.CalculatorHistoryState
+import com.android.calculator.ui.theme.LightGray
 
-private const val DATE_FORMAT = "Todo - Add a Proper date format here later on with SimpleDateFormat!"
+private const val DATE_FORMAT = "MMM, d, yyyy"
 private const val TAG = "CalculatorHistory"
 
 @Composable
@@ -38,8 +42,6 @@ fun CalculatorHistory(
     /*
      *  NOTE! Also, as per Above I will I will add something(an icon or image and a text to indicate that there is no calculated History.)
      */
-
-    // Todo - IMPROVE("When I come back, what I will work on probably before the todo in the ViewModel is trying to Improve the look of our LazyColumn's list in our Composable")
 
     Box(
         modifier = modifier
@@ -81,27 +83,25 @@ fun CalculatorHistory(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(
-                    top = 65.dp,
-                    end = 4.dp
-                ) // Or we can substitute .padding(vertical = ...) if we are just handling the Top of screen
-                .padding(18.dp)
+                    top = 38.dp
+                ) // Or we can substitute .padding(vertical = ...) if we are just handling the Top of screen.
+                .padding(18.dp),
+            verticalArrangement = Arrangement.Center
         ) {
 
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth(),
-                horizontalArrangement = Arrangement.End
-            ) {
-                
-                HistoryList(dataList = state)
+//            HistoryList(dataList = state)
 
-            }
+            Nohistory(
+                modifier = Modifier
+                    .align(CenterHorizontally)
+            )
+
         }
     }
 }
 
 @Composable
-fun CalculatorHistoryBox(
+fun CalculatorHistory(
     modifier: Modifier = Modifier,
     state: CalculatorHistoryState
 ) {
@@ -138,6 +138,8 @@ fun CalculatorHistoryBox(
                 color = Color.LightGray,
                 maxLines = 1
             )
+            
+            Spacer(modifier = Modifier.height(15.dp))
         }
     }
 }
@@ -148,6 +150,15 @@ fun HistoryList(
 ) {
 
     val lazyColumnState = rememberLazyListState()
+    val context = LocalContext.current
+    var time = ""
+
+    // IMPORTANT _TODO - When I come back, I will see if I can add this based on a complete Day and maybe draw a line after,
+
+    if (dataList.isNotEmpty()) {
+        val stateTime = dataList.first()
+        time = DateUtils.getRelativeDateTimeString(context, stateTime.time.time, DateUtils.DAY_IN_MILLIS, DateUtils.WEEK_IN_MILLIS, 0).toString()
+    }
 
     LazyColumn(
         modifier = Modifier
@@ -160,10 +171,10 @@ fun HistoryList(
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(end = 4.dp)
+                    .padding(top = 10.dp, end = 4.dp)
             ) {
                 Text(
-                    text = "3 Days ago",
+                    text = time,
                     style = TextStyle(
                         fontSize = 26.sp,
                         fontFamily = FontFamily.SansSerif
@@ -174,7 +185,42 @@ fun HistoryList(
         }
 
         items(dataList) { state ->
-             CalculatorHistoryBox(state = state)
+            CalculatorHistory(state = state)
+        }
+    }
+}
+
+@Composable
+fun Nohistory(
+    modifier : Modifier
+) {
+
+    Box(
+        modifier = modifier
+    ) {
+
+        Column(
+            modifier = Modifier,
+            horizontalAlignment = CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+
+            Icon(
+                imageVector = Icons.Outlined.History,
+                contentDescription = "Empty Calculator History",
+                modifier = Modifier
+                    .size(25.dp),
+                tint = LightGray
+            )
+
+            Text(
+                text = "No history",
+                style = TextStyle(
+                    fontSize = 22.sp,
+                    fontFamily = FontFamily.SansSerif
+                ),
+                color = Color.LightGray
+            )
         }
     }
 }

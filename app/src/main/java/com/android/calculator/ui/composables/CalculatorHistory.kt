@@ -14,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
@@ -91,9 +92,11 @@ fun CalculatorHistory(
 
 //            HistoryList(dataList = state)
 
+            // Todo - When I come back, tomorrow I will see how I can toggle the visibility of a composable. Using Modifier.alpha(0f).
+
             Nohistory(
                 modifier = Modifier
-                    .align(CenterHorizontally)
+                    .align(CenterHorizontally).alpha(1F)
             )
 
         }

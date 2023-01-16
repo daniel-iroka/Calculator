@@ -29,6 +29,18 @@ fun DialogContent(
     navController : NavHostController
 ) {
 
+    // TODO - WHENEVER I RESUME BACK THIS PROJECT, I HAVE A LIST OF THINGS TO DO TO FINALISE THIS PROJECT WHICH ARE AS FOLLOWS :
+    /*
+     *  Todo - First, I will see more ways I can optimize the look and Implementation of our ViewModel, seeing if I can reduce the Boilerplate code(Maybe add a separate class to handle the logic).
+     *   Todo - Second, I will check for other bugs that I may not have discovered somewhere especially in the calculator Implementation scene.
+     *    Todo - Third, I will cross-check the final look of the overall App, like the HistoryScreen for example.
+     *     Todo - Fourth, I will lastly Implement the dark and light mode and then see how I can save the State of our CalculatorHistory over Process death maybe-
+     *      using SharedPreferences to store the value.
+     *
+     *     Todo - Lastly, I will do thorough inspection of the App and check if they are other things that need to be added and then add them. Note that given my current level-
+     *       of expertise, this project may not be as perfect as it needs to be but I will do my best. So help me God. End.
+     */
+
     val context = LocalContext.current.applicationContext
     val checkedState = remember { mutableStateOf(false) }
 

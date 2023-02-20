@@ -77,6 +77,10 @@ dependencies {
     // Jetpack compose Navigation
     implementation "androidx.navigation:navigation-compose:2.6.0-alpha04"
 
+    // DataStore Preferences and Kotlin coroutines dependency
+    implementation "androidx.datastore:datastore-preferences:1.0.0"
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.0'
+
     // Jetpack compose animation
 //    implementation "com.google.accompanist:accompanist-navigation-animation:0.27.1"
 }

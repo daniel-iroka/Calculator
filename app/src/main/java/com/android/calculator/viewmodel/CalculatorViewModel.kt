@@ -1,4 +1,4 @@
-package com.android.calculator.viewmodels
+package com.android.calculator.viewmodel
 
 import android.util.Log
 import androidx.compose.runtime.*
@@ -6,9 +6,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
 import com.android.calculator.CalculatorAction
 import com.android.calculator.CalculatorOperation
-import com.android.calculator.model.CalculatorHistoryState
-import com.android.calculator.model.CalculatorState
-import com.android.calculator.model.ScientificCalculatorState
+import com.android.calculator.models.CalculatorHistoryState
+import com.android.calculator.models.CalculatorState
+import com.android.calculator.models.ScientificCalculatorState
 import com.android.calculator.ui.theme.orangeRed
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.flow
@@ -37,6 +37,10 @@ class CalculatorViewModel : ViewModel() {
     private var leftBracket by mutableStateOf(true)
     private var check = 0
     private var check1 = 0
+
+    init {
+        // This is where I will pass our savedHistory to DataStore Preferences using coroutines and Flows.
+    }
 
     // Function to Register our Click events
     fun onActionForStandardOpr(action : CalculatorAction) {
@@ -69,11 +73,6 @@ class CalculatorViewModel : ViewModel() {
             is CalculatorAction.Brackets -> enterSciBrackets()
             else -> {}
         }
-    }
-
-    fun api() = flow {
-        delay(2000)
-        emit("Testing")
     }
 
     // We are Basically making the click events possible by modifying the 'state'

@@ -1,4 +1,4 @@
-package com.android.calculator.model
+package com.android.calculator.models
 
 import java.util.*
 

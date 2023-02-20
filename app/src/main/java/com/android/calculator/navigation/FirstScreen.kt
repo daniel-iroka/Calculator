@@ -8,10 +8,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import com.android.calculator.model.ScientificCalculatorState
+import com.android.calculator.models.ScientificCalculatorState
 import com.android.calculator.ui.composables.ScientificCalculator
 import com.android.calculator.ui.theme.MediumGray
-import com.android.calculator.viewmodels.CalculatorViewModel
+import com.android.calculator.viewmodel.CalculatorViewModel
 
 private const val TAG = "FirstScreen"
 

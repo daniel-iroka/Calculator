@@ -1,4 +1,4 @@
-package com.android.calculator.model
+package com.android.calculator.models
 
 import androidx.compose.ui.graphics.Color
 import com.android.calculator.CalculatorOperation

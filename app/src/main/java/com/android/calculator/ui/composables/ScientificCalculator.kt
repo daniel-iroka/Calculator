@@ -17,7 +17,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.android.calculator.*
-import com.android.calculator.model.ScientificCalculatorState
+import com.android.calculator.models.ScientificCalculatorState
 import com.android.calculator.ui.OverFlowMenu
 import com.android.calculator.ui.theme.LightGray
 import com.android.calculator.ui.theme.Orange

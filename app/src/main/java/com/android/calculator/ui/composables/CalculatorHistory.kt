@@ -25,7 +25,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.android.calculator.CalculatorAction
 import com.android.calculator.ui.HistoryOverFlowMenu
-import com.android.calculator.model.CalculatorHistoryState
+import com.android.calculator.models.CalculatorHistoryState
 import com.android.calculator.ui.theme.LightGray
 
 private const val DATE_FORMAT = "MMM, d, yyyy"

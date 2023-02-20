@@ -7,7 +7,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.android.calculator.viewmodels.CalculatorViewModel
+import com.android.calculator.viewmodel.CalculatorViewModel
 import kotlinx.coroutines.flow.collectLatest
 
 /**
@@ -46,14 +46,6 @@ fun ComposeNavigation(
         Log.i(TAG, "Our current HistoryState is ${viewModel.historyState}")
     })
 
-    /** NOTE! This is a Simple test by NANA to show me how LaunchedEffect works with Coroutines. **/
-    val s = rememberScaffoldState()
-    LaunchedEffect(key1 = Unit, block = {
-        viewModel.api().collectLatest {
-            s.snackbarHostState.showSnackbar(it)
-        }
-    })
-
     NavHost(
         navController = navController,
         startDestination = "main_screen",
@@ -78,24 +70,6 @@ fun ComposeNavigation(
         }
     }
 }
-
-
-// This holds our current available 'HistoryState' based on where the Calculation was performed(Screens) by the USER.
-// launchedEffect is a type of side-effect which in this case will execute the coroutine block whenever there has been a change in it's "key.
-//    val currHistory = listOf(
-//        LaunchedEffect(key1 = strCalcState) {
-//            if(strCalcState.secondaryTextState.isEmpty()) {
-//                strHistoryState
-//            }
-//        },
-//
-//        LaunchedEffect(key1 = sciCalcState) {
-//            if(sciCalcState.secondaryTextState.isEmpty()) {
-//                sciHistoryState
-//            }
-//        }
-//    )
-
 
 
 /** IMPORTANT NOTE! When I am really done wih this project and I want to still add animations to the screen transitions, I will come back to all this code. **/

@@ -4,14 +4,17 @@ import android.util.Log
 import androidx.compose.runtime.*
 import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
 import com.android.calculator.CalculatorAction
 import com.android.calculator.CalculatorOperation
+import com.android.calculator.DataStorePreferences
 import com.android.calculator.models.CalculatorHistoryState
 import com.android.calculator.models.CalculatorState
+import com.android.calculator.models.SavedState
 import com.android.calculator.models.ScientificCalculatorState
 import com.android.calculator.ui.theme.orangeRed
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.launch
 import kotlin.math.*
 
 /*
@@ -23,7 +26,7 @@ private const val TAG = "CalculatorViewModel"
 
 // Todo - FIX("When I come back, if I still have some ideas left, I will see if I can reduce the code thereby reducing repetition.")
 
-class CalculatorViewModel : ViewModel() {
+class CalculatorViewModel(private val dataStore : DataStorePreferences) : ViewModel() {
 
     var strState by mutableStateOf(CalculatorState())
         // This makes our state accessible by outside classes but still readable
@@ -33,13 +36,17 @@ class CalculatorViewModel : ViewModel() {
         private set
 
     var historyState = mutableStateListOf<CalculatorHistoryState>()
+    var savedState = mutableStateListOf<SavedState>()
 
     private var leftBracket by mutableStateOf(true)
     private var check = 0
     private var check1 = 0
 
     init {
-        // This is where I will pass our savedHistory to DataStore Preferences using coroutines and Flows.
+        viewModelScope.launch {
+            // Todo - FIRSTLY OOO("When I come back, I will continue with the addition of this.")
+
+        }
     }
 
     // Function to Register our Click events
@@ -628,26 +635,7 @@ class CalculatorViewModel : ViewModel() {
     }
 }
 
+class CalculatorViewModelFactory : ViewModelProvider.Factory {
 
-/** THIS SHIT DID NOT WORK BRO. I WILL CHECK IT LATER. **/
-//    private fun result2(text : String) {
-//        val engine : ScriptEngine = ScriptEngineManager().getEngineByName("rhino")
-//
-//        try {
-//            val result : Any = engine.eval(text)
-//            val mainResult = result.toString()
-//
-//            state = if (check == 0) {
-//                state.copy(
-//                    secondaryTextState = ""
-//                )
-//            } else {
-//                state.copy(
-//                    secondaryTextState = mainResult
-//                )
-//            }
-//        }
-//        catch (e : Exception) {
-//            Log.e(TAG, "ERROR!")
-//        }
-//    }
+    // Todo - When I come back, I will try to add the right dependencies so that the ViewModelProvider.Factory will work properly...
+}

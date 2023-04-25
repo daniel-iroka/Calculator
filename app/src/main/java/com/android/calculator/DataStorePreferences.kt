@@ -8,7 +8,6 @@ import com.android.calculator.models.CalculatorHistoryState
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
-
 /** This is file where we will store our User's results in form of key-value pairs using DataStore Preferences. **/
 
 val PRIMARY_KEY = stringPreferencesKey("primary_key")

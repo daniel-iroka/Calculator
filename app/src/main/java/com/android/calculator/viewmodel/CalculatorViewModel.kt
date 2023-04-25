@@ -24,8 +24,6 @@ import kotlin.math.*
 
 private const val TAG = "CalculatorViewModel"
 
-// Todo - FIX("When I come back, if I still have some ideas left, I will see if I can reduce the code thereby reducing repetition.")
-
 class CalculatorViewModel(private val dataStore : DataStorePreferences) : ViewModel() {
 
     var strState by mutableStateOf(CalculatorState())
@@ -635,7 +633,7 @@ class CalculatorViewModel(private val dataStore : DataStorePreferences) : ViewMo
     }
 }
 
-class CalculatorViewModelFactory : ViewModelProvider.Factory {
+class CalculatorViewModelFactory : ViewModelProvider.Factory
+{
 
-    // Todo - When I come back, I will try to add the right dependencies so that the ViewModelProvider.Factory will work properly...
 }

@@ -1,6 +1,8 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+    id 'com.google.dagger.hilt.android'
 }
 
 android {
@@ -52,6 +54,10 @@ android {
         }
     }
 }
+// Allow references to generated code
+kapt {
+    correctErrorTypes = true
+}
 
 dependencies {
 
@@ -67,9 +73,6 @@ dependencies {
     androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_ui_version"
     debugImplementation "androidx.compose.ui:ui-tooling:$compose_ui_version"
     debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_ui_version"
-
-    // ViewModel dependency for Jetpack compose
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-compose:2.5.1'
     
     // Material Design icons for compose
     implementation "androidx.compose.material:material-icons-extended:$compose_ui_version"
@@ -84,4 +87,9 @@ dependencies {
     // ViewModel dependency for compose
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0"
     implementation "androidx.lifecycle:lifecycle-viewmodel-compose:2.4.0"
+
+    // dagger-hilt dependency
+    implementation "com.google.dagger:hilt-android:2.44"
+    kapt "com.google.dagger:hilt-compiler:2.44"
+    implementation 'androidx.hilt:hilt-navigation-compose:1.0.0-rc01'
 }

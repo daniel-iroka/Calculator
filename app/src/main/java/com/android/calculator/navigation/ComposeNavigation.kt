@@ -1,14 +1,12 @@
 package com.android.calculator.navigation
 
 import android.util.Log
-import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.*
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.android.calculator.viewmodel.CalculatorViewModel
-import kotlinx.coroutines.flow.collectLatest
 
 /**
  *  This is our Compose NavGraph and where we Implement our NavHost.

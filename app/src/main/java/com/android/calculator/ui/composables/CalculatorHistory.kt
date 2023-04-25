@@ -171,6 +171,7 @@ fun HistoryList(
     ) {
 
         item {
+
             Row(
                 modifier = Modifier
                     .fillMaxWidth()

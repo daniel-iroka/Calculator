@@ -8,14 +8,14 @@ import com.android.calculator.models.CalculatorHistoryState
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
-/** This is file where we will store our User's results in form of key-value pairs using DataStore Preferences. **/
+/** This is file where we will store our User's results in form of key-value pairs using AppDataStore Preferences. **/
 
 val PRIMARY_KEY = stringPreferencesKey("primary_key")
 val SECONDARY_KEY = stringPreferencesKey("secondary_key")
 
-class DataStorePreferences(private val dataStore : DataStore<Preferences>) {
+class AppDataStore(private val dataStore : DataStore<Preferences>) {
 
-    val getSavedHistory : Flow<CalculatorHistoryState> = dataStore.data
+    fun getSavedHistory() : Flow<CalculatorHistoryState> = dataStore.data
         .map { preferences ->
             CalculatorHistoryState(
                 historyPrimaryState = preferences[PRIMARY_KEY] ?: "",

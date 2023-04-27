@@ -8,13 +8,16 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.android.calculator.CalculatorAction
 import com.android.calculator.CalculatorOperation
-import com.android.calculator.DataStorePreferences
+import com.android.calculator.AppDataStore
 import com.android.calculator.models.CalculatorHistoryState
 import com.android.calculator.models.CalculatorState
 import com.android.calculator.models.SavedState
 import com.android.calculator.models.ScientificCalculatorState
 import com.android.calculator.ui.theme.orangeRed
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 import kotlin.math.*
 
 /*
@@ -24,7 +27,10 @@ import kotlin.math.*
 
 private const val TAG = "CalculatorViewModel"
 
-class CalculatorViewModel(private val dataStore : DataStorePreferences) : ViewModel() {
+// Todo - The "Useless" error seems to have been cleared and everything is working fine now. When I come back, I will continue the Implementation of Jetpack DataStore on this Project.
+
+@HiltViewModel
+class CalculatorViewModel @Inject constructor(private val dataStore : AppDataStore) : ViewModel() {
 
     var strState by mutableStateOf(CalculatorState())
         // This makes our state accessible by outside classes but still readable
@@ -42,8 +48,10 @@ class CalculatorViewModel(private val dataStore : DataStorePreferences) : ViewMo
 
     init {
         viewModelScope.launch {
-            // Todo - FIRSTLY OOO("When I come back, I will continue with the addition of this.")
-
+            flow {
+                // Todo - When I come back, I will try to fix this thing after watching video examples on DataStore and Flows and also look for the one that is similar to what
+                // todo   I am trying to achieve.
+            }
         }
     }
 
@@ -631,9 +639,4 @@ class CalculatorViewModel(private val dataStore : DataStorePreferences) : ViewMo
             Log.e(TAG, "ERROR!")
         }
     }
-}
-
-class CalculatorViewModelFactory : ViewModelProvider.Factory
-{
-
 }

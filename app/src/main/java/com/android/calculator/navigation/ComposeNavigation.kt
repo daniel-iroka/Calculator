@@ -2,7 +2,6 @@ package com.android.calculator.navigation
 
 import android.util.Log
 import androidx.compose.runtime.*
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -17,11 +16,11 @@ private const val TAG = "ComposeNavigation"
 @Composable
 fun ComposeNavigation(
     navController: NavHostController,
+    viewModel : CalculatorViewModel
 ) {
     /**
      *  Here We declare an Instance of our Two ViewModels, their states and History States. This is because we don't want to have the same States for the two Screens.
      */
-    val viewModel = viewModel<CalculatorViewModel>()
 
     val strCalcState = viewModel.strState
     val sciCalcState = viewModel.sciState

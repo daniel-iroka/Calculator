@@ -1,5 +1,6 @@
 package com.android.calculator
 
+import androidx.compose.runtime.MutableState
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
@@ -13,7 +14,7 @@ import kotlinx.coroutines.flow.map
 val PRIMARY_KEY = stringPreferencesKey("primary_key")
 val SECONDARY_KEY = stringPreferencesKey("secondary_key")
 
-class AppDataStore(private val dataStore : DataStore<Preferences>) {
+class AppDataStore(private val dataStore: DataStore<Preferences>) {
 
     fun getSavedHistory() : Flow<CalculatorHistoryState> = dataStore.data
         .map { preferences ->
@@ -23,10 +24,13 @@ class AppDataStore(private val dataStore : DataStore<Preferences>) {
             )
         }
 
-    suspend fun saveHistory(historyState : CalculatorHistoryState) {
+    suspend fun saveHistory(historyState: List<CalculatorHistoryState>) {
         dataStore.edit { preferences ->
-            preferences[PRIMARY_KEY] = historyState.historyPrimaryState
-            preferences[SECONDARY_KEY] = historyState.historySecondaryState
+            historyState.forEachIndexed { index, calculatorHistoryState ->
+                preferences[PRIMARY_KEY] = calculatorHistoryState.historyPrimaryState
+                preferences[SECONDARY_KEY] = calculatorHistoryState.historySecondaryState
+            }
         }
     }
+
 }

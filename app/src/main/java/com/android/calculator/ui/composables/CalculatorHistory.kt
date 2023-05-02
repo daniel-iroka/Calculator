@@ -90,14 +90,17 @@ fun CalculatorHistory(
             verticalArrangement = Arrangement.Center
         ) {
 
-//            HistoryList(dataList = state)
-
             // Todo - When I come back, tomorrow I will see how I can toggle the visibility of a composable. Using Modifier.alpha(0f).
 
-            Nohistory(
-                modifier = Modifier
-                    .align(CenterHorizontally).alpha(1F)
-            )
+            if (state.isEmpty()) {
+                Nohistory(
+                    modifier = Modifier
+                        .align(CenterHorizontally)
+//                        .alpha(1F)
+                )
+            } else {
+                HistoryList(dataList = state)
+            }
 
         }
     }

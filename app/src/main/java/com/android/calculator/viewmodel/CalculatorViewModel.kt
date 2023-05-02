@@ -2,20 +2,20 @@ package com.android.calculator.viewmodel
 
 import android.util.Log
 import androidx.compose.runtime.*
+import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.android.calculator.CalculatorAction
 import com.android.calculator.CalculatorOperation
 import com.android.calculator.AppDataStore
 import com.android.calculator.models.CalculatorHistoryState
 import com.android.calculator.models.CalculatorState
-import com.android.calculator.models.SavedState
 import com.android.calculator.models.ScientificCalculatorState
 import com.android.calculator.ui.theme.orangeRed
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import kotlin.math.*
@@ -27,7 +27,6 @@ import kotlin.math.*
 
 private const val TAG = "CalculatorViewModel"
 
-// Todo - The "Useless" error seems to have been cleared and everything is working fine now. When I come back, I will continue the Implementation of Jetpack DataStore on this Project.
 
 @HiltViewModel
 class CalculatorViewModel @Inject constructor(private val dataStore : AppDataStore) : ViewModel() {
@@ -40,19 +39,32 @@ class CalculatorViewModel @Inject constructor(private val dataStore : AppDataSto
         private set
 
     var historyState = mutableStateListOf<CalculatorHistoryState>()
-    var savedState = mutableStateListOf<SavedState>()
+    var savedState = mutableStateListOf<CalculatorHistoryState>()
 
     private var leftBracket by mutableStateOf(true)
     private var check = 0
     private var check1 = 0
 
     init {
+        saveHistory()
+        getSavedHistory()
+    }
+
+    private fun saveHistory() {
         viewModelScope.launch {
-            flow {
-                // Todo - When I come back, I will try to fix this thing after watching video examples on DataStore and Flows and also look for the one that is similar to what
-                // todo   I am trying to achieve.
-            }
+            val test = dataStore.saveHistory(historyState)
+            Log.d(TAG, "Our saved DataStore $test")
         }
+    }
+
+    private fun getSavedHistory() {
+        // IMPORTANT NOTE! I Probably did nonsense here so when I come back next time, I will test and try to fix it I may try to change that 'savedHistory' into a liveData.
+        viewModelScope.launch {
+            flow { emit(dataStore.getSavedHistory()) }
+                .flowOn(Dispatchers.IO)
+                .collect { savedState = it.toList() as SnapshotStateList<CalculatorHistoryState> }
+        }
+        Log.d(TAG, "Checking if our SavedState $savedState gets passed")
     }
 
     // Function to Register our Click events

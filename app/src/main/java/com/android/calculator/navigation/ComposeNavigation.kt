@@ -25,7 +25,10 @@ fun ComposeNavigation(
     val strCalcState = viewModel.strState
     val sciCalcState = viewModel.sciState
 
-    val currentHistory = viewModel.historyState
+//    val currentHistory = viewModel.historyState
+
+    // NOTE! This is the experimental currentHistory because I am trying to work with kotlin flows with this
+    val currentHistory = viewModel.savedState
 
     LaunchedEffect(key1 = viewModel.historyState, block = {
         Log.i(TAG, "Our current history size list is ${viewModel.historyState.size}")

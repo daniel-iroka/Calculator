@@ -14,7 +14,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
@@ -28,9 +27,6 @@ import com.android.calculator.ui.HistoryOverFlowMenu
 import com.android.calculator.models.CalculatorHistoryState
 import com.android.calculator.ui.theme.LightGray
 
-private const val DATE_FORMAT = "MMM, d, yyyy"
-private const val TAG = "CalculatorHistory"
-
 @Composable
 fun CalculatorHistory(
     modifier: Modifier,
@@ -43,7 +39,6 @@ fun CalculatorHistory(
     /*
      *  NOTE! Also, as per Above I will I will add something(an icon or image and a text to indicate that there is no calculated History.)
      */
-
     Box(
         modifier = modifier
     ) {
@@ -90,18 +85,15 @@ fun CalculatorHistory(
             verticalArrangement = Arrangement.Center
         ) {
 
-            // Todo - When I come back, tomorrow I will see how I can toggle the visibility of a composable. Using Modifier.alpha(0f).
-
+            // This 'if' check will Display our History Lists or a "NoHistory" Text depending on if our lists is empty or not.
             if (state.isEmpty()) {
                 Nohistory(
                     modifier = Modifier
                         .align(CenterHorizontally)
-//                        .alpha(1F)
                 )
             } else {
                 HistoryList(dataList = state)
             }
-
         }
     }
 }
@@ -159,7 +151,7 @@ fun HistoryList(
     val context = LocalContext.current
     var time = ""
 
-    // IMPORTANT _TODO - When I come back, I will see if I can add this based on a complete Day and maybe draw a line after,
+    // IMPORTANT _TODO - Later in this project, I will see if I can add this based on a complete Day and maybe draw a line after,
 
     if (dataList.isNotEmpty()) {
         val stateTime = dataList.first()

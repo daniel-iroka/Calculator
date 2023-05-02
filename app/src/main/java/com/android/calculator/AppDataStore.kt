@@ -24,13 +24,10 @@ class AppDataStore(private val dataStore: DataStore<Preferences>) {
             )
         }
 
-    suspend fun saveHistory(historyState: List<CalculatorHistoryState>) {
+    suspend fun saveHistory(historyState: CalculatorHistoryState) {
         dataStore.edit { preferences ->
-            historyState.forEachIndexed { index, calculatorHistoryState ->
-                preferences[PRIMARY_KEY] = calculatorHistoryState.historyPrimaryState
-                preferences[SECONDARY_KEY] = calculatorHistoryState.historySecondaryState
-            }
+            preferences[PRIMARY_KEY] = historyState.historyPrimaryState
+            preferences[SECONDARY_KEY] = historyState.historySecondaryState
         }
     }
-
 }

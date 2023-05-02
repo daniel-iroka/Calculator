@@ -51,14 +51,17 @@ class CalculatorViewModel @Inject constructor(private val dataStore : AppDataSto
     }
 
     private fun saveHistory() {
+        // Todo - Firstly, When I come back, I will continue fixing this shii which is checking if I actually retrieved a set of lists from the DataStore Library.
         viewModelScope.launch {
-            val test = dataStore.saveHistory(historyState)
-            Log.d(TAG, "Our saved DataStore $test")
+            historyState.forEach {
+                dataStore.saveHistory(it)
+            }
         }
     }
 
     private fun getSavedHistory() {
         // IMPORTANT NOTE! I Probably did nonsense here so when I come back next time, I will test and try to fix it I may try to change that 'savedHistory' into a liveData.
+        // Todo - I will try Implementing LiveData if this doesn't work
         viewModelScope.launch {
             flow { emit(dataStore.getSavedHistory()) }
                 .flowOn(Dispatchers.IO)

@@ -27,6 +27,7 @@ import kotlin.math.*
 
 private const val TAG = "CalculatorViewModel"
 
+data class TestState(var calculatorHistoryState : CalculatorHistoryState = CalculatorHistoryState())
 
 @HiltViewModel
 class CalculatorViewModel @Inject constructor(private val dataStore : AppDataStore) : ViewModel() {
@@ -46,29 +47,10 @@ class CalculatorViewModel @Inject constructor(private val dataStore : AppDataSto
     private var check1 = 0
 
     init {
-        saveHistory()
-        getSavedHistory()
+
     }
 
-    private fun saveHistory() {
-        // Todo - Firstly, When I come back, I will continue fixing this shii which is checking if I actually retrieved a set of lists from the DataStore Library.
-        viewModelScope.launch {
-            historyState.forEach {
-                dataStore.saveHistory(it)
-            }
-        }
-    }
 
-    private fun getSavedHistory() {
-        // IMPORTANT NOTE! I Probably did nonsense here so when I come back next time, I will test and try to fix it I may try to change that 'savedHistory' into a liveData.
-        // Todo - I will try Implementing LiveData if this doesn't work
-        viewModelScope.launch {
-            flow { emit(dataStore.getSavedHistory()) }
-                .flowOn(Dispatchers.IO)
-                .collect { savedState = it.toList() as SnapshotStateList<CalculatorHistoryState> }
-        }
-        Log.d(TAG, "Checking if our SavedState $savedState gets passed")
-    }
 
     // Function to Register our Click events
     fun onActionForStandardOpr(action : CalculatorAction) {
@@ -80,7 +62,10 @@ class CalculatorViewModel @Inject constructor(private val dataStore : AppDataSto
                 check = 0
             }
             is CalculatorAction.ClearHistory -> historyState.clear()
-            is CalculatorAction.Operation -> enterStrOperations(action.operation)
+            is CalculatorAction.Operation -> {
+                enterStrOperations(action.operation)
+
+            }
             is CalculatorAction.Calculate -> performStrCalculations()
             is CalculatorAction.Delete -> performStrDeletion()
             is CalculatorAction.Brackets -> enterStrBrackets()
@@ -118,6 +103,11 @@ class CalculatorViewModel @Inject constructor(private val dataStore : AppDataSto
             historyState.add(CalculatorHistoryState(
                 historySecondaryState = secondaryState, historyPrimaryState = primaryState
             ))
+
+            saveHistory()
+
+            getSavedHistory()
+
         } else {
             strState = strState.copy(
                 secondaryTextState = "Format error"
@@ -152,6 +142,30 @@ class CalculatorViewModel @Inject constructor(private val dataStore : AppDataSto
                 primaryTextColor = orangeRed, secondaryTextColor = orangeRed
             )
         }
+    }
+
+    private fun saveHistory() {
+        viewModelScope.launch {
+            historyState.onEach {
+                dataStore.saveHistory(it)
+                TestState(it)
+                Log.d(TAG, "Checking if our SavedState ${it.historyPrimaryState} gets passed.")
+            }
+        }
+    }
+
+    private fun getSavedHistory() {
+        // Todo - I will continue Implementing this thing which is checking Why the lists are not being retrieved which is exactly what I want to achieve.
+        // todo - Also note that I might integrate LiveData.
+        viewModelScope.launch {
+            flow { emit(dataStore.getSavedHistory()) }
+                .flowOn(Dispatchers.IO)
+                .collect {
+                    savedState = it.toList() as SnapshotStateList<CalculatorHistoryState>
+                    Log.d(TAG, "Also Checking if our lists got collected $it")
+                }
+        }
+        Log.d(TAG, "Checking if our SavedState ${savedState.size} gets passed")
     }
 
     private fun performStrDeletion() {

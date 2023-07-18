@@ -2,20 +2,19 @@ package com.android.calculator.viewmodel
 
 import android.util.Log
 import androidx.compose.runtime.*
-import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.android.calculator.CalculatorAction
 import com.android.calculator.CalculatorOperation
-import com.android.calculator.AppDataStore
+import com.android.calculator.db.CalculatorRepository
+import com.android.calculator.db.entity.CalculatorEntity
 import com.android.calculator.models.CalculatorHistoryState
 import com.android.calculator.models.CalculatorState
 import com.android.calculator.models.ScientificCalculatorState
 import com.android.calculator.ui.theme.orangeRed
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import kotlin.math.*
@@ -30,7 +29,7 @@ private const val TAG = "CalculatorViewModel"
 data class TestState(var calculatorHistoryState : CalculatorHistoryState = CalculatorHistoryState())
 
 @HiltViewModel
-class CalculatorViewModel @Inject constructor(private val dataStore : AppDataStore) : ViewModel() {
+class CalculatorViewModel @Inject constructor(private val repository : CalculatorRepository) : ViewModel() {
 
     var strState by mutableStateOf(CalculatorState())
         // This makes our state accessible by outside classes but still readable
@@ -50,6 +49,17 @@ class CalculatorViewModel @Inject constructor(private val dataStore : AppDataSto
 
     }
 
+    fun getHistoryList() {
+        viewModelScope.launch(Dispatchers.IO) {
+            // Todo - Do something on this when I come back next time...
+        }
+    }
+
+    fun insertHistoryList(historyList : List<CalculatorEntity>) {
+        viewModelScope.launch(Dispatchers.IO) {
+            // Todo - Do something on this when I come back next time...
+        }
+    }
 
 
     // Function to Register our Click events
@@ -106,8 +116,6 @@ class CalculatorViewModel @Inject constructor(private val dataStore : AppDataSto
 
             saveHistory()
 
-            getSavedHistory()
-
         } else {
             strState = strState.copy(
                 secondaryTextState = "Format error"
@@ -147,26 +155,13 @@ class CalculatorViewModel @Inject constructor(private val dataStore : AppDataSto
     private fun saveHistory() {
         viewModelScope.launch {
             historyState.onEach {
-                dataStore.saveHistory(it)
                 TestState(it)
                 Log.d(TAG, "Checking if our SavedState ${it.historyPrimaryState} gets passed.")
             }
         }
     }
 
-    private fun getSavedHistory() {
-        // Todo - I will continue Implementing this thing which is checking Why the lists are not being retrieved which is exactly what I want to achieve.
-        // todo - Also note that I might integrate LiveData.
-        viewModelScope.launch {
-            flow { emit(dataStore.getSavedHistory()) }
-                .flowOn(Dispatchers.IO)
-                .collect {
-                    savedState = it.toList() as SnapshotStateList<CalculatorHistoryState>
-                    Log.d(TAG, "Also Checking if our lists got collected $it")
-                }
-        }
-        Log.d(TAG, "Checking if our SavedState ${savedState.size} gets passed")
-    }
+
 
     private fun performStrDeletion() {
         val res: String

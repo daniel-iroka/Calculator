@@ -14,12 +14,8 @@ interface CalculatorDao {
     fun getHistoryList() : Flow<List<CalculatorEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertHistoryList() : List<CalculatorEntity>
+    fun insertHistoryList(historyList : List<CalculatorEntity>)
 
     @Delete
-    fun deleteHistoryList()
-
-    // Todo - When I come back tomorrow, I will continue the building of this, maybe I will just go with the way it already looks-
-   //  todo   which is the new version of room. Maybe that's just how it is.
-
+    fun deleteList()
 }

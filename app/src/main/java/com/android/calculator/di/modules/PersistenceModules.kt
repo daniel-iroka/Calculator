@@ -1,30 +1,21 @@
 package com.android.calculator.di.modules
 
-import android.content.Context
-import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.preferencesDataStore
-import com.android.calculator.AppDataStore
 import dagger.Module
-import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 
-// creating an instance of Preferences DataStore
-private val Context.dataStorePreferences : DataStore<Preferences> by preferencesDataStore(
-    name = "historyPreferences" // this is the name of DataStorePreferences file, where our data will be stored
-)
-
-// This Module will serve as a container only for our Jetpack DataStore library.
 @Module
 @InstallIn(SingletonComponent::class)
 class PersistenceModules {
 
-    // The @ApplicationContext annotation just tells here that the context object hold reference to the "ApplicationContext"
-    // and not the normal context
-    @Provides
-    fun provideDataStorePreferences(@ApplicationContext context : Context) : AppDataStore =
-        AppDataStore(context.dataStorePreferences)
+    // Todo - FIRSTLY, When I come back, I will do as follows :
+    //  1. Add dependency for room in this project.
+    //  2. Remove the DataStore dependency and the also remove it from our Persistence Module.
+    //  3. First, create a "HistoryModel" which will serve as our DataBase Table as well as with its columns.
+    //  4. Setup a DAO for our Database.
+    //  5. Then instantiate both the Room and Dao in the module.
+    //  6. Don't forget to also create a DataBase Abstract class to hold all our tables and our DAO.
+    //  7. Then also 'bind' the DataBase class with hilt as well.
+    //  8. Then proceed with the continuation of the Room Implementation to store the history of our calculations.
 
 }

@@ -1,4 +1,4 @@
-package com.android.calculator.di
+package com.android.calculator.di.injection
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp

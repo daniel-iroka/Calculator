@@ -11,8 +11,3 @@ data class CalculatorHistoryState(
     val historySecondaryState : String = "",
     val time : Date = Date()
 )
-
-data class SavedState(
-    val primaryState : String = "",
-    val secondaryState : String = ""
-)

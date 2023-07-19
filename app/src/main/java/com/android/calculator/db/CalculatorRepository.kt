@@ -11,9 +11,9 @@ class CalculatorRepository @Inject constructor(private val dao : CalculatorDao) 
     fun getHistoryList() : Flow<List<CalculatorEntity>> =
         dao.getHistoryList()
 
-    fun insertHistoryList(historyList : List<CalculatorEntity>) =
+    suspend fun insertHistoryList(historyList : List<CalculatorEntity>) =
         dao.insertHistoryList(historyList)
 
-    fun deleteList() = dao.deleteList()
+    suspend fun deleteList() = dao.deleteList()
 
 }

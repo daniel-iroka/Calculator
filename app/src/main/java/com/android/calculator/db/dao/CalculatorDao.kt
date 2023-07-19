@@ -14,8 +14,8 @@ interface CalculatorDao {
     fun getHistoryList() : Flow<List<CalculatorEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertHistoryList(historyList : List<CalculatorEntity>)
+    suspend fun insertHistoryList(historyList : List<CalculatorEntity>)
 
-    @Delete
-    fun deleteList()
+    @Query("DELETE FROM calculator_entity")
+    suspend fun deleteList()
 }

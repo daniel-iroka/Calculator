@@ -10,7 +10,7 @@ import java.util.Date
  */
 @Entity(tableName = "calculator_entity")
 data class CalculatorEntity(
-    @ColumnInfo(name = "id") @PrimaryKey val id : Long,
+    @ColumnInfo(name = "id") @PrimaryKey (autoGenerate = true) val id : Int = 0,
     @ColumnInfo(name = "primary_state") val historyPrimaryState : String,
     @ColumnInfo(name = "secondary_state") val historySecondaryState : String,
     @ColumnInfo(name = "time") val time : Date = Date()

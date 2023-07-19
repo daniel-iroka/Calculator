@@ -23,14 +23,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.android.calculator.CalculatorAction
+import com.android.calculator.db.entity.CalculatorEntity
 import com.android.calculator.ui.HistoryOverFlowMenu
-import com.android.calculator.models.CalculatorHistoryState
 import com.android.calculator.ui.theme.LightGray
 
 @Composable
-fun CalculatorHistory(
+fun HistoryScreen(
     modifier: Modifier,
-    state: List<CalculatorHistoryState>,
+    state: List<CalculatorEntity>,
     onAction: (CalculatorAction) -> Unit,
     navController: NavController,
 ) {
@@ -101,7 +101,7 @@ fun CalculatorHistory(
 @Composable
 fun CalculatorHistory(
     modifier: Modifier = Modifier,
-    state: CalculatorHistoryState
+    state: CalculatorEntity
 ) {
 
     Box(
@@ -136,7 +136,7 @@ fun CalculatorHistory(
                 color = Color.LightGray,
                 maxLines = 1
             )
-            
+
             Spacer(modifier = Modifier.height(15.dp))
         }
     }
@@ -144,7 +144,7 @@ fun CalculatorHistory(
 
 @Composable
 fun HistoryList(
-    dataList: List<CalculatorHistoryState>
+    dataList: List<CalculatorEntity>
 ) {
 
     val lazyColumnState = rememberLazyListState()
@@ -203,7 +203,6 @@ fun Nohistory(
             horizontalAlignment = CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-
             Icon(
                 imageVector = Icons.Outlined.History,
                 contentDescription = "Empty Calculator History",
@@ -211,7 +210,6 @@ fun Nohistory(
                     .size(25.dp),
                 tint = LightGray
             )
-
             Text(
                 text = "No history",
                 style = TextStyle(

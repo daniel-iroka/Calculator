@@ -7,8 +7,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.android.calculator.CalculatorAction
 import com.android.calculator.CalculatorOperation
-import com.android.calculator.db.CalculatorRepository
 import com.android.calculator.db.entity.CalculatorEntity
+import com.android.calculator.db.CalculatorRepository
 import com.android.calculator.models.CalculatorHistoryState
 import com.android.calculator.models.CalculatorState
 import com.android.calculator.models.ScientificCalculatorState
@@ -38,26 +38,30 @@ class CalculatorViewModel @Inject constructor(private val repository : Calculato
     var sciState by mutableStateOf(ScientificCalculatorState())
         private set
 
-    var historyState = mutableStateListOf<CalculatorHistoryState>()
-    var savedState = mutableStateListOf<CalculatorHistoryState>()
+    var historyState = mutableStateListOf<CalculatorEntity>()
+
+    var savedState = mutableStateListOf<CalculatorEntity>()
+
 
     private var leftBracket by mutableStateOf(true)
     private var check = 0
     private var check1 = 0
 
-    init {
+    // TODO - WHEN I COME BACK TOMORROW, I WILL CONTINUE WITH THE IMPLEMENTATION OF ROOM IN THIS PROJECT NOW THAT THE DATABASE HAS BEEN SUCCESSFULLY BUILT.
 
+    init {
+        insertHistoryList()
     }
 
     fun getHistoryList() {
         viewModelScope.launch(Dispatchers.IO) {
-            // Todo - Do something on this when I come back next time...
+
         }
     }
 
-    fun insertHistoryList(historyList : List<CalculatorEntity>) {
+    private fun insertHistoryList() {
         viewModelScope.launch(Dispatchers.IO) {
-            // Todo - Do something on this when I come back next time...
+            repository.insertHistoryList(historyState)
         }
     }
 
@@ -110,7 +114,7 @@ class CalculatorViewModel @Inject constructor(private val repository : Calculato
                 primaryTextState = secondaryState, secondaryTextState = ""
             )
 
-            historyState.add(CalculatorHistoryState(
+            historyState.add(CalculatorEntity(
                 historySecondaryState = secondaryState, historyPrimaryState = primaryState
             ))
 
@@ -138,7 +142,7 @@ class CalculatorViewModel @Inject constructor(private val repository : Calculato
                 primaryTextState = secondaryState, secondaryTextState = ""
             )
 
-            historyState.add(CalculatorHistoryState(
+            historyState.add(CalculatorEntity(
                 historySecondaryState = secondaryState, historyPrimaryState = primaryState
             ))
         } else {
@@ -155,7 +159,7 @@ class CalculatorViewModel @Inject constructor(private val repository : Calculato
     private fun saveHistory() {
         viewModelScope.launch {
             historyState.onEach {
-                TestState(it)
+//                TestState(it)
                 Log.d(TAG, "Checking if our SavedState ${it.historyPrimaryState} gets passed.")
             }
         }

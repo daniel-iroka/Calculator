@@ -15,6 +15,9 @@ import com.android.calculator.models.ScientificCalculatorState
 import com.android.calculator.ui.theme.orangeRed
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import kotlin.math.*
@@ -31,10 +34,9 @@ data class TestState(var calculatorHistoryState : CalculatorHistoryState = Calcu
 @HiltViewModel
 class CalculatorViewModel @Inject constructor(private val repository : CalculatorRepository) : ViewModel() {
 
+    // The 'private set' below makes our states to be accessible by outside classes but still readable.
     var strState by mutableStateOf(CalculatorState())
-        // This makes our state accessible by outside classes but still readable
         private set
-
     var sciState by mutableStateOf(ScientificCalculatorState())
         private set
 
@@ -47,15 +49,21 @@ class CalculatorViewModel @Inject constructor(private val repository : Calculato
     private var check = 0
     private var check1 = 0
 
-    // TODO - WHEN I COME BACK TOMORROW, I WILL CONTINUE WITH THE IMPLEMENTATION OF ROOM IN THIS PROJECT NOW THAT THE DATABASE HAS BEEN SUCCESSFULLY BUILT.
-
     init {
-        insertHistoryList()
+//        insertHistoryList()
     }
 
     fun getHistoryList() {
         viewModelScope.launch(Dispatchers.IO) {
 
+            // TODO - When I come back, I will now proceed with the next step, which is loading the data from the Database into the App.
+
+
+//            flow {
+//                emit(repository.getHistoryList())
+//            }.collect {
+//                TODO("Continue the Implementation of this later.")
+//            }
         }
     }
 
@@ -64,7 +72,6 @@ class CalculatorViewModel @Inject constructor(private val repository : Calculato
             repository.insertHistoryList(historyState)
         }
     }
-
 
     // Function to Register our Click events
     fun onActionForStandardOpr(action : CalculatorAction) {
@@ -120,6 +127,8 @@ class CalculatorViewModel @Inject constructor(private val repository : Calculato
 
             saveHistory()
 
+            insertHistoryList()
+
         } else {
             strState = strState.copy(
                 secondaryTextState = "Format error"
@@ -158,13 +167,12 @@ class CalculatorViewModel @Inject constructor(private val repository : Calculato
 
     private fun saveHistory() {
         viewModelScope.launch {
+            delay(1000)
             historyState.onEach {
-//                TestState(it)
-                Log.d(TAG, "Checking if our SavedState ${it.historyPrimaryState} gets passed.")
+                Log.i(TAG, "Our two states are ${it.historySecondaryState} ${it.historyPrimaryState}")
             }
         }
     }
-
 
 
     private fun performStrDeletion() {

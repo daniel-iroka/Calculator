@@ -5,10 +5,11 @@ import androidx.compose.runtime.*
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.android.calculator.models.CalculatorHistoryState
 import com.android.calculator.viewmodel.CalculatorViewModel
 
 /**
- *  This is our Compose NavGraph and where we Implement our NavHost.
+ *  Our Compose NavGraph.
  */
 
 private const val TAG = "ComposeNavigation"
@@ -18,17 +19,15 @@ fun ComposeNavigation(
     navController: NavHostController,
     viewModel : CalculatorViewModel
 ) {
-    /**
-     *  Here We declare an Instance of our Two ViewModels, their states and History States. This is because we don't want to have the same States for the two Screens.
-     */
 
+    // Declaring an instance of our Two ViewModel states here because we don't want to use the same state for two different Screens.
     val strCalcState = viewModel.strState
     val sciCalcState = viewModel.sciState
+    lateinit var currentHistory : List<CalculatorHistoryState>
 
-//    val currentHistory = viewModel.historyState
-
-    // NOTE! This is the experimental currentHistory because I am trying to work with kotlin flows with this
-    val currentHistory = viewModel.savedState
+    viewModel.calculatorHistoryListFlow.collectAsState().value.let { state ->
+        currentHistory = state
+    }
 
     LaunchedEffect(key1 = viewModel.historyState, block = {
         Log.i(TAG, "Our current history size list is ${viewModel.historyState.size}")
@@ -61,6 +60,7 @@ fun ComposeNavigation(
     }
 }
 
+// NOTE! Remove this later.
 // This is our dummyList. We will use this for a series of specific testings.
 //    val currentHistory = listOf(
 //        CalculatorHistoryState(historySecondaryState = "60", historyPrimaryState = "30 + 30"),

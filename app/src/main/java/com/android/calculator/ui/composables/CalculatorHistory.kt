@@ -24,13 +24,15 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.android.calculator.CalculatorAction
 import com.android.calculator.db.entity.CalculatorEntity
+import com.android.calculator.models.CalculatorHistoryState
+import com.android.calculator.models.CalculatorState
 import com.android.calculator.ui.HistoryOverFlowMenu
 import com.android.calculator.ui.theme.LightGray
 
 @Composable
 fun HistoryScreen(
     modifier: Modifier,
-    state: List<CalculatorEntity>,
+    state: List<CalculatorHistoryState>,
     onAction: (CalculatorAction) -> Unit,
     navController: NavController,
 ) {
@@ -101,7 +103,7 @@ fun HistoryScreen(
 @Composable
 fun CalculatorHistory(
     modifier: Modifier = Modifier,
-    state: CalculatorEntity
+    state: CalculatorHistoryState
 ) {
 
     Box(
@@ -144,7 +146,7 @@ fun CalculatorHistory(
 
 @Composable
 fun HistoryList(
-    dataList: List<CalculatorEntity>
+    dataList: List<CalculatorHistoryState>
 ) {
 
     val lazyColumnState = rememberLazyListState()

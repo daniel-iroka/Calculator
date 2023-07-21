@@ -13,11 +13,11 @@ import com.android.calculator.models.CalculatorHistoryState
 import com.android.calculator.models.CalculatorState
 import com.android.calculator.models.ScientificCalculatorState
 import com.android.calculator.ui.theme.orangeRed
+import com.android.calculator.utils.CalculatorHistoryConverter
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import kotlin.math.*
@@ -29,10 +29,11 @@ import kotlin.math.*
 
 private const val TAG = "CalculatorViewModel"
 
-data class TestState(var calculatorHistoryState : CalculatorHistoryState = CalculatorHistoryState())
-
 @HiltViewModel
-class CalculatorViewModel @Inject constructor(private val repository : CalculatorRepository) : ViewModel() {
+class CalculatorViewModel @Inject constructor(
+    private val repository : CalculatorRepository,
+    private val converter : CalculatorHistoryConverter
+) : ViewModel() {
 
     // The 'private set' below makes our states to be accessible by outside classes but still readable.
     var strState by mutableStateOf(CalculatorState())
@@ -42,28 +43,29 @@ class CalculatorViewModel @Inject constructor(private val repository : Calculato
 
     var historyState = mutableStateListOf<CalculatorEntity>()
 
-    var savedState = mutableStateListOf<CalculatorEntity>()
+    // Todo - When I come back tomorrow or some other day, I will FIRST delete the database to rebuild it and Test this whole thing all over again... thanks
 
+    private val _calculatorHistoryListFlow = MutableStateFlow<List<CalculatorHistoryState>>(emptyList())
+    val calculatorHistoryListFlow : StateFlow<List<CalculatorHistoryState>> = _calculatorHistoryListFlow
 
     private var leftBracket by mutableStateOf(true)
     private var check = 0
     private var check1 = 0
 
     init {
-//        insertHistoryList()
+        getHistoryList()
     }
 
-    fun getHistoryList() {
-        viewModelScope.launch(Dispatchers.IO) {
-
-            // TODO - When I come back, I will now proceed with the next step, which is loading the data from the Database into the App.
-
-
-//            flow {
-//                emit(repository.getHistoryList())
-//            }.collect {
-//                TODO("Continue the Implementation of this later.")
-//            }
+    private fun getHistoryList() {
+        viewModelScope.launch {
+            repository.getHistoryList()
+                .map { calcHistoryList ->
+                    calcHistoryList.map { calcHistory ->
+                        converter.convert(calcHistory)
+                    }
+                }.collect {
+                    _calculatorHistoryListFlow.value = it
+                }
         }
     }
 
@@ -154,6 +156,9 @@ class CalculatorViewModel @Inject constructor(private val repository : Calculato
             historyState.add(CalculatorEntity(
                 historySecondaryState = secondaryState, historyPrimaryState = primaryState
             ))
+
+            insertHistoryList()
+
         } else {
             sciState = sciState.copy(
                 secondaryTextState = "Format error"

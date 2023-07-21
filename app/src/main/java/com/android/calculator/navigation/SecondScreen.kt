@@ -6,6 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import com.android.calculator.db.entity.CalculatorEntity
+import com.android.calculator.models.CalculatorHistoryState
 import com.android.calculator.ui.composables.HistoryScreen
 import com.android.calculator.ui.theme.MediumGray
 import com.android.calculator.viewmodel.CalculatorViewModel
@@ -13,7 +14,7 @@ import com.android.calculator.viewmodel.CalculatorViewModel
 @Composable
 fun SecondScreen(
     navController: NavHostController,
-    historyState: List<CalculatorEntity>,
+    historyState: List<CalculatorHistoryState>,
     viewModel: CalculatorViewModel
 ) {
 

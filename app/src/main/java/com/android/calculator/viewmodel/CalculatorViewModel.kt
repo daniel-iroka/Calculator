@@ -43,7 +43,9 @@ class CalculatorViewModel @Inject constructor(
 
     var historyState = mutableStateListOf<CalculatorEntity>()
 
-    // Todo - When I come back tomorrow or some other day, I will FIRST delete the database to rebuild it and Test this whole thing all over again... thanks
+    // Todo - When I come back next time, what I will work on next is a bug that has to do with either 'historyState' or our 'StateFlow', which is that after-
+    //  a new calculation, it emits the previous result together with the new one. I don't freakin know why that happens, but I guess we will find out when I come back-
+    //  either this week or next week.
 
     private val _calculatorHistoryListFlow = MutableStateFlow<List<CalculatorHistoryState>>(emptyList())
     val calculatorHistoryListFlow : StateFlow<List<CalculatorHistoryState>> = _calculatorHistoryListFlow
@@ -75,6 +77,12 @@ class CalculatorViewModel @Inject constructor(
         }
     }
 
+    private fun deleteHistoryList() {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.deleteList()
+        }
+    }
+
     // Function to Register our Click events
     fun onActionForStandardOpr(action : CalculatorAction) {
         when(action) {
@@ -84,7 +92,7 @@ class CalculatorViewModel @Inject constructor(
                 strState = CalculatorState()
                 check = 0
             }
-            is CalculatorAction.ClearHistory -> historyState.clear()
+            is CalculatorAction.ClearHistory -> deleteHistoryList()
             is CalculatorAction.Operation -> {
                 enterStrOperations(action.operation)
 

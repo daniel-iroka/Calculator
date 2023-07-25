@@ -1,4 +1,4 @@
-package com.android.calculator.dialogs
+package com.android.calculator.ui.dialogs
 
 import android.widget.Toast
 import androidx.compose.foundation.clickable

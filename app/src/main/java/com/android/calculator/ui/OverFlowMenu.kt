@@ -14,7 +14,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavHostController
 import com.android.calculator.CalculatorAction
 import com.android.calculator.R
-import com.android.calculator.dialogs.SettingsDialog
+import com.android.calculator.ui.dialogs.SettingsDialog
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable

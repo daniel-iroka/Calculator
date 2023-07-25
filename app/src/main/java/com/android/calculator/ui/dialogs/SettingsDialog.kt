@@ -1,4 +1,4 @@
-package com.android.calculator.dialogs
+package com.android.calculator.ui.dialogs
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.*

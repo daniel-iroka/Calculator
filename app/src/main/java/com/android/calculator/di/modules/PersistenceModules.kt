@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Room
 import com.android.calculator.db.CalculatorDatabase
 import com.android.calculator.db.dao.CalculatorDao
+import com.android.calculator.utils.CalculatorHistoryConverter
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -13,8 +14,6 @@ import dagger.hilt.components.SingletonComponent
 @Module
 @InstallIn(SingletonComponent::class)
 class PersistenceModules {
-
-    //  8. Then proceed with the continuation of the Room Implementation to store the history of our calculations.
 
     /*
      *  Here we are providing the Instances of our Project's Database(CalculatorDatabase), Room Database and our DAO.
@@ -30,5 +29,8 @@ class PersistenceModules {
     @Provides
     fun provideDao(db : CalculatorDatabase) : CalculatorDao =
         db.dao()
+
+    @Provides
+    fun provideCalculatorConverter() = CalculatorHistoryConverter()
 
 }
